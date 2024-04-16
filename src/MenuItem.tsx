@@ -20,6 +20,26 @@ export function getMenuList(menus: {
     ));
 }
 
+export function filterMenu(menus: {
+    date: string,
+    day: string,
+    foodName: string,
+    correctedFoodName?: string,
+    foodDescription?: string,
+    foodContents: string[],
+    weekNumber: number,
+    image?: { path: string, prompt: string, revisedPrompt: string }
+}[]) {
+    const now = new Date();
+    const dateNow = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if (now.getHours() >= 13) dateNow.setDate(dateNow.getDate() + 1); // if after 13:00, set to next day
+
+    return menus.filter((menu) => {
+        const itemDate = new Date(menu.date);
+        return itemDate >= dateNow;
+    });
+}
+
 function MenuItem({menu, addDivider, highlight}: {
     menu: {
         date: string,

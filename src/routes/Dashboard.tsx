@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import '../Clock.css';
-import {getMenuList} from '../MenuItem';
+import {filterMenu, getMenuList} from '../MenuItem';
 import {
     Box,
     createTheme,
@@ -30,10 +30,9 @@ function Dashboard() {
         updateMenu();
 
         function updateMenu() {
-            const date = new Date();
             fetch('/api/menu')
                 .then((res) => res.json())
-                .then((data) => setMenus(date.getHours() >= 13 ? data.menu.slice(1) : data.menu))
+                .then((data) => setMenus(filterMenu(data.menu)))
                 .catch(err => console.error(err));
         }
 
