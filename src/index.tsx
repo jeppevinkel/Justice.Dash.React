@@ -1,16 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Dashboard from './routes/Dashboard';
 import reportWebVitals from './reportWebVitals';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import Surveillance from './routes/config/Surveillance';
+import Root from './routes/Root';
+import Config from './routes/config/Config';
+import Menu from './routes/Menu';
+
+const router = createBrowserRouter([
+    {
+        element: <Root />,
+        children: [
+            {
+                path: '/',
+                index: true,
+                element: <Dashboard/>,
+            },
+            {
+                path: 'config',
+                element: <Config/>,
+                children: [
+                    {
+                        path: 'surveillance',
+                        element: <Surveillance />,
+                    }
+                ]
+            },
+            {
+                path: 'menu',
+                element: <Menu />
+            }
+        ]
+    }
+
+]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={router}/>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
