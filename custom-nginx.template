@@ -5,11 +5,11 @@ upstream backend {
 server {
     listen 80;
 
-    location / {
+    location /api/ {
       proxy_pass http://backend$request_uri;
     }
 
-    location /web {
+    location / {
       root /usr/share/nginx/html;
       try_files $uri $uri/ /index.html;
     }
