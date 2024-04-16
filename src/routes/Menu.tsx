@@ -12,7 +12,7 @@ function Menu() {
 
         function updateMenu() {
             const date = new Date();
-            fetch('https://dash-sv.jeppevinkel.com/menu')
+            fetch('/api/menu')
                 .then((res) => res.json())
                 .then((data) => setMenus(date.getHours() >= 13 ? data.menu.slice(1) : data.menu))
                 .catch(err => console.error(err));

@@ -31,7 +31,7 @@ function Dashboard() {
 
         function updateMenu() {
             const date = new Date();
-            fetch('https://dash-sv.jeppevinkel.com/menu')
+            fetch('/api/menu')
                 .then((res) => res.json())
                 .then((data) => setMenus(date.getHours() >= 13 ? data.menu.slice(1) : data.menu))
                 .catch(err => console.error(err));
@@ -50,7 +50,7 @@ function Dashboard() {
         }, 30000);
 
         function updateSurveillance() {
-            fetch('https://dash-sv.jeppevinkel.com/surveillance')
+            fetch('/api/surveillance')
                 .then((res) => res.json())
                 .then((data) => setSurveillance({mdm: data.mdm, edi: data.edi}))
                 .catch(err => console.error(err));

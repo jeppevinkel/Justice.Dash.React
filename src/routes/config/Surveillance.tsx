@@ -1,4 +1,3 @@
-import {useParams} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 
 interface Surveillance {
@@ -10,7 +9,7 @@ function Surveillance() {
     const [surveillance, setSurveillance] = useState<Surveillance>({mdm: [], edi: []});
 
     useEffect(() => {
-        fetch('https://dash-sv.jeppevinkel.com/surveillance')
+        fetch('/api/surveillance')
             .then((res) => res.json())
             .then((data) => setSurveillance({mdm: data.mdm, edi: data.edi}));
     }, []);
