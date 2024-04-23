@@ -42,10 +42,10 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        updateSurveillance()
+        updateSurveillance();
 
         const interval = setInterval(() => {
-            updateSurveillance()
+            updateSurveillance();
         }, 30000);
 
         function updateSurveillance() {
@@ -75,7 +75,7 @@ function Dashboard() {
 
             const timeFromNine = (hours - 9) * 60 + minutes;
 
-            if(day === 4 && timeFromNine >= 45 && timeFromNine < 120) {
+            if (day === 4 && timeFromNine >= 45 && timeFromNine < 120) {
                 const progress = ((timeFromNine - 45) / (120 - 45)) * 100;
                 setBrunsvigerProgress(progress);
                 setShowBrunsviger(true);
@@ -145,7 +145,7 @@ function Dashboard() {
                                         <h2 className="instruction instruction-primary">Brunsviger deployment
                                             igangsat...</h2>
                                         <div role="progressbar" className="animate">
-                                            <div style={{width: brunsvigerProgress+'%'}}></div>
+                                            <div style={{width: brunsvigerProgress + '%'}}></div>
                                         </div>
                                     </div>
                                     <footer style={{textAlign: 'right'}}>
@@ -163,6 +163,23 @@ function Dashboard() {
                                                       secondary={'Batch/EDI'}/>
                                     </Stack>
                                 </Window> }
+                            </Grid>
+
+                            <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={4}
+                                  md={4} lg={4}>
+                                {surveillance?.mdm &&
+                                    <Window sx={{width: '100%'}}
+                                            title={`Overvågning${surveillance?.mdm[0]?.week !== undefined ? ' - uge ' + surveillance?.mdm[0].week : ''}`}>
+                                        <Stack sx={{paddingY: 1}} direction={'row'}
+                                               divider={<Divider orientation="vertical" flexItem/>}>
+                                            <ListItemText sx={{paddingLeft: 2}}
+                                                          primary={surveillance?.mdm[0]?.responsible}
+                                                          secondary={'MDM'}/>
+                                            <ListItemText sx={{paddingLeft: 2}}
+                                                          primary={surveillance?.edi[0]?.responsible}
+                                                          secondary={'Batch/EDI'}/>
+                                        </Stack>
+                                    </Window>}
                             </Grid>
 
                             <Grid item container direction={'column'} height={'105vh'} paddingRight={2} gap={1.5}
