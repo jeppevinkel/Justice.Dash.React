@@ -14,6 +14,7 @@ import {
 import Clock from 'react-clock';
 import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
+import {WeatherGraph} from '../WeatherGraph';
 
 function Dashboard() {
     const [menus, setMenus]: [any, any] = useState([]);
@@ -152,17 +153,10 @@ function Dashboard() {
                                         <button onClick={(event) => setShowBrunsviger(false)}>Cancel</button>
                                     </footer>
                                 </div>
-                                {surveillance?.mdm &&
-                                    <Window sx={{width: '100%'}}
-                                        title={`Overvågning${surveillance?.mdm[0]?.week !== undefined ? ' - uge ' + surveillance?.mdm[0].week : ''}`}>
-                                    <Stack sx={{paddingY: 1}} direction={'row'}
-                                           divider={<Divider orientation="vertical" flexItem/>}>
-                                        <ListItemText sx={{paddingLeft: 2}} primary={surveillance?.mdm[0]?.responsible}
-                                                      secondary={'MDM'}/>
-                                        <ListItemText sx={{paddingLeft: 2}} primary={surveillance?.edi[0]?.responsible}
-                                                      secondary={'Batch/EDI'}/>
-                                    </Stack>
-                                </Window> }
+
+                                <Window sx={{width: 'fit-content'}} title={'Vejret'}>
+                                    <WeatherGraph/>
+                                </Window>
                             </Grid>
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={4}
