@@ -139,7 +139,7 @@ function Dashboard() {
                                         </div>
                                         <div className="title-bar-controls">
                                             <button aria-label="Close"
-                                                    onClick={(event) => setShowBrunsviger(false)}></button>
+                                                    onClick={() => setShowBrunsviger(false)}></button>
                                         </div>
                                     </div>
                                     <div className="window-body has-space">
@@ -150,7 +150,7 @@ function Dashboard() {
                                         </div>
                                     </div>
                                     <footer style={{textAlign: 'right'}}>
-                                        <button onClick={(event) => setShowBrunsviger(false)}>Cancel</button>
+                                        <button onClick={() => setShowBrunsviger(false)}>Cancel</button>
                                     </footer>
                                 </div>
 
