@@ -52,7 +52,7 @@ function Dashboard() {
         function updateSurveillance() {
             fetch('/api/surveillance')
                 .then((res) => res.json())
-                .then((data) => setSurveillance({mdm: data.mdm, edi: data.edi}))
+                .then((data) => setSurveillance({mdm: data.MDM, edi: data.MDM}))
                 .catch(err => console.error(err));
         }
 
