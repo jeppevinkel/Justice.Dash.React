@@ -18,7 +18,11 @@ import {WeatherGraph} from '../WeatherGraph';
 
 function Dashboard() {
     const [menus, setMenus]: [any, any] = useState([]);
-    const [surveillance, setSurveillance]: [any, any] = useState({mdm: {}, edi: {}});
+    const [surveillance, setSurveillance] = useState<{
+        mdm: { type: string, week: number, year: number, responsible: string }[],
+        edi: { type: string, week: number, year: number, responsible: string }[],
+        week: number
+    }>({mdm: [], edi: [], week: NaN});
     const [clockValue, setClockValue] = useState(new Date());
     const [showBrunsviger, setShowBrunsviger] = useState(false);
     const [brunsvigerProgress, setBrunsvigerProgress] = useState(0);
@@ -47,12 +51,23 @@ function Dashboard() {
 
         const interval = setInterval(() => {
             updateSurveillance();
+            console.log(surveillance);
         }, 30000);
 
         function updateSurveillance() {
             fetch('/api/surveillance')
                 .then((res) => res.json())
-                .then((data) => setSurveillance({mdm: data.MDM, edi: data.MDM}))
+                .then((data) => {
+                    let week = NaN;
+
+                    if (data.MDM && data.MDM.length > 0) {
+                        week = data.MDM[0].week;
+                    } else if (data.EDI && data.EDI.length > 0) {
+                        week = data.EDI[0].week;
+                    }
+
+                    setSurveillance({mdm: data.MDM, edi: data.EDI, week});
+                })
                 .catch(err => console.error(err));
         }
 
@@ -161,17 +176,17 @@ function Dashboard() {
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={4}
                                   md={4} lg={4}>
-                                {surveillance?.mdm &&
+                                {(surveillance.mdm || surveillance.edi) &&
                                     <Window sx={{width: '100%'}}
-                                            title={`Overvågning${surveillance?.mdm[0]?.week !== undefined ? ' - uge ' + surveillance?.mdm[0].week : ''}`}>
+                                            title={`Overvågning${!isNaN(surveillance.week) ? ' - uge ' + surveillance.week : ''}`}>
                                         <Stack sx={{paddingY: 1}} direction={'row'}
                                                divider={<Divider orientation="vertical" flexItem/>}>
-                                            <ListItemText sx={{paddingLeft: 2}}
-                                                          primary={surveillance?.mdm[0]?.responsible}
-                                                          secondary={'MDM'}/>
-                                            <ListItemText sx={{paddingLeft: 2}}
-                                                          primary={surveillance?.edi[0]?.responsible}
-                                                          secondary={'Batch/EDI'}/>
+                                            {surveillance.mdm && <ListItemText sx={{paddingLeft: 2}}
+                                                                               primary={surveillance.mdm[0]?.responsible}
+                                                                               secondary={'MDM'}/>}
+                                            {surveillance.edi && <ListItemText sx={{paddingLeft: 2}}
+                                                                               primary={surveillance.edi[0]?.responsible}
+                                                                               secondary={'Batch/EDI'}/>}
                                         </Stack>
                                     </Window>}
                             </Grid>
