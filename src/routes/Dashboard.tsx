@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Clock.css';
-import {filterMenu, getMenuList} from '../MenuItem';
+import { filterMenu, getMenuList } from '../MenuItem';
 import {
     Box,
     createTheme,
@@ -14,7 +14,7 @@ import {
 import Clock from 'react-clock';
 import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
-import {WeatherGraph} from '../WeatherGraph';
+import { WeatherGraph } from '../WeatherGraph';
 
 function Dashboard() {
     const [menus, setMenus]: [any, any] = useState([]);
@@ -22,7 +22,7 @@ function Dashboard() {
         mdm: { type: string, week: number, year: number, responsible: string }[],
         edi: { type: string, week: number, year: number, responsible: string }[],
         week: number
-    }>({mdm: [], edi: [], week: NaN});
+    }>({ mdm: [], edi: [], week: NaN });
     const [clockValue, setClockValue] = useState(new Date());
     const [showBrunsviger, setShowBrunsviger] = useState(false);
     const [brunsvigerProgress, setBrunsvigerProgress] = useState(0);
@@ -66,7 +66,7 @@ function Dashboard() {
                         week = data.EDI[0].week;
                     }
 
-                    setSurveillance({mdm: data.MDM, edi: data.EDI, week});
+                    setSurveillance({ mdm: data.MDM, edi: data.EDI, week });
                 })
                 .catch(err => console.error(err));
         }
@@ -122,8 +122,8 @@ function Dashboard() {
             backgroundSize: 'cover'
         }}>
             <ThemeProvider theme={defaultTheme}>
-                <Box sx={{display: 'flex'}}>
-                    <CssBaseline/>
+                <Box sx={{ display: 'flex' }}>
+                    <CssBaseline />
                     <Box
                         component="main"
                         sx={{
@@ -134,65 +134,65 @@ function Dashboard() {
 
                     >
                         <Grid container spacing={3} paddingLeft={2} paddingTop={2} direction={'row'}
-                              justifyContent={'space-between'}>
+                            justifyContent={'space-between'}>
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={4}
-                                  md={4} lg={4}>
+                                md={4} lg={4}>
                                 <Window title={'Madplan'}>
-                                    <List sx={{paddingTop: 0}}>
+                                    <List sx={{ paddingTop: 0 }}>
                                         {getMenuList(menus, numberOfMenuItems)}
                                     </List>
                                 </Window>
                                 <div className="window glass active is-bright" id="brunsviger-dialog" role="dialog"
-                                     aria-labelledby="brunsviger-dialog-title"
-                                     style={{
-                                         opacity: showBrunsviger ? 1 : 0,
-                                         visibility: showBrunsviger ? 'visible' : 'hidden'
-                                     }}>
+                                    aria-labelledby="brunsviger-dialog-title"
+                                    style={{
+                                        opacity: showBrunsviger ? 1 : 0,
+                                        visibility: showBrunsviger ? 'visible' : 'hidden'
+                                    }}>
                                     <div className="title-bar">
                                         <div className="title-bar-text" id="brunsviger-dialog-title">Brunsviger
                                             deployment
                                         </div>
                                         <div className="title-bar-controls">
                                             <button aria-label="Close"
-                                                    onClick={() => setShowBrunsviger(false)}></button>
+                                                onClick={() => setShowBrunsviger(false)}></button>
                                         </div>
                                     </div>
                                     <div className="window-body has-space">
                                         <h2 className="instruction instruction-primary">Brunsviger deployment
                                             igangsat...</h2>
                                         <div role="progressbar" className="animate">
-                                            <div style={{width: brunsvigerProgress + '%'}}></div>
+                                            <div style={{ width: brunsvigerProgress + '%' }}></div>
                                         </div>
                                     </div>
-                                    <footer style={{textAlign: 'right'}}>
+                                    <footer style={{ textAlign: 'right' }}>
                                         <button onClick={() => setShowBrunsviger(false)}>Cancel</button>
                                     </footer>
                                 </div>
 
-                                <Window sx={{width: 'fit-content'}} title={'Vejret'}>
-                                    <WeatherGraph/>
+                                <Window sx={{ width: 'fit-content' }} title={'Vejret'}>
+                                    <WeatherGraph />
                                 </Window>
                             </Grid>
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={4}
-                                  md={4} lg={4}>
+                                md={4} lg={4}>
                                 {(surveillance.mdm || surveillance.edi) &&
-                                    <Window sx={{width: '100%'}}
-                                            title={`Overvågning${!isNaN(surveillance.week) ? ' - uge ' + surveillance.week : ''}`}>
-                                        <Stack sx={{paddingY: 1}} direction={'row'}
-                                               divider={<Divider orientation="vertical" flexItem/>}>
-                                            {surveillance.mdm && <ListItemText sx={{paddingLeft: 2}}
-                                                                               primary={surveillance.mdm[0]?.responsible}
-                                                                               secondary={'MDM'}/>}
-                                            {surveillance.edi && <ListItemText sx={{paddingLeft: 2}}
-                                                                               primary={surveillance.edi[0]?.responsible}
-                                                                               secondary={'Batch/EDI'}/>}
+                                    <Window sx={{ width: '100%' }}
+                                        title={`Overvågning${!isNaN(surveillance.week) ? ' - uge ' + surveillance.week : ''}`}>
+                                        <Stack sx={{ paddingY: 1 }} direction={'row'}
+                                            divider={<Divider orientation="vertical" flexItem />}>
+                                            {surveillance.mdm && <ListItemText sx={{ paddingLeft: 2 }}
+                                                primary={surveillance.mdm[0]?.responsible}
+                                                secondary={'MDM'} />}
+                                            {surveillance.edi && <ListItemText sx={{ paddingLeft: 2 }}
+                                                primary={surveillance.edi[0]?.responsible}
+                                                secondary={'Batch/EDI'} />}
                                         </Stack>
                                     </Window>}
                             </Grid>
 
                             <Grid item container direction={'column'} height={'105vh'} paddingRight={2} gap={1.5}
-                                  xs={'auto'} md={'auto'} lg={'auto'} className={'window glass'}>
+                                xs={'auto'} md={'auto'} lg={'auto'} className={'window glass'}>
                                 <div style={{
                                     width: '100%',
                                     display: 'flex',
@@ -200,14 +200,21 @@ function Dashboard() {
                                     alignItems: 'center'
                                 }}>
                                     <Clock size={200} value={clockValue}
-                                           secondHandWidth={3} secondHandLength={75} secondHandOppositeLength={25}
-                                           minuteHandWidth={6} minuteHandLength={80} minuteHandOppositeLength={20}
-                                           hourHandWidth={8} hourHandLength={60} hourHandOppositeLength={20}/>
+                                        secondHandWidth={3} secondHandLength={75} secondHandOppositeLength={25}
+                                        minuteHandWidth={6} minuteHandLength={80} minuteHandOppositeLength={20}
+                                        hourHandWidth={8} hourHandLength={60} hourHandOppositeLength={20} />
                                 </div>
                                 <div style={{
                                     marginTop: '16px',
                                 }}>
-                                    <img width={'200px'} src={staticPuzzle} alt={'Pelican puzzle'}/>
+                                    <img width={'200px'} src={staticPuzzle} alt={'Pelican puzzle'} />
+                                </div>
+                                <div>
+                                    <fieldset style={{backgroundColor: 'white', textAlign: 'center', fontSize: '24px'}}>
+                                        <legend style={{fontSize: '16px'}}>PI</legend>
+                                        <p style={{marginTop: 0, marginBottom: 0}}><b>10</b></p>
+                                    </fieldset>
+
                                 </div>
                             </Grid>
                         </Grid>
