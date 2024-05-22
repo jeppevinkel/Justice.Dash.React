@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 
 export function WeatherGraph() {
-    const weatherImageUrl = 'https://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by=5000&mode=long&eps=true';
+    const weatherImageUrl = 'https://www.yr.no/nb/innhold/2-2615876/meteogram.svg';
     const [imageHash, setImageHash] = useState(0);
 
     useEffect(() => {
@@ -29,6 +29,6 @@ export function WeatherGraph() {
     }, []);
 
     return (
-        <img src={`${weatherImageUrl}&t=${imageHash}`} alt={'Weather Graph'} />
+        <img src={`${weatherImageUrl}?t=${imageHash}`} alt={'Weather Graph'} />
     );
 }
