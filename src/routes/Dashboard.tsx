@@ -189,6 +189,12 @@ function Dashboard() {
                                                 secondary={'Batch/EDI'} />}
                                         </Stack>
                                     </Window>}
+
+                                    <Window title='Hjemmearbejde'>
+                                        <Stack>
+                                            🏠 Mikkel Pilegaard
+                                        </Stack>
+                                    </Window>
                             </Grid>
 
                             <Grid item container direction={'column'} height={'105vh'} paddingRight={2} gap={1.5}
