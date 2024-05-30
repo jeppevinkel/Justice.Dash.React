@@ -26,6 +26,8 @@ function Dashboard() {
     const [clockValue, setClockValue] = useState(new Date());
     const [showBrunsviger, setShowBrunsviger] = useState(false);
     const [brunsvigerProgress, setBrunsvigerProgress] = useState(0);
+    const [showBrunsvigerSoon, setShowBrunsvigerSoon] = useState(false);
+    const [brunsvigerSoonProgress, setBrunsvigerSoonProgress] = useState(0);
     const numberOfMenuItems = 5;
 
     useEffect(() => {
@@ -105,6 +107,29 @@ function Dashboard() {
         };
     }, [showBrunsviger]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = new Date();
+            const day = now.getDay();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+
+            const timeFromNine = (hours - 9) * 60 + minutes;
+
+            if (day === 4 && timeFromNine >= 30 && timeFromNine < 45) {
+                const progress = ((timeFromNine - 30) / (45 - 30)) * 100;
+                setBrunsvigerSoonProgress(progress);
+                setShowBrunsvigerSoon(true);
+            } else {
+                setShowBrunsvigerSoon(false);
+            }
+        }, 10000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [showBrunsvigerSoon]);
+
     const defaultTheme = createTheme({
         palette: {
             mode: 'light'
@@ -166,6 +191,32 @@ function Dashboard() {
                                     </div>
                                     <footer style={{ textAlign: 'right' }}>
                                         <button onClick={() => setShowBrunsviger(false)}>Cancel</button>
+                                    </footer>
+                                </div>
+
+                                <div className="window glass active is-bright" id="brunsviger-dialog" role="dialog"
+                                    aria-labelledby="brunsviger-dialog-title"
+                                    style={{
+                                        opacity: showBrunsvigerSoon ? 1 : 0,
+                                        visibility: showBrunsvigerSoon ? 'visible' : 'hidden'
+                                    }}>
+                                    <div className="title-bar">
+                                        <div className="title-bar-text" id="brunsviger-dialog-title">Brunsviger
+                                            build pipeline
+                                        </div>
+                                        <div className="title-bar-controls">
+                                            <button aria-label="Close"
+                                                onClick={() => setShowBrunsvigerSoon(false)}></button>
+                                        </div>
+                                    </div>
+                                    <div className="window-body has-space">
+                                        <h2 className="instruction instruction-primary">Bulding artifacts...</h2>
+                                        <div role="progressbar" className="animate">
+                                            <div style={{ width: brunsvigerSoonProgress + '%' }}></div>
+                                        </div>
+                                    </div>
+                                    <footer style={{ textAlign: 'right' }}>
+                                        <button onClick={() => setShowBrunsvigerSoon(false)}>Cancel</button>
                                     </footer>
                                 </div>
 
