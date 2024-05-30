@@ -12,6 +12,7 @@ import Surveillance from './routes/config/Surveillance';
 import Root from './routes/Root';
 import Config from './routes/config/Config';
 import Menu from './routes/Menu';
+import MenuImage from './routes/MenuImage';
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: 'menu',
                 element: <Menu />
+            },
+            {
+                path: 'menu-image',
+                element: <MenuImage />
             }
         ]
     }

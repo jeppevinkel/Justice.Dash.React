@@ -15,6 +15,7 @@ import Clock from 'react-clock';
 import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
 import { WeatherGraph } from '../WeatherGraph';
+import win7bg from '../images/win7bg.jpg';
 
 function Dashboard() {
     const [menus, setMenus]: [any, any] = useState([]);
@@ -155,7 +156,7 @@ function Dashboard() {
 
     return (
         <div className="App" style={{
-            backgroundImage: `url(/bliss.png)`,
+            backgroundImage: `url(${win7bg})`,
             backgroundSize: 'cover'
         }}>
             <ThemeProvider theme={defaultTheme}>
