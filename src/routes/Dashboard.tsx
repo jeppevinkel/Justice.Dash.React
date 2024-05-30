@@ -172,8 +172,8 @@ function Dashboard() {
                     >
                         <Grid container spacing={3} paddingLeft={2} paddingTop={2} direction={'row'}
                             justifyContent={'space-between'}>
-                            <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={4}
-                                md={4} lg={4}>
+                            <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={3}
+                                md={3} lg={3}>
                                 <Window title={'Madplan'}>
                                     <List sx={{ paddingTop: 0 }}>
                                         {getMenuList(menus, numberOfMenuItems)}
