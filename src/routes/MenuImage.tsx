@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { filterMenu, getMenuList } from '../MenuItem';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
+import { useNavigate } from 'react-router-dom';
 
 function MenuImage() {
     const [menus, setMenus]: [any, any] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const interval = setInterval(updateMenu, 30000);
@@ -32,7 +34,7 @@ function MenuImage() {
                 top: 0,
                 position: 'absolute',
                 width: 'calc(100vw - 48px)'
-            }}>
+            }} maximizeCallback={() => navigate('/menu')}>
                 <img width={'100%'} src={menus[0]?.image?.path} />
             </Window>
         </div>

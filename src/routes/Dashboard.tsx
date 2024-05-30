@@ -16,6 +16,7 @@ import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
 import { WeatherGraph } from '../WeatherGraph';
 import win7bg from '../images/win7bg.jpg';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
     const [menus, setMenus]: [any, any] = useState([]);
@@ -30,6 +31,7 @@ function Dashboard() {
     const [showBrunsvigerSoon, setShowBrunsvigerSoon] = useState(false);
     const [brunsvigerSoonProgress, setBrunsvigerSoonProgress] = useState(0);
     const numberOfMenuItems = 5;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const interval = setInterval(updateMenu, 30000);
@@ -253,7 +255,7 @@ function Dashboard() {
                                                 secondary={'Batch/EDI'} />}
                                         </Stack>
                                     </Window>}
-                                    <Window title='Madbillede'>
+                                    <Window title='Madbillede' maximizeCallback={() => navigate('/menu-image')}>
                                         <img width={'100%'} src={menus[0]?.image?.path} />
                                     </Window>
                             </Grid>

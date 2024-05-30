@@ -7,6 +7,9 @@ interface Props {
     glass?: boolean,
     maximized?: boolean,
     fullscreen?: boolean,
+    maximizeCallback?: () => void,
+    minimizeCallback?: () => void,
+    closeCallback?: () => void,
 }
 
 function Window({title, children, sx, glass = true, maximized, fullscreen}: Props) {
