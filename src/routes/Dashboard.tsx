@@ -85,7 +85,13 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
+        updateBrunsviger();
+        
         const interval = setInterval(() => {
+            updateBrunsviger();
+        }, 10000);
+
+        function updateBrunsviger() {
             const now = new Date();
             const day = now.getDay();
             const hours = now.getHours();
@@ -100,7 +106,7 @@ function Dashboard() {
             } else {
                 setShowBrunsviger(false);
             }
-        }, 10000);
+        }
 
         return () => {
             clearInterval(interval);
@@ -108,7 +114,13 @@ function Dashboard() {
     }, [showBrunsviger]);
 
     useEffect(() => {
+        updateBrunsviger();
+
         const interval = setInterval(() => {
+            updateBrunsviger();
+        }, 10000);
+
+        function updateBrunsviger() {
             const now = new Date();
             const day = now.getDay();
             const hours = now.getHours();
@@ -123,7 +135,7 @@ function Dashboard() {
             } else {
                 setShowBrunsvigerSoon(false);
             }
-        }, 10000);
+        }
 
         return () => {
             clearInterval(interval);
