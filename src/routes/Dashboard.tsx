@@ -86,7 +86,7 @@ function Dashboard() {
 
     useEffect(() => {
         updateBrunsviger();
-        
+
         const interval = setInterval(() => {
             updateBrunsviger();
         }, 10000);
@@ -252,6 +252,9 @@ function Dashboard() {
                                                 secondary={'Batch/EDI'} />}
                                         </Stack>
                                     </Window>}
+                                    <Window title='Madbillede'>
+                                        <img src={menus[0]?.image?.path} />
+                                    </Window>
                             </Grid>
 
                             <Grid item container direction={'column'} height={'105vh'} paddingRight={2} gap={1.5}
