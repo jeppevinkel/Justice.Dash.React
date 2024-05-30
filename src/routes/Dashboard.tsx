@@ -155,7 +155,7 @@ function Dashboard() {
 
     return (
         <div className="App" style={{
-            backgroundImage: `url(${menus[0]?.image?.path}`,
+            backgroundImage: `url(/bliss.png)`,
             backgroundSize: 'cover'
         }}>
             <ThemeProvider theme={defaultTheme}>
@@ -253,7 +253,7 @@ function Dashboard() {
                                         </Stack>
                                     </Window>}
                                     <Window title='Madbillede'>
-                                        <img src={menus[0]?.image?.path} />
+                                        <img width={'100%'} src={menus[0]?.image?.path} />
                                     </Window>
                             </Grid>
 
