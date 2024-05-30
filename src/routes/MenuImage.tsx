@@ -34,7 +34,7 @@ function MenuImage() {
                 top: 0,
                 position: 'absolute',
                 width: 'calc(100vw - 48px)'
-            }} maximizeCallback={() => navigate('/menu')}>
+            }} maximizeCallback={() => navigate('/')}>
                 <img width={'100%'} src={menus[0]?.image?.path} />
             </Window>
         </div>
