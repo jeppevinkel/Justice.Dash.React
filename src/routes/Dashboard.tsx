@@ -100,9 +100,15 @@ function Dashboard() {
             const hours = now.getHours();
             const minutes = now.getMinutes();
 
+            let disable = false;
+
+            if (now.getMonth() === 6 && (now.getDate() === 4 || now.getDate() === 11 || now.getDate() === 25)) {
+                disable = true;
+            }
+
             const timeFromNine = (hours - 9) * 60 + minutes;
 
-            if (day === 4 && timeFromNine >= 45 && timeFromNine < 120) {
+            if (!disable && day === 4 && timeFromNine >= 45 && timeFromNine < 120) {
                 const progress = ((timeFromNine - 45) / (120 - 45)) * 100;
                 setBrunsvigerProgress(progress);
                 setShowBrunsviger(true);
