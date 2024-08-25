@@ -16,6 +16,7 @@ import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
 import { WeatherGraph } from '../WeatherGraph';
 import win7bg from '../images/win7bg.jpg';
+import latestConstruction from '../images/construction/20240823.png';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
@@ -267,9 +268,17 @@ function Dashboard() {
                                                 secondary={'Batch/EDI'} />}
                                         </Stack>
                                     </Window>}
-                                    <Window title='Madbillede' maximizeCallback={() => navigate('/menu-image')}>
-                                        <img width={'100%'} src={menus[0]?.image?.path} />
+                                <Window title='Madbillede' maximizeCallback={() => navigate('/menu-image')}>
+                                    <img width={'100%'} src={menus[0]?.image?.path} />
+                                </Window>
+                                <Stack direction={'row'}>
+                                    <Window sx={{visibility: 'hidden'}} title='Nyt Domicil'>
+                                        <img width={'100%'} src={latestConstruction} />
                                     </Window>
+                                    <Window title='Nyt Domicil' maximizeCallback={() => navigate('/construction-image')}>
+                                        <img width={'100%'} src={latestConstruction} />
+                                    </Window>
+                                </Stack>
                             </Grid>
 
                             <Grid item container direction={'column'} height={'105vh'} paddingRight={2} gap={1.5}

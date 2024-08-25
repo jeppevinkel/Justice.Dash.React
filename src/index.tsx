@@ -13,6 +13,7 @@ import Root from './routes/Root';
 import Config from './routes/config/Config';
 import Menu from './routes/Menu';
 import MenuImage from './routes/MenuImage';
+import ConstructionImage from './routes/ConstructionImage';
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: 'menu-image',
                 element: <MenuImage />
+            },
+            {
+                path: 'construction-image',
+                element: <ConstructionImage />
             }
         ]
     }
