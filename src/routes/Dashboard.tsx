@@ -16,7 +16,6 @@ import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
 import { WeatherGraph } from '../WeatherGraph';
 import win7bg from '../images/win7bg.jpg';
-import latestConstruction from '../images/construction/20240823.png';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
@@ -273,10 +272,10 @@ function Dashboard() {
                                 </Window>
                                 <Stack direction={'row'}>
                                     <Window sx={{visibility: 'hidden'}} title='Nyt Domicil'>
-                                        <img width={'100%'} src={latestConstruction} />
+                                        <img width={'100%'} src={'/api/images/domicil/latest'} />
                                     </Window>
                                     <Window title='Nyt Domicil' maximizeCallback={() => navigate('/construction-image')}>
-                                        <img width={'100%'} src={latestConstruction} />
+                                        <img width={'100%'} src={'/api/images/domicil/latest'} />
                                     </Window>
                                 </Stack>
                             </Grid>

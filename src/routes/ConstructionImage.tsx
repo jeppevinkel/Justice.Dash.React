@@ -1,7 +1,6 @@
 import React from 'react';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
-import latestConstruction from '../images/construction/20240823.png';
 import { useNavigate } from 'react-router-dom';
 
 function ConstructionImage() {
@@ -16,7 +15,7 @@ function ConstructionImage() {
                 // position: 'absolute',
                 // width: 'calc(100vw - 48px)'
             }} maximizeCallback={() => navigate('/')}>
-                <img width={'100%'} src={latestConstruction}  alt={'The latest update from the construction site.'}/>
+                <img width={'100%'} src={'/api/images/domicil/latest'}  alt={'The latest update from the construction site.'}/>
             </Window>
         </div>
     );
