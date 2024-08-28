@@ -30,6 +30,7 @@ function Dashboard() {
     const [brunsvigerProgress, setBrunsvigerProgress] = useState(0);
     const [showBrunsvigerSoon, setShowBrunsvigerSoon] = useState(false);
     const [brunsvigerSoonProgress, setBrunsvigerSoonProgress] = useState(0);
+    const [domicilImageHash, setDomicilImageHash] = useState((new Date().valueOf()));
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
 
@@ -85,6 +86,20 @@ function Dashboard() {
         return () => {
             clearInterval(interval);
         };
+    }, []);
+
+    useEffect(() => {
+        updateDomicilImage();
+
+        const interval = setInterval(updateDomicilImage, 60000);
+
+        function updateDomicilImage() {
+            setDomicilImageHash((new Date().valueOf()));
+        }
+
+        return () => {
+            clearInterval(interval);
+        }
     }, []);
 
     useEffect(() => {
@@ -275,7 +290,7 @@ function Dashboard() {
                                         <img width={'100%'} src={'/api/images/domicil/latest'} />
                                     </Window>
                                     <Window title='Nyt Domicil' maximizeCallback={() => navigate('/construction-image')}>
-                                        <img width={'100%'} src={'/api/images/domicil/latest'} />
+                                        <img width={'100%'} src={'/api/images/domicil/latest?hash='+domicilImageHash} />
                                     </Window>
                                 </Stack>
                             </Grid>
