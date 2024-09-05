@@ -7,7 +7,7 @@ export function getMenuList(menus: {
     day: string,
     foodName: string,
     correctedFoodName?: string,
-    foodDescription?: string,
+    description?: string,
     foodContents: string[],
     weekNumber: number,
     image?: { path: string, prompt: string, revisedPrompt: string }
@@ -25,7 +25,7 @@ export function filterMenu(menus: {
     day: string,
     foodName: string,
     correctedFoodName?: string,
-    foodDescription?: string,
+    description?: string,
     foodContents: string[],
     weekNumber: number,
     image?: { path: string, prompt: string, revisedPrompt: string }
@@ -46,7 +46,7 @@ function MenuItem({menu, addDivider, highlight}: {
         day: string,
         foodName: string,
         correctedFoodName?: string,
-        foodDescription?: string,
+        description?: string,
         foodContents: string[],
         weekNumber: number,
         image?: { path: string, prompt: string, revisedPrompt: string }
@@ -92,12 +92,12 @@ function MenuItem({menu, addDivider, highlight}: {
                                           {menu.day}
                                       </Typography>
                                       {` - ${date.getDate()}/${date.getMonth() + 1}`}
-                                      {menu.foodDescription !== null && highlight && (
+                                      {menu.description !== null && highlight && (
                                           <Typography
                                               component="p"
                                               variant="body1"
                                               color="text.secondary">
-                                              {menu.foodDescription}
+                                              {menu.description}
                                           </Typography>)}
                                   </React.Fragment>
                               }/>
