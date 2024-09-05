@@ -43,7 +43,7 @@ function Dashboard() {
         function updateMenu() {
             fetch('/api/menu')
                 .then((res) => res.json())
-                .then((data) => setMenus(filterMenu(data.menu)))
+                .then((data) => setMenus(filterMenu(data)))
                 .catch(err => console.error(err));
         }
 
