@@ -287,10 +287,10 @@ function Dashboard() {
                                 </Window>
                                 <Stack direction={'row'}>
                                     <Window sx={{visibility: 'hidden'}} title='Nyt Domicil'>
-                                        <img width={'100%'} src={'/api/images/domicil/latest'} />
+                                        <img width={'100%'} src={'/oldapi/images/domicil/latest'} />
                                     </Window>
                                     <Window title='Nyt Domicil' maximizeCallback={() => navigate('/construction-image')}>
-                                        <img width={'100%'} src={'/api/images/domicil/latest?hash='+domicilImageHash} />
+                                        <img width={'100%'} src={'/oldapi/images/domicil/latest?hash='+domicilImageHash} />
                                     </Window>
                                 </Stack>
                             </Grid>

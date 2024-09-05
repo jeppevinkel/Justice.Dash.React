@@ -1,12 +1,19 @@
 upstream backend {
     server ${BACKEND_HOST};
 }
+upstream backend_old {
+    server ${BACKEND_OLD_HOST};
+}
 
 server {
     listen 80;
 
     location /api/ {
       proxy_pass http://backend/;
+    }
+
+    location /oldapi/ {
+      proxy_pass http://backend_old/;
     }
 
     location / {

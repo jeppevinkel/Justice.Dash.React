@@ -15,7 +15,7 @@ function ConstructionImage() {
                 // position: 'absolute',
                 // width: 'calc(100vw - 48px)'
             }} maximizeCallback={() => navigate('/')}>
-                <img width={'100%'} src={'/api/images/domicil/latest'}  alt={'The latest update from the construction site.'}/>
+                <img width={'100%'} src={'/oldapi/images/domicil/latest'}  alt={'The latest update from the construction site.'}/>
             </Window>
         </div>
     );
