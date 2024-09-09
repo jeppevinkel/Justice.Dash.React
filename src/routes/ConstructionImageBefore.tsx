@@ -3,7 +3,7 @@ import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import { useNavigate } from 'react-router-dom';
 
-function ConstructionImage() {
+function ConstructionImageBefore() {
     const navigate = useNavigate();
 
     return (
@@ -11,10 +11,10 @@ function ConstructionImage() {
             <Window title={'Madbillede'} maximized={true} fullscreen={false} sx={{
                 margin: '24px'
             }} maximizeCallback={() => navigate('/')}>
-                <img width={'100%'} src={'/oldapi/images/domicil/latest'}  alt={'The latest update from the construction site.'}/>
+                <img width={'100%'} src={'/oldapi/images/domicil/secondlatest'}  alt={'The latest update from the construction site.'}/>
             </Window>
         </div>
     );
 }
 
-export default ConstructionImage;
+export default ConstructionImageBefore;

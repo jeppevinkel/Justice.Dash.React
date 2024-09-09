@@ -286,10 +286,11 @@ function Dashboard() {
                                     <img width={'100%'} src={menus[0]?.image?.path} />
                                 </Window>
                                 <Stack direction={'row'}>
-                                    <Window sx={{visibility: 'hidden'}} title='Nyt Domicil'>
-                                        <img width={'100%'} src={'/oldapi/images/domicil/latest'} />
+                                    <Window title='Nyt Domicil (Før)' maximizeCallback={() => navigate('/construction-image-before')}>
+                                        <img width={'100%'}
+                                             src={'/oldapi/images/domicil/secondlatest?hash=' + domicilImageHash}/>
                                     </Window>
-                                    <Window title='Nyt Domicil' maximizeCallback={() => navigate('/construction-image')}>
+                                    <Window title='Nyt Domicil (Efter)' maximizeCallback={() => navigate('/construction-image-after')}>
                                         <img width={'100%'} src={'/oldapi/images/domicil/latest?hash='+domicilImageHash} />
                                     </Window>
                                 </Stack>

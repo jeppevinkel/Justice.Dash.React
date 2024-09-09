@@ -14,6 +14,7 @@ import Config from './routes/config/Config';
 import Menu from './routes/Menu';
 import MenuImage from './routes/MenuImage';
 import ConstructionImage from './routes/ConstructionImage';
+import ConstructionImageBefore from './routes/ConstructionImageBefore';
 
 const router = createBrowserRouter([
     {
@@ -43,7 +44,11 @@ const router = createBrowserRouter([
                 element: <MenuImage />
             },
             {
-                path: 'construction-image',
+                path: 'construction-image-before',
+                element: <ConstructionImageBefore />
+            },
+            {
+                path: 'construction-image-after',
                 element: <ConstructionImage />
             }
         ]
