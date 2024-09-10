@@ -31,6 +31,14 @@ function Dashboard() {
     const [showBrunsvigerSoon, setShowBrunsvigerSoon] = useState(false);
     const [brunsvigerSoonProgress, setBrunsvigerSoonProgress] = useState(0);
     const [domicilImageHash, setDomicilImageHash] = useState((new Date().valueOf()));
+    const [domicileImages, setDomicileImages] = useState<{
+        path: string,
+        imageUpdateDate: number,
+        albumAddDate: number,
+        width: number,
+        height: number,
+        uid: string
+    }[]>([]);
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
 
@@ -95,6 +103,23 @@ function Dashboard() {
 
         function updateDomicilImage() {
             setDomicilImageHash((new Date().valueOf()));
+        }
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, []);
+
+    useEffect(() => {
+        updateDomicileImages();
+
+        const interval = setInterval(updateDomicileImages, 60000);
+
+        function updateDomicileImages() {
+            fetch('/api/domicile')
+                .then((res) => res.json())
+                .then((data) => data ? setDomicileImages(data) : setDomicileImages([]))
+                .catch(err => console.error(err));
         }
 
         return () => {
@@ -286,12 +311,12 @@ function Dashboard() {
                                     <img width={'100%'} src={menus[0]?.image?.path} />
                                 </Window>
                                 <Stack direction={'row'}>
-                                    <Window title='Nyt Domicil (Før)' maximizeCallback={() => navigate('/construction-image-before')}>
+                                    <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title='Nyt Domicil (Før)' maximizeCallback={() => navigate('/construction-image-before')}>
                                         <img width={'100%'}
-                                             src={'/oldapi/images/domicil/secondlatest?hash=' + domicilImageHash}/>
+                                             src={domicileImages.length > 1 ? domicileImages[1].path : domicileImages[0].path}/>
                                     </Window>
                                     <Window title='Nyt Domicil (Efter)' maximizeCallback={() => navigate('/construction-image-after')}>
-                                        <img width={'100%'} src={'/oldapi/images/domicil/latest?hash='+domicilImageHash} />
+                                        <img width={'100%'} src={domicileImages[0].path} />
                                     </Window>
                                 </Stack>
                             </Grid>
