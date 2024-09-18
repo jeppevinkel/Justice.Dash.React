@@ -311,11 +311,11 @@ function Dashboard() {
                                     <img width={'100%'} src={menus[0]?.image?.path} />
                                 </Window>
                                 <Stack direction={'row'}>
-                                    <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title='Nyt Domicil (Før)' maximizeCallback={() => navigate('/construction-image-before')}>
+                                    <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title={`Nyt Domicil (Før) ${domicileImages.length > 1 ? (new Date(domicileImages[1].albumAddDate)).toDateString() : ''}`} maximizeCallback={() => navigate('/construction-image-before')}>
                                         <img width={'100%'}
                                              src={domicileImages.length > 1 ? domicileImages[1]?.path : domicileImages[0]?.path}/>
                                     </Window>
-                                    <Window sx={{visibility: domicileImages.length > 0 ? 'visible' : 'hidden'}} title='Nyt Domicil (Efter)' maximizeCallback={() => navigate('/construction-image-after')}>
+                                    <Window sx={{visibility: domicileImages.length > 0 ? 'visible' : 'hidden'}} title={`Nyt Domicil (Efter) ${domicileImages.length > 0 ? (new Date(domicileImages[0].albumAddDate)).toDateString() : ''}`} maximizeCallback={() => navigate('/construction-image-after')}>
                                         <img width={'100%'} src={domicileImages[0]?.path} />
                                     </Window>
                                 </Stack>
