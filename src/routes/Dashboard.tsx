@@ -342,7 +342,7 @@ function Dashboard() {
                                 <div>
                                     <fieldset style={{backgroundColor: 'white', textAlign: 'center', fontSize: '24px'}}>
                                         <legend style={{fontSize: '16px'}}>PI</legend>
-                                        <p style={{marginTop: 0, marginBottom: 0}}><b>11</b></p>
+                                        <p style={{marginTop: 0, marginBottom: 0}}><b>12</b></p>
                                     </fieldset>
 
                                 </div>
