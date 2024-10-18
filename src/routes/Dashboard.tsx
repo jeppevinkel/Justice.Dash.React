@@ -321,11 +321,11 @@ function Dashboard() {
                                     <img width={'100%'} src={isVegan ? menus[0]?.veganizedImage?.path : menus[0]?.image?.path}  alt={'Madbillede'}/>
                                 </Window>
                                 <Stack direction={'row'}>
-                                    <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title='Nyt Domicil (Før)' maximizeCallback={() => navigate('/construction-image-before')}>
+                                    <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title={`Nyt Domicil ${domicileImages.length > 1 ? '('+(new Date(domicileImages[1].albumAddDate)).toDateString()+')' : ''}`} maximizeCallback={() => navigate('/construction-image-before')}>
                                         <img width={'100%'}
                                              src={domicileImages.length > 1 ? domicileImages[1]?.path : domicileImages[0]?.path}/>
                                     </Window>
-                                    <Window sx={{visibility: domicileImages.length > 0 ? 'visible' : 'hidden'}} title='Nyt Domicil (Efter)' maximizeCallback={() => navigate('/construction-image-after')}>
+                                    <Window sx={{visibility: domicileImages.length > 0 ? 'visible' : 'hidden'}} title={`Nyt Domicil ${domicileImages.length > 0 ? '('+(new Date(domicileImages[0].albumAddDate)).toDateString()+')' : ''}`} maximizeCallback={() => navigate('/construction-image-after')}>
                                         <img width={'100%'} src={domicileImages[0]?.path} />
                                     </Window>
                                 </Stack>
@@ -352,7 +352,7 @@ function Dashboard() {
                                 <div>
                                     <fieldset style={{backgroundColor: 'white', textAlign: 'center', fontSize: '24px'}}>
                                         <legend style={{fontSize: '16px'}}>PI</legend>
-                                        <p style={{marginTop: 0, marginBottom: 0}}><b>11</b></p>
+                                        <p style={{marginTop: 0, marginBottom: 0}}><b>12</b></p>
                                     </fieldset>
 
                                 </div>
