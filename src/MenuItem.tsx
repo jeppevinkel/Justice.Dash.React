@@ -11,12 +11,12 @@ export function getMenuList(menus: {
     foodContents: string[],
     weekNumber: number,
     image?: { path: string, prompt: string, revisedPrompt: string }
-}[], max: number | undefined = undefined) {
+}[], max: number | undefined = undefined, veganize: boolean = false) {
     const menuSlice = max === undefined ? menus : menus.slice(0, max);
 
     return menuSlice.map((menu: any, idx: number) => (
         <MenuItem menu={menu} addDivider={idx < menuSlice.length - 1}
-                  highlight={idx === 0} key={idx}/>
+                  highlight={idx === 0} veganize={veganize} key={idx}/>
     ));
 }
 
@@ -40,19 +40,23 @@ export function filterMenu(menus: {
     });
 }
 
-function MenuItem({menu, addDivider, highlight}: {
+function MenuItem({menu, addDivider, highlight, veganize}: {
     menu: {
         date: string,
         day: string,
         foodName: string,
         correctedFoodName?: string,
+        veganizedFoodName?: string,
         description?: string,
+        veganizedDescription?: string,
         foodContents: string[],
         weekNumber: number,
-        image?: { path: string, prompt: string, revisedPrompt: string }
+        image?: { path: string, prompt: string, revisedPrompt: string },
+        veganizedImage?: { path: string, prompt: string, revisedPrompt: string }
     },
     addDivider: boolean,
-    highlight: boolean
+    highlight: boolean,
+    veganize?: boolean
 }) {
     const date = new Date(menu.date);
     const [filteredFoodContents, setFilteredFoodContents] = useState<string[]>([]);
@@ -65,12 +69,14 @@ function MenuItem({menu, addDivider, highlight}: {
             }
         }
 
-        if (showMeat) {
+        if (veganize) {
+            setFilteredFoodContents(['vegansk']);
+        } else if (showMeat) {
             setFilteredFoodContents(menu.foodContents);
         } else {
             setFilteredFoodContents(menu.foodContents.filter(it => it !== 'kød'));
         }
-    }, [menu]);
+    }, [menu, veganize]);
 
     return (
         <React.Fragment>
@@ -79,7 +85,7 @@ function MenuItem({menu, addDivider, highlight}: {
             }}>
                 <ListItemText primary={
                     <Typography variant={'h5'} fontWeight={600}>
-                        {menu.correctedFoodName !== null ? menu.correctedFoodName : menu.foodName.trim()}
+                        {veganize ? menu.veganizedFoodName ?? menu.correctedFoodName ?? menu.foodName.trim() : menu.correctedFoodName !== null ? menu.correctedFoodName : menu.foodName.trim()}
                     </Typography>}
                               secondary={
                                   <React.Fragment>
@@ -92,13 +98,19 @@ function MenuItem({menu, addDivider, highlight}: {
                                           {menu.day}
                                       </Typography>
                                       {` - ${date.getDate()}/${date.getMonth() + 1}`}
-                                      {menu.description !== null && highlight && (
+                                      {(veganize && menu.veganizedDescription !== null && highlight && (
+                                          <Typography
+                                              component="p"
+                                              variant="body1"
+                                              color="text.secondary">
+                                              {menu.veganizedDescription}
+                                          </Typography>)) || (menu.description !== null && highlight && (
                                           <Typography
                                               component="p"
                                               variant="body1"
                                               color="text.secondary">
                                               {menu.description}
-                                          </Typography>)}
+                                          </Typography>))}
                                   </React.Fragment>
                               }/>
 

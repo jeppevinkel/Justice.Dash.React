@@ -39,6 +39,7 @@ function Dashboard() {
         height: number,
         uid: string
     }[]>([]);
+    const [isVegan, setIsVegan] = useState(false);
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
 
@@ -65,7 +66,6 @@ function Dashboard() {
 
         const interval = setInterval(() => {
             updateSurveillance();
-            console.log(surveillance);
         }, 30000);
 
         function updateSurveillance() {
@@ -94,6 +94,16 @@ function Dashboard() {
         return () => {
             clearInterval(interval);
         };
+    }, []);
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+
+        if (params.has('vegan')) {
+            setIsVegan(true);
+        } else {
+            setIsVegan(false);
+        }
     }, []);
 
     useEffect(() => {
@@ -231,7 +241,7 @@ function Dashboard() {
                                 md={3} lg={3}>
                                 <Window title={'Madplan'}>
                                     <List sx={{ paddingTop: 0 }}>
-                                        {getMenuList(menus, numberOfMenuItems)}
+                                        {getMenuList(menus, numberOfMenuItems, isVegan)}
                                     </List>
                                 </Window>
                                 <div className="window glass active is-bright" id="brunsviger-dialog" role="dialog"
@@ -308,7 +318,7 @@ function Dashboard() {
                                         </Stack>
                                     </Window>}
                                 <Window title='Madbillede' maximizeCallback={() => navigate('/menu-image')}>
-                                    <img width={'100%'} src={menus[0]?.image?.path} />
+                                    <img width={'100%'} src={isVegan ? menus[0]?.veganizedImage?.path : menus[0]?.image?.path}  alt={'Madbillede'}/>
                                 </Window>
                                 <Stack direction={'row'}>
                                     <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title='Nyt Domicil (Før)' maximizeCallback={() => navigate('/construction-image-before')}>
