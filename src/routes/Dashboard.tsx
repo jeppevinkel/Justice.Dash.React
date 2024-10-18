@@ -97,7 +97,8 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        const params = new URLSearchParams();
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
 
         if (params.has('vegan')) {
             setIsVegan(true);
