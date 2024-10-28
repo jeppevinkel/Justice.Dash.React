@@ -324,7 +324,7 @@ function Dashboard() {
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
                                 md={5} lg={5}>
-                                {(surveillance.mdm || surveillance.edi) &&
+                                {teamName == "justice" && (surveillance.mdm || surveillance.edi) &&
                                     <Window sx={{ width: '100%' }}
                                         title={`Overvågning${!isNaN(surveillance.week) ? ' - uge ' + surveillance.week : ''}`}>
                                         <Stack sx={{ paddingY: 1 }} direction={'row'}
