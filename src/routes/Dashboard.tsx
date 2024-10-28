@@ -40,6 +40,7 @@ function Dashboard() {
         uid: string
     }[]>([]);
     const [isVegan, setIsVegan] = useState(false);
+    const [teamName, setTeamName] = useState('');
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
 
@@ -96,16 +97,34 @@ function Dashboard() {
         };
     }, []);
 
+    // useEffect(() => {
+    //     const url = new URL(window.location.href);
+    //     const params = url.searchParams;
+
+    //     if (params.has('vegan')) {
+    //         setIsVegan(true);
+    //     } else {
+    //         setIsVegan(false);
+    //     }
+    // }, []);
+
     useEffect(() => {
         const url = new URL(window.location.href);
         const params = url.searchParams;
 
-        if (params.has('vegan')) {
+        if (params.has('team')) {
+            setTeamName(params.get('team')!);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (teamName == 'night') {
             setIsVegan(true);
         } else {
             setIsVegan(false);
         }
-    }, []);
+
+    }, [teamName]);
 
     useEffect(() => {
         updateDomicilImage();
