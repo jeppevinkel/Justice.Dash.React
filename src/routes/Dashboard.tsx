@@ -30,7 +30,6 @@ function Dashboard() {
     const [brunsvigerProgress, setBrunsvigerProgress] = useState(0);
     const [showBrunsvigerSoon, setShowBrunsvigerSoon] = useState(false);
     const [brunsvigerSoonProgress, setBrunsvigerSoonProgress] = useState(0);
-    const [domicilImageHash, setDomicilImageHash] = useState((new Date().valueOf()));
     const [domicileImages, setDomicileImages] = useState<{
         path: string,
         imageUpdateDate: number,
@@ -118,27 +117,13 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        if (teamName == 'night') {
+        if (teamName === 'night') {
             setIsVegan(true);
         } else {
             setIsVegan(false);
         }
 
     }, [teamName]);
-
-    useEffect(() => {
-        updateDomicilImage();
-
-        const interval = setInterval(updateDomicilImage, 60000);
-
-        function updateDomicilImage() {
-            setDomicilImageHash((new Date().valueOf()));
-        }
-
-        return () => {
-            clearInterval(interval);
-        }
-    }, []);
 
     useEffect(() => {
         updateDomicileImages();
@@ -324,7 +309,7 @@ function Dashboard() {
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
                                 md={5} lg={5}>
-                                {teamName == "justice" && (surveillance.mdm || surveillance.edi) &&
+                                {teamName === "justice" && (surveillance.mdm || surveillance.edi) &&
                                     <Window sx={{ width: '100%' }}
                                         title={`Overvågning${!isNaN(surveillance.week) ? ' - uge ' + surveillance.week : ''}`}>
                                         <Stack sx={{ paddingY: 1 }} direction={'row'}
@@ -342,11 +327,11 @@ function Dashboard() {
                                 </Window>
                                 <Stack direction={'row'}>
                                     <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title={`Nyt Domicil ${domicileImages.length > 1 ? '('+(new Date(domicileImages[1].albumAddDate)).toDateString()+')' : ''}`} maximizeCallback={() => navigate('/construction-image-before')}>
-                                        <img width={'100%'}
+                                        <img width={'100%'} alt=''
                                              src={domicileImages.length > 1 ? domicileImages[1]?.path : domicileImages[0]?.path}/>
                                     </Window>
                                     <Window sx={{visibility: domicileImages.length > 0 ? 'visible' : 'hidden'}} title={`Nyt Domicil ${domicileImages.length > 0 ? '('+(new Date(domicileImages[0].albumAddDate)).toDateString()+')' : ''}`} maximizeCallback={() => navigate('/construction-image-after')}>
-                                        <img width={'100%'} src={domicileImages[0]?.path} />
+                                        <img width={'100%'} alt='' src={domicileImages[0]?.path} />
                                     </Window>
                                 </Stack>
                             </Grid>
@@ -364,6 +349,12 @@ function Dashboard() {
                                         minuteHandWidth={6} minuteHandLength={80} minuteHandOppositeLength={20}
                                         hourHandWidth={8} hourHandLength={60} hourHandOppositeLength={20} />
                                 </div>
+                                {!isNaN(surveillance.week) && <div>
+                                    <fieldset style={{backgroundColor: 'white', textAlign: 'center', fontSize: '24px'}}>
+                                        <legend style={{fontSize: '16px'}}>Uge nummer</legend>
+                                        <p style={{marginTop: 0, marginBottom: 0}}><b>{surveillance.week}</b></p>
+                                    </fieldset>
+                                </div>}
                                 <div style={{
                                     marginTop: '16px',
                                 }}>
@@ -374,7 +365,6 @@ function Dashboard() {
                                         <legend style={{fontSize: '16px'}}>PI</legend>
                                         <p style={{marginTop: 0, marginBottom: 0}}><b>12</b></p>
                                     </fieldset>
-
                                 </div>
                             </Grid>
                         </Grid>
