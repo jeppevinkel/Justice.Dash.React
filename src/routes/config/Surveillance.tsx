@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
 
-interface Surveillance {
+interface ISurveillance {
     mdm: {type: string, week: number, responsible: string}[];
     edi: {type: string, week: number, responsible: string}[];
 }
 
 function Surveillance() {
-    const [surveillance, setSurveillance] = useState<Surveillance>({mdm: [], edi: []});
+    const [surveillance, setSurveillance] = useState<ISurveillance>({mdm: [], edi: []});
 
     useEffect(() => {
         fetch('/api/surveillance')

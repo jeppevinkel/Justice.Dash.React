@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { filterMenu, getMenuList } from '../MenuItem';
+import { filterMenu } from '../MenuItem';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +35,7 @@ function MenuImage() {
                 position: 'absolute',
                 width: 'calc(100vw - 48px)'
             }} maximizeCallback={() => navigate('/')}>
-                <img width={'100%'} src={menus[0]?.image?.path} />
+                <img width={'100%'} alt='AI visualisering af dagens mad' src={menus[0]?.image?.path} />
             </Window>
         </div>
     );

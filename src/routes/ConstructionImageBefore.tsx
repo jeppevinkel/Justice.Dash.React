@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import {useNavigate} from 'react-router-dom';
-import {filterMenu} from '../MenuItem';
 
 function ConstructionImageBefore() {
     const navigate = useNavigate();
@@ -24,7 +23,7 @@ function ConstructionImageBefore() {
 
     return (
         <div style={{position: 'absolute', top: 0, left: 0, right: 0, backgroundImage: `url(${win7bg})`}}>
-            <Window title={'Madbillede'} maximized={true} fullscreen={false} sx={{
+            <Window title={'Konstruktionsbillede'} maximized={true} fullscreen={false} sx={{
                 margin: '24px'
             }} maximizeCallback={() => navigate('/')}>
                 <img width={'100%'} src={image?.path}
