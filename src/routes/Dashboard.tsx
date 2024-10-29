@@ -123,9 +123,11 @@ function Dashboard() {
                 setIsVegan(true);
                 setIsJustice(false);
                 break;
+            // @ts-expect-error
             case 'justicev':
                 setIsVegan(true);
-            case 'jstuce':
+                // Falls through to justice
+            case 'justice':
                 setIsJustice(true);
                 break;
             default:
