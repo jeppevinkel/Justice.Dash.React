@@ -1,7 +1,11 @@
 import {useEffect, useState} from 'react';
 
-export function WeatherGraph() {
-    const weatherImageUrl = 'https://www.yr.no/nb/innhold/2-2615876/meteogram.svg';
+type WeatherProps = {
+    locationId: string
+}
+
+export function WeatherGraph(props: WeatherProps) {
+    const weatherImageUrl = `https://www.yr.no/nb/innhold/${props.locationId}/meteogram.svg`;
     const [imageHash, setImageHash] = useState(0);
 
     useEffect(() => {

@@ -40,6 +40,7 @@ function Dashboard() {
     }[]>([]);
     const [isVegan, setIsVegan] = useState(false);
     const [isJustice, setIsJustice] = useState(false);
+    const [weatherId, setWeatherId] = useState('2-2615876');
     const [teamName, setTeamName] = useState('');
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
@@ -122,6 +123,7 @@ function Dashboard() {
             case 'night':
                 setIsVegan(true);
                 setIsJustice(false);
+                setWeatherId('1-92416');
                 break;
             // @ts-expect-error
             case 'justicev':
@@ -129,10 +131,12 @@ function Dashboard() {
                 // Falls through to justice
             case 'justice':
                 setIsJustice(true);
+                setWeatherId('2-2615876');
                 break;
             default:
                 setIsVegan(false);
                 setIsJustice(false);
+                setWeatherId('2-2615876');
                 break;
         }
 
@@ -316,7 +320,7 @@ function Dashboard() {
                                 </div>
 
                                 <Window sx={{ width: 'fit-content' }} title={'Vejret'}>
-                                    <WeatherGraph />
+                                    <WeatherGraph locationId={weatherId} />
                                 </Window>
                             </Grid>
 
