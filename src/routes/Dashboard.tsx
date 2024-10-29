@@ -39,6 +39,7 @@ function Dashboard() {
         uid: string
     }[]>([]);
     const [isVegan, setIsVegan] = useState(false);
+    const [isJustice, setIsJustice] = useState(false);
     const [teamName, setTeamName] = useState('');
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
@@ -117,10 +118,20 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        if (teamName === 'night') {
-            setIsVegan(true);
-        } else {
-            setIsVegan(false);
+        switch(teamName) {
+            case 'night':
+                setIsVegan(true);
+                setIsJustice(false);
+                break;
+            case 'justicev':
+                setIsVegan(true);
+            case 'jstuce':
+                setIsJustice(true);
+                break;
+            default:
+                setIsVegan(false);
+                setIsJustice(false);
+                break;
         }
 
     }, [teamName]);
@@ -309,7 +320,7 @@ function Dashboard() {
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
                                 md={5} lg={5}>
-                                {teamName === "justice" && (surveillance.mdm || surveillance.edi) &&
+                                {isJustice && (surveillance.mdm || surveillance.edi) &&
                                     <Window sx={{ width: '100%' }}
                                         title={`Overvågning${!isNaN(surveillance.week) ? ' - uge ' + surveillance.week : ''}`}>
                                         <Stack sx={{ paddingY: 1 }} direction={'row'}
