@@ -16,7 +16,7 @@ import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
 import { WeatherGraph } from '../WeatherGraph';
 import win7bg from '../images/win7bg.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Dashboard() {
     const [menus, setMenus]: [any, any] = useState([]);
@@ -41,9 +41,10 @@ function Dashboard() {
     const [isVegan, setIsVegan] = useState(false);
     const [isJustice, setIsJustice] = useState(false);
     const [weatherId, setWeatherId] = useState('2-2615876');
-    const [teamName, setTeamName] = useState('');
+    const [activeTeamName, setActiveTeamName] = useState('');
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
+    const {teamName} = useParams();
 
     useEffect(() => {
         const interval = setInterval(updateMenu, 30000);
@@ -113,13 +114,15 @@ function Dashboard() {
         const url = new URL(window.location.href);
         const params = url.searchParams;
 
-        if (params.has('team')) {
-            setTeamName(params.get('team')!);
+        if (teamName) {
+            setActiveTeamName(teamName);
+        } else if (params.has('team')) {
+            setActiveTeamName(params.get('team')!);
         }
-    }, []);
+    }, [teamName]);
 
     useEffect(() => {
-        switch(teamName) {
+        switch(activeTeamName) {
             case 'night':
                 setIsVegan(true);
                 setIsJustice(false);
@@ -140,7 +143,7 @@ function Dashboard() {
                 break;
         }
 
-    }, [teamName]);
+    }, [activeTeamName]);
 
     useEffect(() => {
         updateDomicileImages();
