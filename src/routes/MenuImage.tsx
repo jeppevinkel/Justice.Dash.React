@@ -34,7 +34,7 @@ function MenuImage() {
                 top: 0,
                 position: 'absolute',
                 width: 'calc(100vw - 48px)'
-            }} maximizeCallback={() => navigate('/')}>
+            }} maximizeCallback={() => navigate(-1)}>
                 <img width={'100%'} alt='AI visualisering af dagens mad' src={menus[0]?.image?.path} />
             </Window>
         </div>

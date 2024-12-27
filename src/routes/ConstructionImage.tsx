@@ -23,7 +23,7 @@ function ConstructionImage() {
 
     return (
         <div style={{position: 'absolute', top: 0, left: 0, right: 0, backgroundImage: `url(${win7bg})`}}>
-            <Window title={'Madbillede'} maximized={true} fullscreen={false} sx={{
+            <Window title={'Konstruktionsbillede'} maximized={true} fullscreen={false} sx={{
                 margin: '24px'
             }} maximizeCallback={() => navigate(-1)}>
                 <img width={'100%'} src={image?.path} alt={'The latest update from the construction site.'}/>
