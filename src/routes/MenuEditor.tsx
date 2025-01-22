@@ -16,7 +16,7 @@ function MenuEditor() {
                     apiClient.getMenuItems(true),
                     apiClient.getFoodModifiers()
                 ]);
-                setMenuItems(items);
+                setMenuItems(items.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)));
                 setFoodModifiers(modifiers);
             } catch (error) {
                 console.error('Failed to load data:', error);
