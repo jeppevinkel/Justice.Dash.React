@@ -1,0 +1,35 @@
+.sunken-panel {
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    background-color: #ffffff;
+    padding: 2px;
+}
+
+.field-row-stacked {
+    margin-bottom: 10px;
+}
+
+.field-row-stacked label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.field-row-stacked input,
+.field-row-stacked textarea,
+.field-row-stacked select {
+    width: 100%;
+}
+
+fieldset {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+button {
+    min-width: 100px;
+}
+
+img {
+    margin-top: 8px;
+    border: 1px solid #808080;
+}

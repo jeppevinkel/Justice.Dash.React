@@ -15,6 +15,7 @@ import Menu from './routes/Menu';
 import MenuImage from './routes/MenuImage';
 import ConstructionImage from './routes/ConstructionImage';
 import ConstructionImageBefore from './routes/ConstructionImageBefore';
+import MenuEditor from './routes/MenuEditor';
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: 'construction-image-after',
                 element: <ConstructionImage />
+            },
+            {
+                path: 'edit-menu',
+                element: <MenuEditor />
             }
         ]
     }
