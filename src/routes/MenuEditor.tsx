@@ -32,9 +32,9 @@ function MenuEditor() {
         if (!selectedItem) return;
 
         try {
-            const updated = await apiClient.updateMenuItem(selectedItem.id, update);
+            const updated = await apiClient.updateMenuItem(selectedItem.date, update);
             setMenuItems(items => items.map(item =>
-                item.id === updated.id ? updated : item
+                item.date === updated.date ? updated : item
             ));
             setSelectedItem(updated);
         } catch (error) {
@@ -61,14 +61,14 @@ function MenuEditor() {
     <div className="sunken-panel" style={{ height: '400px', overflowY: 'auto' }}>
     {menuItems.map(item => (
         <div
-            key={item.id}
-        className={`menu-item ${selectedItem?.id === item.id ? 'selected' : ''}`}
+            key={item.date}
+        className={`menu-item ${selectedItem?.date === item.date ? 'selected' : ''}`}
         onClick={() => setSelectedItem(item)}
         style={{
         padding: '4px',
             cursor: 'pointer',
-            backgroundColor: selectedItem?.id === item.id ? '#000080' : 'transparent',
-            color: selectedItem?.id === item.id ? 'white' : 'black'
+            backgroundColor: selectedItem?.date === item.date ? '#000080' : 'transparent',
+            color: selectedItem?.date === item.date ? 'white' : 'black'
     }}
     >
         {item.date} - {item.foodDisplayName}

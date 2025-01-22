@@ -1,5 +1,4 @@
 export interface MenuItem {
-    id: string;
     date: string;
     day: string;
     weekNumber: number;
@@ -46,8 +45,8 @@ export class MenuApiClient {
         return response.json();
     }
 
-    async updateMenuItem(id: string, update: MenuItemUpdate): Promise<MenuItem> {
-        const response = await fetch(`${this.baseUrl}/menu/${id}`, {
+    async updateMenuItem(date: string, update: MenuItemUpdate): Promise<MenuItem> {
+        const response = await fetch(`${this.baseUrl}/menu/${date}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
