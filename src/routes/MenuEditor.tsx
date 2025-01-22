@@ -28,7 +28,30 @@ function MenuEditor() {
         };
 
         loadData();
+
+        const interval = setInterval(async () => {
+            const items = await apiClient.getMenuItems(true);
+            setMenuItems(items);
+            if (selectedItem) {
+                const updated = items.find(item => item.date === selectedItem.date);
+                if (updated) setSelectedItem(updated);
+            }
+        }, 5000);
+
+        return () => clearInterval(interval);
     }, []);
+
+    const getPendingStatus = (item: MenuItem) => {
+        const pending = [];
+        if (item.needsNameCorrection) pending.push('Name Correction');
+        if (item.needsVeganization) pending.push('Veganization');
+        if (item.needsDescription) pending.push('Description');
+        if (item.needsVeganDescription) pending.push('Vegan Description');
+        if (item.needsFoodContents) pending.push('Food Contents');
+        if (item.needsImageRegeneration) pending.push('Image');
+        if (item.needsVeganImageRegeneration) pending.push('Vegan Image');
+        return pending;
+    };
 
     const handleUpdate = async (update: MenuItemUpdate) => {
         if (!selectedItem) return;
@@ -83,21 +106,32 @@ function MenuEditor() {
                                     <label>Menu Items</label>
                                 </div>
                                 <div className="sunken-panel" style={{height: '400px', overflowY: 'auto'}}>
-                                    {menuItems.map(item => (
-                                        <div
-                                            key={item.date}
-                                            className={`menu-item ${selectedItem?.date === item.date ? 'selected' : ''}`}
-                                            onClick={() => setSelectedItem(item)}
-                                            style={{
-                                                padding: '4px',
-                                                cursor: 'pointer',
-                                                backgroundColor: selectedItem?.date === item.date ? '#000080' : 'transparent',
-                                                color: selectedItem?.date === item.date ? 'white' : 'black'
-                                            }}
-                                        >
-                                            {item.date} - {item.foodDisplayName}
-                                        </div>
-                                    ))}
+                                    {menuItems.map(item => {
+                                        const pending = getPendingStatus(item);
+                                        return (
+                                            <div
+                                                key={item.date}
+                                                className={`menu-item ${selectedItem?.date === item.date ? 'selected' : ''}`}
+                                                onClick={() => setSelectedItem(item)}
+                                                style={{
+                                                    padding: '4px',
+                                                    cursor: 'pointer',
+                                                    backgroundColor: selectedItem?.date === item.date ? '#000080' : 'transparent',
+                                                    color: selectedItem?.date === item.date ? 'white' : 'black'
+                                                }}
+                                            >
+                                                <div>{item.date} - {item.foodDisplayName}</div>
+                                                {pending.length > 0 && (
+                                                    <div style={{
+                                                        fontSize: '0.8em',
+                                                        color: selectedItem?.date === item.date ? '#ffff00' : '#808080'
+                                                    }}>
+                                                        Pending: {pending.join(', ')}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
 
@@ -114,6 +148,9 @@ function MenuEditor() {
                                                 value={selectedItem.foodName}
                                                 onChange={e => handleUpdate({foodName: e.target.value})}
                                             />
+                                            {selectedItem.needsNameCorrection && (
+                                                <span className="status-badge">Pending correction...</span>
+                                            )}
                                         </div>
 
                                         <div className="field-row-stacked">
@@ -132,6 +169,9 @@ function MenuEditor() {
                                                 value={selectedItem.veganizedFoodName || ''}
                                                 onChange={e => handleUpdate({veganizedFoodName: e.target.value})}
                                             />
+                                            {selectedItem.needsVeganization && (
+                                                <span className="status-badge">Pending veganization...</span>
+                                            )}
                                         </div>
 
                                         <div className="field-row-stacked">
@@ -141,6 +181,9 @@ function MenuEditor() {
                                                 value={selectedItem.description || ''}
                                                 onChange={e => handleUpdate({description: e.target.value})}
                                             />
+                                            {selectedItem.needsDescription && (
+                                                <span className="status-badge">Pending description...</span>
+                                            )}
                                         </div>
 
                                         <div className="field-row-stacked">
@@ -150,6 +193,9 @@ function MenuEditor() {
                                                 value={selectedItem.veganizedDescription || ''}
                                                 onChange={e => handleUpdate({veganizedDescription: e.target.value})}
                                             />
+                                            {selectedItem.needsVeganDescription && (
+                                                <span className="status-badge">Pending vegan description...</span>
+                                            )}
                                         </div>
 
                                         <div className="field-row-stacked">
@@ -173,42 +219,63 @@ function MenuEditor() {
                                                 regenerateNames: true,
                                                 regenerateDescriptions: true,
                                                 regenerateFoodContents: true
-                                            })}>
+                                            })}
+                                                    disabled={
+                                                        selectedItem.needsNameCorrection ||
+                                                        selectedItem.needsVeganization ||
+                                                        selectedItem.needsDescription ||
+                                                        selectedItem.needsVeganDescription ||
+                                                        selectedItem.needsFoodContents
+                                                    }
+                                            >
                                                 Regenerate Text
                                             </button>
                                             <button onClick={() => handleUpdate({
                                                 regenerateImages: true
-                                            })}>
+                                            })}
+                                                    disabled={
+                                                        selectedItem.needsImageRegeneration ||
+                                                        selectedItem.needsVeganImageRegeneration
+                                                    }
+                                            >
                                                 Regenerate Images
                                             </button>
                                         </div>
                                     </fieldset>
 
                                     {/* Image Preview */}
-                                    {(selectedItem.image || selectedItem.veganizedImage) && (
-                                        <fieldset style={{marginTop: '20px'}}>
+                                    {(selectedItem.image || selectedItem.veganizedImage || selectedItem.needsImageRegeneration || selectedItem.needsVeganImageRegeneration) && (
+                                        <fieldset style={{ marginTop: '20px' }}>
                                             <legend>Images</legend>
-                                            <div style={{display: 'flex', gap: '20px'}}>
-                                                {selectedItem.image && (
-                                                    <div>
-                                                        <label>Regular Image</label>
+                                            <div style={{ display: 'flex', gap: '20px' }}>
+                                                <div>
+                                                    <label>Regular Image</label>
+                                                    {selectedItem.needsImageRegeneration ? (
+                                                        <div className="status-box">Generating new image...</div>
+                                                    ) : selectedItem.image ? (
                                                         <img
                                                             src={selectedItem.image.path}
                                                             alt="Food"
-                                                            style={{maxWidth: '300px', display: 'block'}}
+                                                            style={{ maxWidth: '300px', display: 'block' }}
                                                         />
-                                                    </div>
-                                                )}
-                                                {selectedItem.veganizedImage && (
-                                                    <div>
-                                                        <label>Veganized Image</label>
+                                                    ) : (
+                                                        <div className="status-box">No image available</div>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    <label>Veganized Image</label>
+                                                    {selectedItem.needsVeganImageRegeneration ? (
+                                                        <div className="status-box">Generating new vegan image...</div>
+                                                    ) : selectedItem.veganizedImage ? (
                                                         <img
                                                             src={selectedItem.veganizedImage.path}
                                                             alt="Veganized Food"
-                                                            style={{maxWidth: '300px', display: 'block'}}
+                                                            style={{ maxWidth: '300px', display: 'block' }}
                                                         />
-                                                    </div>
-                                                )}
+                                                    ) : (
+                                                        <div className="status-box">No image available</div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </fieldset>
                                     )}

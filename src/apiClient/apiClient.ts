@@ -12,6 +12,14 @@ export interface MenuItem {
     image: Image | null;
     veganizedImage: Image | null;
     foodDisplayName: string;
+
+    needsNameCorrection: boolean;
+    needsVeganization: boolean;
+    needsDescription: boolean;
+    needsVeganDescription: boolean;
+    needsFoodContents: boolean;
+    needsImageRegeneration: boolean;
+    needsVeganImageRegeneration: boolean;
 }
 
 export interface Image {
