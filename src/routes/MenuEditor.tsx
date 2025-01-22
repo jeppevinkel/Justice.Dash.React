@@ -31,7 +31,7 @@ function MenuEditor() {
 
         const interval = setInterval(async () => {
             const items = await apiClient.getMenuItems(true);
-            setMenuItems(items);
+            setMenuItems(items.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)));
             if (selectedItem) {
                 const updated = items.find(item => item.date === selectedItem.date);
                 if (updated) setSelectedItem(updated);
