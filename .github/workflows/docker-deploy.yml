@@ -38,7 +38,7 @@ jobs:
       - name: Build and Publish the Docker image
         run: |
           label=$(date +%s)
-          latest_tag="${{steps.extract_branch.outputs.branch == 'master' && '--tag ghcr.io/jeppevinkel/justice-dash-react:latest'}}"
+          latest_tag="${{steps.extract_branch.outputs.branch == 'master' && '--tag ghcr.io/jeppevinkel/justice-dash-react:latest' || ''}}"
           docker build . --file Dockerfile $latest_tag --tag ghcr.io/jeppevinkel/justice-dash-react:latest-dev --tag ghcr.io/jeppevinkel/justice-dash-react:${{steps.tag.outputs.new_tag}}
           docker push --all-tags ghcr.io/jeppevinkel/justice-dash-react
       - name: Trigger Dev Container Recreation
