@@ -204,7 +204,7 @@ function MenuEditor() {
                                                 value={selectedItem.foodModifier?.id || ''}
                                                 onChange={e => handleUpdate({foodModifierId: e.target.value})}
                                             >
-                                                <option value="">None</option>
+                                                <option value="00000000-0000-0000-0000-000000000000">None</option>
                                                 {foodModifiers.map(modifier => (
                                                     <option key={modifier.id} value={modifier.id}>
                                                         {modifier.description}
