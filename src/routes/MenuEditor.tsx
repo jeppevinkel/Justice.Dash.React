@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {MenuApiClient, MenuItem, MenuItemUpdate} from '../apiClient/apiClient';
+import {FoodModifier, MenuApiClient, MenuItem, MenuItemUpdate} from '../apiClient/apiClient';
 import win7bg from '../images/win7bg.jpg';
 import {Box, createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 
@@ -7,7 +7,7 @@ const apiClient = new MenuApiClient('/api');
 
 function MenuEditor() {
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-    const [foodModifiers, setFoodModifiers] = useState<string[]>([]);
+    const [foodModifiers, setFoodModifiers] = useState<FoodModifier[]>([]);
     const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -201,13 +201,13 @@ function MenuEditor() {
                                         <div className="field-row-stacked">
                                             <label>Food Modifier</label>
                                             <select
-                                                value={selectedItem.foodModifier || ''}
-                                                onChange={e => handleUpdate({foodModifier: e.target.value})}
+                                                value={selectedItem.foodModifier?.id || ''}
+                                                onChange={e => handleUpdate({foodModifierId: e.target.value})}
                                             >
                                                 <option value="">None</option>
                                                 {foodModifiers.map(modifier => (
-                                                    <option key={modifier} value={modifier}>
-                                                        {modifier}
+                                                    <option key={modifier.id} value={modifier.id}>
+                                                        {modifier.description}
                                                     </option>
                                                 ))}
                                             </select>

@@ -8,7 +8,7 @@ export interface MenuItem {
     description: string | null;
     veganizedDescription: string | null;
     foodContents: string[];
-    foodModifier: string | null;
+    foodModifier: FoodModifier | null;
     image: Image | null;
     veganizedImage: Image | null;
     foodDisplayName: string;
@@ -28,13 +28,19 @@ export interface Image {
     revisedPrompt: string
 }
 
+export interface FoodModifier {
+    id: string
+    title: string;
+    description: string;
+}
+
 export interface MenuItemUpdate {
     foodName?: string;
     correctedFoodName?: string;
     veganizedFoodName?: string;
     description?: string;
     veganizedDescription?: string;
-    foodModifier?: string;
+    foodModifierId?: string;
     regenerateImages?: boolean;
     regenerateDescriptions?: boolean;
     regenerateNames?: boolean;
@@ -64,8 +70,8 @@ export class MenuApiClient {
         return response.json();
     }
 
-    async getFoodModifiers(): Promise<string[]> {
-        const response = await fetch(`${this.baseUrl}/menu/modifiers`);
+    async getFoodModifiers(): Promise<FoodModifier[]> {
+        const response = await fetch(`${this.baseUrl}/FoodModifier`);
         return response.json();
     }
 }
