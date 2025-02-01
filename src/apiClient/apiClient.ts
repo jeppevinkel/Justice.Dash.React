@@ -29,7 +29,7 @@ export interface Image {
 }
 
 export interface FoodModifier {
-    id: string
+    id?: string
     title: string;
     description: string;
 }
@@ -45,6 +45,11 @@ export interface MenuItemUpdate {
     regenerateDescriptions?: boolean;
     regenerateNames?: boolean;
     regenerateFoodContents?: boolean;
+}
+
+export interface FoodModifierUpdate {
+    title: string;
+    description: string;
 }
 
 export class MenuApiClient {
@@ -73,5 +78,36 @@ export class MenuApiClient {
     async getFoodModifiers(): Promise<FoodModifier[]> {
         const response = await fetch(`${this.baseUrl}/FoodModifier`);
         return response.json();
+    }
+
+    async updateFoodModifier(id: string, update: FoodModifierUpdate): Promise<FoodModifier> {
+        const response = await fetch(`${this.baseUrl}/FoodModifier/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(update),
+        });
+        return response.json();
+    }
+
+    async addFoodModifier(foodModifier: FoodModifier): Promise<void> {
+        const response = await fetch(`${this.baseUrl}/FoodModifier`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(foodModifier),
+        });
+        return response.json();
+    }
+
+    async deleteFoodModifier(id: string): Promise<void> {
+        await fetch(`${this.baseUrl}/FoodModifier/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
     }
 }

@@ -64,3 +64,50 @@ button:disabled {
     color: #808080;
     background-color: #d4d4d4;
 }
+
+.task-button {
+    position: relative;
+}
+
+.task-button.active {
+    background-color: #d4d4d4;
+}
+
+.task-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #000080;
+}
+
+.start-button {
+    min-width: 60px;
+}
+
+/* System tray styling */
+.system-tray {
+    background-color: #c0c0c0;
+    border-left: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+}
+
+.modifier-item {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.modifier-button {
+    min-width: 70px;
+    padding: 4px 8px;
+    background: linear-gradient(to bottom, #fff 0%, #dfdfdf 100%);
+    border: 1px solid #888;
+    border-radius: 2px;
+}
+
+.modifier-button:active {
+    background: linear-gradient(to bottom, #dfdfdf 0%, #fff 100%);
+}

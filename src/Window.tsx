@@ -10,12 +10,14 @@ interface Props {
     maximizeCallback?: () => void,
     minimizeCallback?: () => void,
     closeCallback?: () => void,
+    onClick?: React.MouseEventHandler<HTMLDivElement>,
+    focus?: boolean
 }
 
-function Window({title, children, sx, glass = true, maximized, fullscreen, minimizeCallback, maximizeCallback, closeCallback}: Props) {
+function Window({title, children, sx, glass = true, maximized, fullscreen, minimizeCallback, maximizeCallback, closeCallback, onClick, focus = true}: Props) {
 
     return (
-        <div className={`window ${glass ? 'glass' : ''} ${fullscreen ? 'window-full-screen' : ''} active`} style={sx}>
+        <div className={`window ${glass ? 'glass' : ''} ${fullscreen ? 'window-full-screen' : ''} ${focus ? 'active' : ''}`} style={sx} onClick={onClick}>
             <div className="title-bar">
                 <div className="title-bar-text">{title}</div>
                 <div className="title-bar-controls">

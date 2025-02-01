@@ -15,7 +15,8 @@ import Menu from './routes/Menu';
 import MenuImage from './routes/MenuImage';
 import ConstructionImage from './routes/ConstructionImage';
 import ConstructionImageBefore from './routes/ConstructionImageBefore';
-import MenuEditor from './routes/MenuEditor';
+import MenuEditor from './routes/editor/MenuEditor';
+import WindowManager from './routes/editor/WindowManager';
 
 const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
             {
                 path: 'edit-menu',
                 element: <MenuEditor />
+            },
+            {
+                path: 'edit',
+                element: <WindowManager />
             }
         ]
     }
