@@ -32,10 +32,18 @@ function MenuEditor() {
         const interval = setInterval(async () => {
             const items = await apiClient.getMenuItems(true);
             setMenuItems(items.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)));
-            if (selectedItem) {
-                const updated = items.find(item => item.date === selectedItem.date);
-                if (updated) setSelectedItem(updated);
-            }
+
+            setSelectedItem(curr => {
+                if (curr) {
+                    const updated = items.find(item => item.date === curr.date) ?? null;
+                    // console.log(updated)
+                    // if (updated) setSelectedItem(updated);
+                    return updated;
+                }
+
+                return curr;
+            })
+
         }, 5000);
 
         return () => clearInterval(interval);
