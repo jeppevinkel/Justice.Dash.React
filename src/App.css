@@ -1,10 +1,12 @@
 .App {
   text-align: center;
+  background: linear-gradient(45deg, #ff69b4, #ff99cc, #ffb6c1);
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  filter: hue-rotate(45deg);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,7 +16,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background: linear-gradient(45deg, #ff69b4, #ff99cc, #ffb6c1);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,10 +24,18 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .App-link {
-  color: #61dafb;
+  color: #ff69b4;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.App-link:hover {
+  color: #ff99cc;
+  text-decoration: underline;
 }
 
 @keyframes App-logo-spin {
