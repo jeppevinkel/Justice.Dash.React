@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ff69b4;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #ff1493;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +35,34 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.window {
+  background-color: rgba(255, 192, 203, 0.9) !important;
+  border: 2px solid #ff69b4 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3) !important;
+}
+
+.title-bar {
+  background: linear-gradient(to right, #ff69b4, #ff1493) !important;
+  color: white !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.window-body {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+button {
+  background-color: #ff69b4 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 5px 10px !important;
+  cursor: pointer !important;
+}
+
+button:hover {
+  background-color: #ff1493 !important;
 }
