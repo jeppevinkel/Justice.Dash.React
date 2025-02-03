@@ -1,10 +1,9 @@
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(45deg, #ff69b4, #ff99cc, #ffb6c1);
 }
 
 code {
@@ -18,15 +17,42 @@ code {
     flex-flow: column;
 }
 
-
 .glass-pane {
-    background: linear-gradient(135deg, #fff5 70px, transparent 100px), linear-gradient(225deg, #fff5 70px, transparent 100px), linear-gradient(54deg, #0002 0 4%, #6661 6% 6%, #0002 8% 10%, #0002 15% 16%, #aaa1 17% 18%, #0002 23% 24%, #bbb2 25% 26%, #0002 31% 33%, #0002 34% 34.5%, #bbb2 36% 40%, #0002 41% 41.5%, #bbb2 44% 45%, #bbb2 46% 47%, #0002 48% 49%, #0002 50% 50.5%, #0002 56% 56.5%, #bbb2 57% 63%, #0002 67% 69%, #bbb2 69.5% 70%, #0002 73.5% 74%, #bbb2 74.5% 79%, #0002 80% 84%, #aaa2 85% 86%, #0002 87%, #bbb1 90%) 0/100vw 100vh no-repeat fixed;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 192, 203, 0.4) 100%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    animation: rainbow-bg 10s linear infinite;
+}
+
+@keyframes rainbow-bg {
+    0% { background-color: rgba(255, 0, 0, 0.2); }
+    16.666% { background-color: rgba(255, 165, 0, 0.2); }
+    33.333% { background-color: rgba(255, 255, 0, 0.2); }
+    50% { background-color: rgba(0, 255, 0, 0.2); }
+    66.666% { background-color: rgba(0, 0, 255, 0.2); }
+    83.333% { background-color: rgba(75, 0, 130, 0.2); }
+    100% { background-color: rgba(238, 130, 238, 0.2); }
 }
 
 .glass-pane::before {
-    background: linear-gradient(transparent 20%,#ffffffb3 40%,transparent 41%),linear-gradient(90deg,#ffffff66,#0000001a,#ffffff33),#4580c4;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 192, 203, 0.3));
+    z-index: -1;
 }
 
 .glass-pane::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     backdrop-filter: blur(4px);
+    z-index: -1;
 }
