@@ -130,9 +130,6 @@ function MenuEditor() {
                                 value={selectedItem.foodName}
                                 onChange={e => handleUpdate({foodName: e.target.value})}
                             />
-                            {selectedItem.needsNameCorrection && (
-                                <span className="status-badge">Pending correction...</span>
-                            )}
                         </div>
 
                         <div className="field-row-stacked">
@@ -142,6 +139,9 @@ function MenuEditor() {
                                 value={selectedItem.correctedFoodName || ''}
                                 onChange={e => handleUpdate({correctedFoodName: e.target.value})}
                             />
+                            {selectedItem.needsNameCorrection && (
+                                <span className="status-badge">Pending correction...</span>
+                            )}
                         </div>
 
                         <div className="field-row-stacked">
