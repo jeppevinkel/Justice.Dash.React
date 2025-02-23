@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../Clock.css';
+import ProgressBarADO from '../progressbarADO';
 import { filterMenu, getMenuList } from '../MenuItem';
 import {
     Box,
@@ -325,6 +326,7 @@ function Dashboard() {
                                 <Window sx={{ width: 'fit-content' }} title={'Vejret'}>
                                     <WeatherGraph locationId={weatherId} />
                                 </Window>
+                                <ProgressBarADO />
                             </Grid>
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
