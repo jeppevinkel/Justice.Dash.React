@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../Clock.css';
-import ProgressBar from '../progressbar';
+import ProgressBar from '../progressbarADO';
 import { filterMenu, getMenuList } from '../MenuItem';
 import {
     Box,
