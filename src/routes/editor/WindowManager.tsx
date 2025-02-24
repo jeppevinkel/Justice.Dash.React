@@ -16,22 +16,21 @@ interface WindowDefinition {
 
 function WindowManager() {
     const [searchParams, setSearchParams] = useSearchParams();
-    
+
     // Helper function to parse URL state
     const getInitialWindowStates = () => {
         const openWindows = searchParams.get('open')?.split(',') || ['menu-editor'];
-        const minimizedWindows = searchParams.get('minimized')?.split(',') || [];
-        return [openWindows, minimizedWindows];
+        return [openWindows];
     };
-    
-    const [openWindows, minimizedWindows] = getInitialWindowStates();
-    
+
+    const [openWindows] = getInitialWindowStates();
+
     const [windows, setWindows] = useState<WindowDefinition[]>([
         {
             id: 'menu-editor',
             title: 'Menu Editor',
             component: <MenuEditor/>,
-            isMinimized: minimizedWindows.includes('menu-editor'),
+            isMinimized: !openWindows.includes('menu-editor'),
             isFocused: openWindows[openWindows.length - 1] === 'menu-editor',
             zIndex: openWindows.indexOf('menu-editor') + 1,
         },
@@ -39,7 +38,7 @@ function WindowManager() {
             id: 'modifier-editor',
             title: 'Food Modifier Editor',
             component: <ModifierEditor/>,
-            isMinimized: minimizedWindows.includes('modifier-editor'),
+            isMinimized: !openWindows.includes('modifier-editor'),
             isFocused: openWindows[openWindows.length - 1] === 'modifier-editor',
             zIndex: openWindows.indexOf('modifier-editor') + 1,
         },
@@ -47,7 +46,7 @@ function WindowManager() {
             id: 'progress-editor',
             title: 'ADO Progress Editor',
             component: <ProgressAdoEditor/>,
-            isMinimized: minimizedWindows.includes('progress-editor'),
+            isMinimized: !openWindows.includes('progress-editor'),
             isFocused: openWindows[openWindows.length - 1] === 'progress-editor',
             zIndex: openWindows.indexOf('progress-editor') + 1,
         }
@@ -73,14 +72,9 @@ function WindowManager() {
             .filter(w => !w.isMinimized)
             .sort((a, b) => a.zIndex - b.zIndex)
             .map(w => w.id);
-            
-        const minimizedWindows = windows
-            .filter(w => w.isMinimized)
-            .map(w => w.id);
-            
+
         setSearchParams({
             open: openWindows.join(','),
-            ...(minimizedWindows.length > 0 && {minimized: minimizedWindows.join(',')})
         });
     };
 
@@ -102,7 +96,7 @@ function WindowManager() {
             setNextZIndex(nextZIndex + 1);
             return newWindows;
         });
-        
+
         // Update URL after state changes
         setWindows(current => {
             updateUrlParams(current);
@@ -118,7 +112,7 @@ function WindowManager() {
                     : w
             )
         );
-        
+
         // Update URL after state changes
         setWindows(current => {
             updateUrlParams(current);
