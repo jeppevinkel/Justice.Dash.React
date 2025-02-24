@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import MenuEditor from './MenuEditor';
 import ModifierEditor from './ModifierEditor';
 import ProgressAdoEditor from './ProgressAdoEditor';
@@ -14,30 +15,41 @@ interface WindowDefinition {
 }
 
 function WindowManager() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    
+    // Helper function to parse URL state
+    const getInitialWindowStates = () => {
+        const openWindows = searchParams.get('open')?.split(',') || ['menu-editor'];
+        const minimizedWindows = searchParams.get('minimized')?.split(',') || [];
+        return [openWindows, minimizedWindows];
+    };
+    
+    const [openWindows, minimizedWindows] = getInitialWindowStates();
+    
     const [windows, setWindows] = useState<WindowDefinition[]>([
         {
             id: 'menu-editor',
             title: 'Menu Editor',
             component: <MenuEditor/>,
-            isMinimized: false,
-            isFocused: true,
-            zIndex: 2,
+            isMinimized: minimizedWindows.includes('menu-editor'),
+            isFocused: openWindows[openWindows.length - 1] === 'menu-editor',
+            zIndex: openWindows.indexOf('menu-editor') + 1,
         },
         {
             id: 'modifier-editor',
             title: 'Food Modifier Editor',
             component: <ModifierEditor/>,
-            isMinimized: true,
-            isFocused: false,
-            zIndex: 1,
+            isMinimized: minimizedWindows.includes('modifier-editor'),
+            isFocused: openWindows[openWindows.length - 1] === 'modifier-editor',
+            zIndex: openWindows.indexOf('modifier-editor') + 1,
         },
         {
             id: 'progress-editor',
             title: 'ADO Progress Editor',
             component: <ProgressAdoEditor/>,
-            isMinimized: true,
-            isFocused: false,
-            zIndex: 0,
+            isMinimized: minimizedWindows.includes('progress-editor'),
+            isFocused: openWindows[openWindows.length - 1] === 'progress-editor',
+            zIndex: openWindows.indexOf('progress-editor') + 1,
         }
     ]);
     const [nextZIndex, setNextZIndex] = useState(2);
@@ -54,6 +66,23 @@ function WindowManager() {
             clearInterval(interval);
         };
     }, []);
+
+    // Helper function to update URL params
+    const updateUrlParams = (windows: WindowDefinition[]) => {
+        const openWindows = windows
+            .filter(w => !w.isMinimized)
+            .sort((a, b) => a.zIndex - b.zIndex)
+            .map(w => w.id);
+            
+        const minimizedWindows = windows
+            .filter(w => w.isMinimized)
+            .map(w => w.id);
+            
+        setSearchParams({
+            open: openWindows.join(','),
+            ...(minimizedWindows.length > 0 && {minimized: minimizedWindows.join(',')})
+        });
+    };
 
     const bringToFront = (windowId: string) => {
         setWindows(current => {
@@ -73,6 +102,12 @@ function WindowManager() {
             setNextZIndex(nextZIndex + 1);
             return newWindows;
         });
+        
+        // Update URL after state changes
+        setWindows(current => {
+            updateUrlParams(current);
+            return current;
+        });
     };
 
     const toggleMinimize = (windowId: string) => {
@@ -83,6 +118,12 @@ function WindowManager() {
                     : w
             )
         );
+        
+        // Update URL after state changes
+        setWindows(current => {
+            updateUrlParams(current);
+            return current;
+        });
     };
 
     return (
