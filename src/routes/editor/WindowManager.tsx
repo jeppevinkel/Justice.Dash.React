@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import MenuEditor from './MenuEditor';
 import ModifierEditor from './ModifierEditor';
+import ProgressAdoEditor from './ProgressAdoEditor';
 import Window from '../../Window';
 
 interface WindowDefinition {
@@ -20,12 +21,20 @@ function WindowManager() {
             component: <MenuEditor/>,
             isMinimized: false,
             isFocused: true,
-            zIndex: 1,
+            zIndex: 2,
         },
         {
             id: 'modifier-editor',
             title: 'Food Modifier Editor',
             component: <ModifierEditor/>,
+            isMinimized: true,
+            isFocused: false,
+            zIndex: 1,
+        },
+        {
+            id: 'progress-editor',
+            title: 'ADO Progress Editor',
+            component: <ProgressAdoEditor/>,
             isMinimized: true,
             isFocused: false,
             zIndex: 0,

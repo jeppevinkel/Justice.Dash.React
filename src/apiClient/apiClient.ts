@@ -52,6 +52,18 @@ export interface FoodModifierUpdate {
     description: string;
 }
 
+export interface ProgressStatus {
+    id: string;
+    completedItems: number;
+    totalItems: number;
+    percentageCompletion: number;
+}
+
+export interface ProgressUpdate {
+    completedItems: number;
+    totalItems: number;
+}
+
 export class MenuApiClient {
     private baseUrl: string;
 
@@ -109,5 +121,24 @@ export class MenuApiClient {
                 'Content-Type': 'application/json',
             },
         });
+    }
+
+    async getProgressStatus(): Promise<ProgressStatus | null> {
+        const response = await fetch(`${this.baseUrl}/ProgressAdo`);
+        if (response.status === 404) {
+            return null;
+        }
+        return response.json();
+    }
+
+    async updateProgressStatus(update: ProgressUpdate): Promise<ProgressStatus> {
+        const response = await fetch(`${this.baseUrl}/ProgressAdo`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(update),
+        });
+        return response.json();
     }
 }
