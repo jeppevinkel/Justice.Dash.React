@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../Clock.css';
-import ProgressBarADO from '../progressbarADO';
+import ProgressBarADO from '../widgets/ProgressBarADO';
 import { filterMenu, getMenuList } from '../MenuItem';
 import {
     Box,
@@ -327,14 +327,9 @@ function Dashboard() {
                                     <WeatherGraph locationId={weatherId} />
                                 </Window>
                             </Grid>
-=======>>>>>>> REPLACE
-<<<<<<< SEARCH
-                                </div>
-                            </Grid>
-                        </Grid>
-=======
-                                </div>
-                            </Grid>
+
+                                
+
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
                                 md={5} lg={5}>
                                 {isJustice && (surveillance.mdm || surveillance.edi) &&
