@@ -45,7 +45,7 @@ function Dashboard() {
     const [activeTeamName, setActiveTeamName] = useState('');
     const numberOfMenuItems = 5;
     const navigate = useNavigate();
-    const {teamName} = useParams();
+    const { teamName } = useParams();
 
     useEffect(() => {
         const interval = setInterval(updateMenu, 30000);
@@ -123,7 +123,7 @@ function Dashboard() {
     }, [teamName]);
 
     useEffect(() => {
-        switch(activeTeamName) {
+        switch (activeTeamName) {
             case 'night':
                 setIsVegan(true);
                 setIsJustice(false);
@@ -132,7 +132,7 @@ function Dashboard() {
             // @ts-expect-error
             case 'justicev':
                 setIsVegan(true);
-                // Falls through to justice
+            // Falls through to justice
             case 'justice':
                 setIsJustice(true);
                 setWeatherId('2-2615876');
@@ -328,7 +328,7 @@ function Dashboard() {
                                 </Window>
                             </Grid>
 
-                                
+
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
                                 md={5} lg={5}>
@@ -346,14 +346,14 @@ function Dashboard() {
                                         </Stack>
                                     </Window>}
                                 <Window title='Madbillede' maximizeCallback={() => navigate('/menu-image')}>
-                                    <img width={'100%'} src={isVegan ? menus[0]?.veganizedImage?.path : menus[0]?.image?.path}  alt={'Madbillede'}/>
+                                    <img width={'100%'} src={isVegan ? menus[0]?.veganizedImage?.path : menus[0]?.image?.path} alt={'Madbillede'} />
                                 </Window>
                                 <Stack direction={'row'}>
-                                    <Window sx={{visibility: domicileImages.length > 1 ? 'visible' : 'hidden'}} title={`Nyt Domicil ${domicileImages.length > 1 ? '('+(new Date(domicileImages[1].albumAddDate)).toDateString()+')' : ''}`} maximizeCallback={() => navigate('/construction-image-before')}>
+                                    <Window sx={{ visibility: domicileImages.length > 1 ? 'visible' : 'hidden' }} title={`Nyt Domicil ${domicileImages.length > 1 ? '(' + (new Date(domicileImages[1].albumAddDate)).toDateString() + ')' : ''}`} maximizeCallback={() => navigate('/construction-image-before')}>
                                         <img width={'100%'} alt=''
-                                             src={domicileImages.length > 1 ? domicileImages[1]?.path : domicileImages[0]?.path}/>
+                                            src={domicileImages.length > 1 ? domicileImages[1]?.path : domicileImages[0]?.path} />
                                     </Window>
-                                    <Window sx={{visibility: domicileImages.length > 0 ? 'visible' : 'hidden'}} title={`Nyt Domicil ${domicileImages.length > 0 ? '('+(new Date(domicileImages[0].albumAddDate)).toDateString()+')' : ''}`} maximizeCallback={() => navigate('/construction-image-after')}>
+                                    <Window sx={{ visibility: domicileImages.length > 0 ? 'visible' : 'hidden' }} title={`Nyt Domicil ${domicileImages.length > 0 ? '(' + (new Date(domicileImages[0].albumAddDate)).toDateString() + ')' : ''}`} maximizeCallback={() => navigate('/construction-image-after')}>
                                         <img width={'100%'} alt='' src={domicileImages[0]?.path} />
                                     </Window>
                                 </Stack>
@@ -373,9 +373,9 @@ function Dashboard() {
                                         hourHandWidth={8} hourHandLength={60} hourHandOppositeLength={20} />
                                 </div>
                                 {!isNaN(surveillance.week) && <div>
-                                    <fieldset style={{backgroundColor: 'white', textAlign: 'center', fontSize: '24px'}}>
-                                        <legend style={{fontSize: '16px'}}>Uge nummer</legend>
-                                        <p style={{marginTop: 0, marginBottom: 0}}><b>{surveillance.week}</b></p>
+                                    <fieldset style={{ backgroundColor: 'white', textAlign: 'center', fontSize: '24px' }}>
+                                        <legend style={{ fontSize: '16px' }}>Uge nummer</legend>
+                                        <p style={{ marginTop: 0, marginBottom: 0 }}><b>{surveillance.week}</b></p>
                                     </fieldset>
                                 </div>}
                                 <div style={{
@@ -384,9 +384,9 @@ function Dashboard() {
                                     <img width={'200px'} src={staticPuzzle} alt={'Pelican puzzle'} />
                                 </div>
                                 <div>
-                                    <fieldset style={{backgroundColor: 'white', textAlign: 'center', fontSize: '24px'}}>
-                                        <legend style={{fontSize: '16px'}}>PI</legend>
-                                        <p style={{marginTop: 0, marginBottom: 0}}><b>12</b></p>
+                                    <fieldset style={{ backgroundColor: 'white', textAlign: 'center', fontSize: '24px' }}>
+                                        <legend style={{ fontSize: '16px' }}>PI</legend>
+                                        <p style={{ marginTop: 0, marginBottom: 0 }}><b>12</b></p>
                                     </fieldset>
                                 </div>
                                 <ProgressBarADO />
