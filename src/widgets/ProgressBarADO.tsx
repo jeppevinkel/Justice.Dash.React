@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Window from "../Window";
 import { MenuApiClient } from "../apiClient/apiClient";
 
-const apiClient = new MenuApiClient('');
+const apiClient = new MenuApiClient('/api');
 
 function ProgressbarADO() {
   const [completed, setCompleted] = useState<number>(0);
