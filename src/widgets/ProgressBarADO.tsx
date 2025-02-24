@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Window from "./Window";
+import Window from "../Window";
 
-const ProgressbarADO: React.FC = () => {
+function ProgressbarADO() {
   const [completed, setCompleted] = useState<number>(0);
   const total: number = 43;
 
@@ -32,9 +32,6 @@ const ProgressbarADO: React.FC = () => {
             max={total}
             value={completed}
             onChange={(e) => updateProgress(e.target.value)}
-            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
-              e.key === "Enter" && updateProgress(e.currentTarget.value)
-            }
             style={{
               padding: "5px",
               margin: "10px",
