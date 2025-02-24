@@ -326,9 +326,15 @@ function Dashboard() {
                                 <Window sx={{ width: 'fit-content' }} title={'Vejret'}>
                                     <WeatherGraph locationId={weatherId} />
                                 </Window>
-                                <ProgressBarADO />
                             </Grid>
-
+=======>>>>>>> REPLACE
+<<<<<<< SEARCH
+                                </div>
+                            </Grid>
+                        </Grid>
+=======
+                                </div>
+                            </Grid>
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
                                 md={5} lg={5}>
                                 {isJustice && (surveillance.mdm || surveillance.edi) &&
@@ -388,6 +394,7 @@ function Dashboard() {
                                         <p style={{marginTop: 0, marginBottom: 0}}><b>12</b></p>
                                     </fieldset>
                                 </div>
+                                <ProgressBarADO />
                             </Grid>
                         </Grid>
                     </Box>
