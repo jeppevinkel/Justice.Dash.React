@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Window from "./Window";
+import Window from "../Window";
 
-const ProgressbarADO: React.FC = () => {
+function ProgressbarADO() {
   const [completed, setCompleted] = useState<number>(0);
   const total: number = 43;
 
