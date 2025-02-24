@@ -11,19 +11,19 @@ function ProgressbarADO() {
   };
 
   return (
-    <Window title="Azure DevOps projekter importeret til terraform" sx={{ width: "420px" }}>
+    
       <div
         style={{
           background: "#e3e3e3",
           border: "2px solidrgb(255, 252, 252)",
           borderRadius: "6px",
-          boxShadow: "4px 4px 10px rgb(255, 255, 255)",
           padding: "0",
           fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
           position: "relative",
         }}
       >
         <div style={{ padding: "15px", textAlign: "center" }}>
+          <p><b>Azure DevOps projekter<br/>importeret til terraform</b></p>
           <label htmlFor="completed">Completed Imports:</label>
           <input
             type="number"
@@ -69,7 +69,6 @@ function ProgressbarADO() {
           </div>
         </div>
       </div>
-    </Window>
   );
 };
 
