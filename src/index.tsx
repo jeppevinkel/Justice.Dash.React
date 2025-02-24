@@ -17,6 +17,7 @@ import ConstructionImage from './routes/ConstructionImage';
 import ConstructionImageBefore from './routes/ConstructionImageBefore';
 import MenuEditor from './routes/editor/MenuEditor';
 import WindowManager from './routes/editor/WindowManager';
+import ProgressAdoEditor from './routes/editor/ProgressAdoEditor';
 
 const router = createBrowserRouter([
     {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             {
                 path: 'edit',
                 element: <WindowManager />
+            },
+            {
+                path: 'edit-progress',
+                element: <ProgressAdoEditor />
             }
         ]
     }
