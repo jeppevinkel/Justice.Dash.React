@@ -74,19 +74,13 @@ function ProgressAdoEditor() {
                         }}
                     />
                 </label>
-                <button
-                    onClick={updateProgress}
-                    style={{
-                        padding: "8px 16px",
-                        backgroundColor: "#4CAF50",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                    }}
-                >
-                    Save Changes
-                </button>
+                <div className="field-row" style={{justifyContent: 'flex-start', marginTop: '8px'}}>
+                    <button
+                        onClick={updateProgress}
+                    >
+                        Save Changes
+                    </button>
+                </div>
             </div>
             <div style={{ marginTop: "20px" }}>
                 <h3>Preview:</h3>
