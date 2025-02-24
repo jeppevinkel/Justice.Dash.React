@@ -10,6 +10,10 @@ function ProgressbarADO() {
 
   useEffect(() => {
     loadProgress();
+
+    const interval = setInterval(loadProgress, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const loadProgress = async () => {
