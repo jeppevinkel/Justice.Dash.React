@@ -55,16 +55,8 @@ const router = createBrowserRouter([
                 element: <ConstructionImage />
             },
             {
-                path: 'edit-menu',
-                element: <MenuEditor />
-            },
-            {
                 path: 'edit',
                 element: <WindowManager />
-            },
-            {
-                path: 'edit-progress',
-                element: <ProgressAdoEditor />
             }
         ]
     }
