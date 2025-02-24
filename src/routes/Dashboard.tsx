@@ -326,8 +326,17 @@ function Dashboard() {
                                 <Window sx={{ width: 'fit-content' }} title={'Vejret'}>
                                     <WeatherGraph locationId={weatherId} />
                                 </Window>
+                            </Grid>
+=======>>>>>>> REPLACE
+<<<<<<< SEARCH
+                                </div>
+                            </Grid>
+                        </Grid>
+=======
+                                </div>
                                 <ProgressBarADO />
                             </Grid>
+                        </Grid>
 
                             <Grid item container direction={'column'} gap={1.5} maxWidth={'none !important'} xs={5}
                                 md={5} lg={5}>
