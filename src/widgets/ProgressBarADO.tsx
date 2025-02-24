@@ -1,17 +1,53 @@
-import React, { useState } from "react";
-import Window from "../Window";
+import React, { useState, useEffect } from "react";
+import { MenuApiClient } from "../apiClient/apiClient";
+
+const apiClient = new MenuApiClient('/api');
 
 function ProgressbarADO() {
   const [completed, setCompleted] = useState<number>(0);
-  const total: number = 43;
+  const [total, setTotal] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const updateProgress = (value: string | number): void => {
-    const validValue = Math.max(0, Math.min(total, Number(value)));
-    setCompleted(validValue);
+  useEffect(() => {
+    loadProgress();
+  }, []);
+
+  const loadProgress = async () => {
+    try {
+      const progress = await apiClient.getProgressStatus();
+      if (progress) {
+        setCompleted(progress.completedItems);
+        setTotal(progress.totalItems);
+      }
+    } catch (error) {
+      console.error('Failed to load progress:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  const updateProgress = async (value: string | number): Promise<void> => {
+    const validValue = Math.max(0, Math.min(total, Number(value)));
+    try {
+      await apiClient.updateProgressStatus({
+        completedItems: validValue,
+        totalItems: total
+      });
+      setCompleted(validValue);
+    } catch (error) {
+      console.error('Failed to update progress:', error);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div style={{ padding: "15px", textAlign: "center" }}>
+        Loading...
+      </div>
+    );
+  }
+
   return (
-    
       <div
         style={{
           background: "#e3e3e3",
@@ -70,6 +106,6 @@ function ProgressbarADO() {
         </div>
       </div>
   );
-};
+}
 
 export default ProgressbarADO;
