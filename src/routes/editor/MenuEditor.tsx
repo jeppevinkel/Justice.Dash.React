@@ -58,6 +58,7 @@ function MenuEditor() {
         if (item.needsFoodContents) pending.push('Food Contents');
         if (item.needsImageRegeneration) pending.push('Image');
         if (item.needsVeganImageRegeneration) pending.push('Vegan Image');
+        if (item.needsRecipeGeneration) pending.push('Recipe');
         return pending;
     };
 
@@ -195,6 +196,19 @@ function MenuEditor() {
                             </select>
                         </div>
 
+                        <div className="field-row-stacked">
+                            <label>Recipe</label>
+                            <textarea
+                                rows={6}
+                                value={selectedItem.recipe || ''}
+                                onChange={e => handleUpdate({recipe: e.target.value})}
+                                style={{ width: '100%' }}
+                            />
+                            {selectedItem.needsRecipeGeneration && (
+                                <span className="status-badge">Pending recipe generation...</span>
+                            )}
+                        </div>
+
                         <div className="field-row"
                              style={{justifyContent: 'space-between', marginTop: '20px'}}>
                             <button onClick={() => handleUpdate({
@@ -221,6 +235,13 @@ function MenuEditor() {
                                     }
                             >
                                 Regenerate Images
+                            </button>
+                            <button onClick={() => handleUpdate({
+                                regenerateRecipe: true
+                            })}
+                                    disabled={selectedItem.needsRecipeGeneration}
+                            >
+                                Regenerate Recipe
                             </button>
                         </div>
                     </fieldset>

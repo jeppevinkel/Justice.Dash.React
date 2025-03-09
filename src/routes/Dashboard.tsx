@@ -11,6 +11,7 @@ import {
     ListItemText,
     Stack,
     ThemeProvider,
+    Typography,
 } from '@mui/material';
 import Clock from 'react-clock';
 import Window from '../Window';
@@ -269,6 +270,14 @@ function Dashboard() {
                                     <List sx={{ paddingTop: 0 }}>
                                         {getMenuList(menus, numberOfMenuItems, isVegan)}
                                     </List>
+                                    {menus.length > 0 && menus[0].recipe && (
+                                        <div style={{ padding: '10px', borderTop: '1px solid #ddd' }}>
+                                            <Typography variant="h6" fontWeight={600}>Opskrift:</Typography>
+                                            <Typography variant="body1" style={{ whiteSpace: 'pre-line' }}>
+                                                {menus[0].recipe}
+                                            </Typography>
+                                        </div>
+                                    )}
                                 </Window>
                                 <div className="window glass active is-bright" id="brunsviger-dialog" role="dialog"
                                     aria-labelledby="brunsviger-dialog-title"
