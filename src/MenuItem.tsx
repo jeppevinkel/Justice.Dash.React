@@ -8,6 +8,7 @@ export function getMenuList(menus: {
     foodName: string,
     correctedFoodName?: string,
     description?: string,
+    recipe?: string,
     foodContents: string[],
     weekNumber: number,
     image?: { path: string, prompt: string, revisedPrompt: string }
@@ -26,6 +27,7 @@ export function filterMenu(menus: {
     foodName: string,
     correctedFoodName?: string,
     description?: string,
+    recipe?: string,
     foodContents: string[],
     weekNumber: number,
     image?: { path: string, prompt: string, revisedPrompt: string }
@@ -49,6 +51,7 @@ function MenuItem({menu, addDivider, highlight, veganize}: {
         veganizedFoodName?: string,
         description?: string,
         veganizedDescription?: string,
+        recipe?: string,
         foodContents: string[],
         weekNumber: number,
         image?: { path: string, prompt: string, revisedPrompt: string },
