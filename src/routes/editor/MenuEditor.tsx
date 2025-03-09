@@ -197,7 +197,7 @@ function MenuEditor() {
                         </div>
 
                         <div className="field-row-stacked">
-                            <label>Recipe</label>
+                            <label>Recipe (Markdown)</label>
                             <textarea
                                 rows={6}
                                 value={selectedItem.recipe || ''}
