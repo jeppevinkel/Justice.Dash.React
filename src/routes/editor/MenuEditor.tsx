@@ -58,6 +58,7 @@ function MenuEditor() {
         if (item.needsFoodContents) pending.push('Food Contents');
         if (item.needsImageRegeneration) pending.push('Image');
         if (item.needsVeganImageRegeneration) pending.push('Vegan Image');
+        if (item.needsRecipeGeneration) pending.push('Recipe');
         return pending;
     };
 
@@ -195,6 +196,23 @@ function MenuEditor() {
                             </select>
                         </div>
 
+                        <div className="field-row-stacked">
+                            <label>Recipe (Markdown)</label>
+                            <textarea
+                                rows={6}
+                                value={selectedItem.recipe || ''}
+                                onChange={e => handleUpdate({recipe: e.target.value})}
+                                style={{ width: '100%' }}
+                                placeholder="Enter recipe using Markdown syntax (# for headings, ** for bold, * for italics, * for bullet points)"
+                            />
+                            {selectedItem.needsRecipeGeneration && (
+                                <span className="status-badge">Pending recipe generation...</span>
+                            )}
+                            <div style={{ fontSize: '0.8em', color: '#666', marginTop: '5px' }}>
+                                Supports Markdown: # Heading, ## Subheading, **bold**, *italic*, * List item
+                            </div>
+                        </div>
+
                         <div className="field-row"
                              style={{justifyContent: 'space-between', marginTop: '20px'}}>
                             <button onClick={() => handleUpdate({
@@ -221,6 +239,13 @@ function MenuEditor() {
                                     }
                             >
                                 Regenerate Images
+                            </button>
+                            <button onClick={() => handleUpdate({
+                                regenerateRecipe: true
+                            })}
+                                    disabled={selectedItem.needsRecipeGeneration}
+                            >
+                                Regenerate Recipe
                             </button>
                         </div>
                     </fieldset>
