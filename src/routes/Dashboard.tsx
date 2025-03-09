@@ -11,6 +11,7 @@ import {
     ListItemText,
     Stack,
     ThemeProvider,
+    Typography,
 } from '@mui/material';
 import Clock from 'react-clock';
 import Window from '../Window';
@@ -269,6 +270,17 @@ function Dashboard() {
                                     <List sx={{ paddingTop: 0 }}>
                                         {getMenuList(menus, numberOfMenuItems, isVegan)}
                                     </List>
+                                    {menus.length > 0 && (menus[0].recipe || menus[0].needsRecipeGeneration) && (
+                                        <div style={{ padding: '10px', borderTop: '1px solid #ddd', display: 'flex', justifyContent: 'center' }}>
+                                            <button 
+                                                onClick={() => navigate('/recipe-view')}
+                                                disabled={menus.length === 0}
+                                                style={{ padding: '5px 10px' }}
+                                            >
+                                                {menus[0].needsRecipeGeneration ? 'Opskrift under udarbejdelse...' : 'Vis opskrift'}
+                                            </button>
+                                        </div>
+                                    )}
                                 </Window>
                                 <div className="window glass active is-bright" id="brunsviger-dialog" role="dialog"
                                     aria-labelledby="brunsviger-dialog-title"

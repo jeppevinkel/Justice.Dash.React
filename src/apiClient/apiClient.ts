@@ -12,6 +12,8 @@ export interface MenuItem {
     image: Image | null;
     veganizedImage: Image | null;
     foodDisplayName: string;
+    recipe: string | null;
+    needsRecipeGeneration: boolean;
 
     needsNameCorrection: boolean;
     needsVeganization: boolean;
@@ -40,11 +42,13 @@ export interface MenuItemUpdate {
     veganizedFoodName?: string;
     description?: string;
     veganizedDescription?: string;
+    recipe?: string;
     foodModifierId?: string;
     regenerateImages?: boolean;
     regenerateDescriptions?: boolean;
     regenerateNames?: boolean;
     regenerateFoodContents?: boolean;
+    regenerateRecipe?: boolean;
 }
 
 export interface FoodModifierUpdate {
