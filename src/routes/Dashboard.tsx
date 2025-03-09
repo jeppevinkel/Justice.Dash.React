@@ -11,6 +11,7 @@ import {
     ListItemText,
     Stack,
     ThemeProvider,
+    Typography,
 } from '@mui/material';
 import Clock from 'react-clock';
 import Window from '../Window';
