@@ -270,12 +270,15 @@ function Dashboard() {
                                     <List sx={{ paddingTop: 0 }}>
                                         {getMenuList(menus, numberOfMenuItems, isVegan)}
                                     </List>
-                                    {menus.length > 0 && menus[0].recipe && (
-                                        <div style={{ padding: '10px', borderTop: '1px solid #ddd' }}>
-                                            <Typography variant="h6" fontWeight={600}>Opskrift:</Typography>
-                                            <Typography variant="body1" style={{ whiteSpace: 'pre-line' }}>
-                                                {menus[0].recipe}
-                                            </Typography>
+                                    {menus.length > 0 && (menus[0].recipe || menus[0].needsRecipeGeneration) && (
+                                        <div style={{ padding: '10px', borderTop: '1px solid #ddd', display: 'flex', justifyContent: 'center' }}>
+                                            <button 
+                                                onClick={() => navigate('/recipe-view')}
+                                                disabled={menus.length === 0}
+                                                style={{ padding: '5px 10px' }}
+                                            >
+                                                {menus[0].needsRecipeGeneration ? 'Opskrift under udarbejdelse...' : 'Vis opskrift'}
+                                            </button>
                                         </div>
                                     )}
                                 </Window>
