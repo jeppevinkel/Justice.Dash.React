@@ -1,46 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Typography, List, ListItem } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import { MenuItem } from '../apiClient/apiClient';
-
-// Simple Markdown renderer component
-const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
-    if (!markdown) return null;
-
-    // Process the markdown to convert to React elements
-    const processMarkdown = (text: string) => {
-        // Replace headers
-        text = text.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-        text = text.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-        text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
-
-        // Replace bold
-        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        
-        // Replace italic
-        text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-        
-        // Replace lists
-        text = text.replace(/^\s*\*\s(.*)$/gm, '<li>$1</li>');
-        
-        // Replace line breaks
-        text = text.replace(/\n/g, '<br />');
-        
-        // Wrap list items in ul
-        text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
-        
-        // Remove duplicate ul tags
-        text = text.replace(/<\/ul><ul>/g, '');
-        
-        return text;
-    };
-
-    const processedHtml = processMarkdown(markdown);
-    
-    return <div dangerouslySetInnerHTML={{ __html: processedHtml }} />;
-};
+import Markdown from 'react-markdown'
 
 function RecipeView() {
     const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
@@ -83,8 +47,7 @@ function RecipeView() {
                     <>
                         {menuItem.recipe ? (
                             <Box sx={{ padding: 2 }}>
-                                <Typography variant="h5" gutterBottom>{menuItem.foodDisplayName}</Typography>
-                                <MarkdownRenderer markdown={menuItem.recipe} />
+                                <Markdown>{menuItem.recipe}</Markdown>
                             </Box>
                         ) : menuItem.needsRecipeGeneration ? (
                             <Typography variant="body1" sx={{ padding: 2 }}>
