@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import { MenuItem } from '../apiClient/apiClient';
 import { filterMenu } from '../MenuItem';
 import Markdown from 'react-markdown'
 
-function RecipeView() {
+function RecipeModal() {
     const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -33,24 +33,27 @@ function RecipeView() {
         fetchCurrentMenu();
     }, []);
 
-    const handleBack = () => {
-        navigate('/');
-    };
-
     return (
-        <div className="App" style={{
-            backgroundImage: `url(${win7bg})`,
-            backgroundSize: 'cover',
-            minHeight: '100vh',
-            padding: '20px'
-        }}>
-            <Window title={'Opskrift - ' + (menuItem?.foodDisplayName || 'Indlæser...')}>
+        <div style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, backgroundImage: `url(${win7bg})`}}>
+            <Window 
+                title={'Opskrift - ' + (menuItem?.foodDisplayName || 'Indlæser...')} 
+                maximized={true} 
+                fullscreen={true} 
+                sx={{
+                    margin: '24px',
+                    height: 'calc(100vh - 48px)',
+                    top: 0,
+                    position: 'absolute',
+                    width: 'calc(100vw - 48px)'
+                }} 
+                maximizeCallback={() => navigate(-1)}
+            >
                 {loading ? (
-                    <Typography variant="body1">Indlæser opskrift...</Typography>
+                    <Typography variant="body1" sx={{ padding: 2 }}>Indlæser opskrift...</Typography>
                 ) : menuItem ? (
                     <>
                         {menuItem.recipe ? (
-                            <Box sx={{ padding: 2 }}>
+                            <Box sx={{ padding: 2, overflowY: 'auto', maxHeight: 'calc(100vh - 120px)' }}>
                                 <Markdown>{menuItem.recipe}</Markdown>
                             </Box>
                         ) : menuItem.needsRecipeGeneration ? (
@@ -62,27 +65,13 @@ function RecipeView() {
                                 Ingen opskrift tilgængelig for denne ret.
                             </Typography>
                         )}
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: 2 }}>
-                            <Button 
-                                variant="contained" 
-                                onClick={handleBack}
-                                style={{ 
-                                    backgroundColor: '#d3d3d3',
-                                    color: 'black',
-                                    border: '1px solid #888888',
-                                    boxShadow: 'inset -1px -1px #0a0a0a,inset 1px 1px #ffffff,inset -2px -2px #808080,inset 2px 2px #dfdfdf'
-                                }}
-                            >
-                                Tilbage til Dashboard
-                            </Button>
-                        </Box>
                     </>
                 ) : (
-                    <Typography variant="body1">Ingen menu fundet.</Typography>
+                    <Typography variant="body1" sx={{ padding: 2 }}>Ingen menu fundet.</Typography>
                 )}
             </Window>
         </div>
     );
 }
 
-export default RecipeView;
+export default RecipeModal;

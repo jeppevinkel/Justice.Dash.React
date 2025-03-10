@@ -273,7 +273,7 @@ function Dashboard() {
                                     {menus.length > 0 && (menus[0].recipe || menus[0].needsRecipeGeneration) && (
                                         <div style={{ padding: '10px', borderTop: '1px solid #ddd', display: 'flex', justifyContent: 'center' }}>
                                             <button 
-                                                onClick={() => navigate('/recipe-view')}
+                                                onClick={() => navigate('/recipe-modal')}
                                                 disabled={menus.length === 0 || menus[0].needsRecipeGeneration}
                                                 style={{ 
                                                     padding: '5px 10px',
