@@ -34,7 +34,7 @@ function RecipeModal() {
     }, []);
 
     return (
-        <div style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, backgroundImage: `url(${win7bg})`}}>
+        <div style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, backgroundImage: `url(${win7bg})`, backgroundSize: 'cover'}}>
             <Window 
                 title={'Opskrift - ' + (menuItem?.foodDisplayName || 'Indlæser...')} 
                 maximized={true} 

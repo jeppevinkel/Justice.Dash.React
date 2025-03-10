@@ -15,10 +15,7 @@ import Menu from './routes/Menu';
 import MenuImage from './routes/MenuImage';
 import ConstructionImage from './routes/ConstructionImage';
 import ConstructionImageBefore from './routes/ConstructionImageBefore';
-import MenuEditor from './routes/editor/MenuEditor';
 import WindowManager from './routes/editor/WindowManager';
-import ProgressAdoEditor from './routes/editor/ProgressAdoEditor';
-import RecipeView from './routes/RecipeView';
 import RecipeModal from './routes/RecipeModal';
 
 const router = createBrowserRouter([
@@ -55,10 +52,6 @@ const router = createBrowserRouter([
             {
                 path: 'construction-image-after',
                 element: <ConstructionImage />
-            },
-            {
-                path: 'recipe-view',
-                element: <RecipeView />
             },
             {
                 path: 'recipe-modal',
