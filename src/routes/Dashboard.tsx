@@ -270,24 +270,11 @@ function Dashboard() {
                                     <List sx={{ paddingTop: 0 }}>
                                         {getMenuList(menus, numberOfMenuItems, isVegan)}
                                     </List>
-                                    {menus.length > 0 && (menus[0].recipe || menus[0].needsRecipeGeneration) && (
-                                        <div style={{ padding: '10px', borderTop: '1px solid #ddd', display: 'flex', justifyContent: 'center' }}>
-                                            <button 
-                                                onClick={() => navigate('/recipe-modal')}
-                                                disabled={menus.length === 0 || menus[0].needsRecipeGeneration}
-                                                style={{ 
-                                                    padding: '5px 10px',
-                                                    backgroundColor: '#d3d3d3',
-                                                    color: 'black',
-                                                    border: '1px solid #888888',
-                                                    boxShadow: 'inset -1px -1px #0a0a0a,inset 1px 1px #ffffff,inset -2px -2px #808080,inset 2px 2px #dfdfdf',
-                                                    cursor: menus[0].needsRecipeGeneration ? 'not-allowed' : 'pointer'
-                                                }}
-                                            >
-                                                {menus[0].needsRecipeGeneration ? 'Opskrift under udarbejdelse...' : 'Vis opskrift'}
-                                            </button>
-                                        </div>
-                                    )}
+                                    <div style={{ padding: '8px', borderTop: '1px solid #ddd', textAlign: 'center' }}>
+                                        <Typography variant="caption" color="text.secondary">
+                                            Klik på et menupunkt for at se opskriften
+                                        </Typography>
+                                    </div>
                                 </Window>
                                 <div className="window glass active is-bright" id="brunsviger-dialog" role="dialog"
                                     aria-labelledby="brunsviger-dialog-title"

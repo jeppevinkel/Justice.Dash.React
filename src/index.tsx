@@ -58,6 +58,10 @@ const router = createBrowserRouter([
                 element: <RecipeModal />
             },
             {
+                path: 'recipe-modal/:date',
+                element: <RecipeModal />
+            },
+            {
                 path: 'edit',
                 element: <WindowManager />
             }

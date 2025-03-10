@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
@@ -11,18 +11,32 @@ function RecipeModal() {
     const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const { date } = useParams<{ date?: string }>();
 
     useEffect(() => {
-        const fetchCurrentMenu = async () => {
+        const fetchMenuData = async () => {
             try {
                 const response = await fetch('/api/menu');
                 const data = await response.json();
-                // Apply the same time-based filtering that the dashboard uses
-                const filteredData = filterMenu(data);
-                if (filteredData && filteredData.length > 0) {
-                    // Explicitly cast the menu item to ensure type compatibility
-                    setMenuItem(filteredData[0] as MenuItem);
+                
+                let selectedItem: MenuItem | null = null;
+                
+                // If a specific date was provided, find that menu item
+                if (date) {
+                    selectedItem = data.find((item: any) => 
+                        new Date(item.date).toISOString().split('T')[0] === date
+                    ) as MenuItem || null;
+                } 
+                
+                // If no date provided or no item found with that date, show today's menu
+                if (!selectedItem) {
+                    const filteredData = filterMenu(data);
+                    if (filteredData && filteredData.length > 0) {
+                        selectedItem = filteredData[0] as MenuItem;
+                    }
                 }
+                
+                setMenuItem(selectedItem);
             } catch (error) {
                 console.error('Failed to load menu item:', error);
             } finally {
@@ -30,8 +44,8 @@ function RecipeModal() {
             }
         };
 
-        fetchCurrentMenu();
-    }, []);
+        fetchMenuData();
+    }, [date]);
 
     return (
         <div style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, backgroundImage: `url(${win7bg})`, backgroundSize: 'cover'}}>
