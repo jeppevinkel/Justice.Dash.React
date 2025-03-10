@@ -66,30 +66,51 @@ function RecipeModal() {
                 {loading ? (
                     <Typography variant="body1" sx={{ padding: 2 }}>Indlæser opskrift...</Typography>
                 ) : menuItem ? (
-                    <>
+                    <Box sx={{ display: 'flex', position: 'relative', height: '100%' }}>
                         {menuItem.image && (
-                            <Box sx={{ padding: 2, display: 'flex', justifyContent: 'center' }}>
+                            <Box sx={{ 
+                                position: 'absolute', 
+                                top: '16px', 
+                                right: '16px', 
+                                zIndex: 1,
+                                maxWidth: '40%',
+                                maxHeight: '300px',
+                                padding: 1,
+                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                borderRadius: '4px',
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                            }}>
                                 <img 
                                     src={menuItem.image.path} 
                                     alt={`Billede af ${menuItem.foodDisplayName || menuItem.foodName}`}
-                                    style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'contain' }}
+                                    style={{ 
+                                        maxWidth: '100%', 
+                                        maxHeight: '280px', 
+                                        objectFit: 'contain',
+                                        display: 'block'
+                                    }}
                                 />
                             </Box>
                         )}
-                        {menuItem.recipe ? (
-                            <Box sx={{ padding: 2, overflowY: 'auto', maxHeight: menuItem.image ? 'calc(100vh - 450px)' : 'calc(100vh - 120px)' }}>
+                        <Box sx={{ 
+                            padding: 2, 
+                            overflowY: 'auto', 
+                            maxHeight: 'calc(100vh - 120px)',
+                            width: '100%'
+                        }}>
+                            {menuItem.recipe ? (
                                 <Markdown>{menuItem.recipe}</Markdown>
-                            </Box>
-                        ) : menuItem.needsRecipeGeneration ? (
-                            <Typography variant="body1" sx={{ padding: 2 }}>
-                                Opskrift er under udarbejdelse...
-                            </Typography>
-                        ) : (
-                            <Typography variant="body1" sx={{ padding: 2 }}>
-                                Ingen opskrift tilgængelig for denne ret.
-                            </Typography>
-                        )}
-                    </>
+                            ) : menuItem.needsRecipeGeneration ? (
+                                <Typography variant="body1">
+                                    Opskrift er under udarbejdelse...
+                                </Typography>
+                            ) : (
+                                <Typography variant="body1">
+                                    Ingen opskrift tilgængelig for denne ret.
+                                </Typography>
+                            )}
+                        </Box>
+                    </Box>
                 ) : (
                     <Typography variant="body1" sx={{ padding: 2 }}>Ingen menu fundet.</Typography>
                 )}
