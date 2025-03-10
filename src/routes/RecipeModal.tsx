@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import { MenuItem } from '../apiClient/apiClient';
+// Ensure MenuItem type includes image property if not already defined in apiClient
 import { filterMenu } from '../MenuItem';
 import Markdown from 'react-markdown'
 
@@ -66,8 +67,17 @@ function RecipeModal() {
                     <Typography variant="body1" sx={{ padding: 2 }}>Indlæser opskrift...</Typography>
                 ) : menuItem ? (
                     <>
+                        {menuItem.image && (
+                            <Box sx={{ padding: 2, display: 'flex', justifyContent: 'center' }}>
+                                <img 
+                                    src={menuItem.image.path} 
+                                    alt={`Billede af ${menuItem.foodDisplayName || menuItem.foodName}`}
+                                    style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'contain' }}
+                                />
+                            </Box>
+                        )}
                         {menuItem.recipe ? (
-                            <Box sx={{ padding: 2, overflowY: 'auto', maxHeight: 'calc(100vh - 120px)' }}>
+                            <Box sx={{ padding: 2, overflowY: 'auto', maxHeight: menuItem.image ? 'calc(100vh - 450px)' : 'calc(100vh - 120px)' }}>
                                 <Markdown>{menuItem.recipe}</Markdown>
                             </Box>
                         ) : menuItem.needsRecipeGeneration ? (
