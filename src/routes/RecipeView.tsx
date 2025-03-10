@@ -20,7 +20,8 @@ function RecipeView() {
                 // Apply the same time-based filtering that the dashboard uses
                 const filteredData = filterMenu(data);
                 if (filteredData && filteredData.length > 0) {
-                    setMenuItem(filteredData[0]);
+                    // Explicitly cast the menu item to ensure type compatibility
+                    setMenuItem(filteredData[0] as MenuItem);
                 }
             } catch (error) {
                 console.error('Failed to load menu item:', error);
