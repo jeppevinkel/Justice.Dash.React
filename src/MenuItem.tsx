@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Divider, ListItem, ListItemText, Typography} from '@mui/material';
 import Icon from './Icon';
+import { useNavigate } from 'react-router-dom';
 
 export function getMenuList(menus: {
     date: string,
@@ -55,7 +56,8 @@ function MenuItem({menu, addDivider, highlight, veganize}: {
         foodContents: string[],
         weekNumber: number,
         image?: { path: string, prompt: string, revisedPrompt: string },
-        veganizedImage?: { path: string, prompt: string, revisedPrompt: string }
+        veganizedImage?: { path: string, prompt: string, revisedPrompt: string },
+        needsRecipeGeneration?: boolean
     },
     addDivider: boolean,
     highlight: boolean,
@@ -63,6 +65,12 @@ function MenuItem({menu, addDivider, highlight, veganize}: {
 }) {
     const date = new Date(menu.date);
     const [filteredFoodContents, setFilteredFoodContents] = useState<string[]>([]);
+    const navigate = useNavigate();
+    
+    const handleClick = () => {
+        const formattedDate = date.toISOString().split('T')[0];
+        navigate(`/recipe-modal/${formattedDate}`);
+    };
 
     useEffect(() => {
         let showMeat = true;
@@ -83,9 +91,19 @@ function MenuItem({menu, addDivider, highlight, veganize}: {
 
     return (
         <React.Fragment>
-            <ListItem alignItems="flex-start" sx={{
-                backgroundColor: highlight ? 'rgba(248, 233, 159, 0.5)' : undefined
-            }}>
+            <ListItem 
+                alignItems="flex-start" 
+                sx={{
+                    backgroundColor: highlight ? 'rgba(248, 233, 159, 0.5)' : undefined,
+                    cursor: menu.recipe || !menu.needsRecipeGeneration ? 'pointer' : 'default',
+                    '&:hover': {
+                        backgroundColor: menu.recipe || !menu.needsRecipeGeneration 
+                            ? highlight ? 'rgba(248, 233, 159, 0.8)' : 'rgba(0, 0, 0, 0.04)' 
+                            : undefined
+                    }
+                }}
+                onClick={menu.recipe || !menu.needsRecipeGeneration ? handleClick : undefined}
+            >
                 <ListItemText primary={
                     <Typography variant={'h5'} fontWeight={600}>
                         {veganize ? menu.veganizedFoodName ?? menu.correctedFoodName ?? menu.foodName.trim() : menu.correctedFoodName !== null ? menu.correctedFoodName : menu.foodName.trim()}
