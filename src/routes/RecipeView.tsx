@@ -4,6 +4,7 @@ import { Box, Button, Typography } from '@mui/material';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import { MenuItem } from '../apiClient/apiClient';
+import { filterMenu } from '../MenuItem';
 import Markdown from 'react-markdown'
 
 function RecipeView() {
@@ -16,8 +17,10 @@ function RecipeView() {
             try {
                 const response = await fetch('/api/menu');
                 const data = await response.json();
-                if (data && data.length > 0) {
-                    setMenuItem(data[0]);
+                // Apply the same time-based filtering that the dashboard uses
+                const filteredData = filterMenu(data);
+                if (filteredData && filteredData.length > 0) {
+                    setMenuItem(filteredData[0]);
                 }
             } catch (error) {
                 console.error('Failed to load menu item:', error);
