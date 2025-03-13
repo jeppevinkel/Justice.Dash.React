@@ -3,6 +3,7 @@ import { filterMenu } from '../MenuItem';
 import Window from '../Window';
 import win7bg from '../images/win7bg.jpg';
 import { useNavigate } from 'react-router-dom';
+import AnimatedImage from '../AnimatedImage';
 
 function MenuImage() {
     const [menus, setMenus]: [any, any] = useState([]);
@@ -35,7 +36,14 @@ function MenuImage() {
                 position: 'absolute',
                 width: 'calc(100vw - 48px)'
             }} maximizeCallback={() => navigate(-1)}>
-                <img width={'100%'} alt='AI visualisering af dagens mad' src={menus[0]?.image?.path} />
+                {menus[0]?.image?.path ? (
+                    <AnimatedImage 
+                        path={menus[0]?.image?.path}
+                        alt='AI visualisering af dagens mad'
+                    />
+                ) : (
+                    <div>Intet billede tilgængeligt</div>
+                )}
             </Window>
         </div>
     );

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Divider, ListItem, ListItemText, Typography} from '@mui/material';
 import Icon from './Icon';
 import { useNavigate } from 'react-router-dom';
+import AnimatedImage from './AnimatedImage';
 
 export function getMenuList(menus: {
     date: string,

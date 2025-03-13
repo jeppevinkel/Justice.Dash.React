@@ -7,6 +7,7 @@ import { MenuItem } from '../apiClient/apiClient';
 // Ensure MenuItem type includes image property if not already defined in apiClient
 import { filterMenu } from '../MenuItem';
 import Markdown from 'react-markdown'
+import AnimatedImage from '../AnimatedImage';
 
 function RecipeModal() {
     const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
@@ -80,8 +81,8 @@ function RecipeModal() {
                                 borderRadius: '4px',
                                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                             }}>
-                                <img 
-                                    src={menuItem.image.path} 
+                                <AnimatedImage 
+                                    path={menuItem.image.path} 
                                     alt={`Billede af ${menuItem.foodDisplayName || menuItem.foodName}`}
                                     style={{ 
                                         maxWidth: '100%', 
