@@ -19,6 +19,7 @@ import staticPuzzle from '../images/static-puzzle.png';
 import { WeatherGraph } from '../WeatherGraph';
 import win7bg from '../images/win7bg.jpg';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ProgressType } from '../apiClient/apiClient';
 
 function Dashboard() {
     const [menus, setMenus]: [any, any] = useState([]);
@@ -395,7 +396,8 @@ function Dashboard() {
                                         <p style={{ marginTop: 0, marginBottom: 0 }}><b>12</b></p>
                                     </fieldset>
                                 </div>
-                                <ProgressBarADO />
+                                <ProgressBarADO progressType={ProgressType.azureDevOps} />
+                                <ProgressBarADO progressType={ProgressType.github} />
                             </Grid>
                         </Grid>
                     </Box>

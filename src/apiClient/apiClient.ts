@@ -63,6 +63,11 @@ export interface ProgressStatus {
     percentageCompletion: number;
 }
 
+export enum ProgressType {
+    azureDevOps = 'ProgressAdo',
+    github = 'ProgressGh'
+}
+
 export interface ProgressUpdate {
     completedItems: number;
     totalItems: number;
@@ -127,16 +132,16 @@ export class MenuApiClient {
         });
     }
 
-    async getProgressStatus(): Promise<ProgressStatus | null> {
-        const response = await fetch(`${this.baseUrl}/ProgressAdo`);
+    async getProgressStatus(progressType: ProgressType): Promise<ProgressStatus | null> {
+        const response = await fetch(`${this.baseUrl}/${progressType}`);
         if (response.status === 404) {
             return null;
         }
         return response.json();
     }
 
-    async updateProgressStatus(update: ProgressUpdate): Promise<ProgressStatus> {
-        const response = await fetch(`${this.baseUrl}/ProgressAdo`, {
+    async updateProgressStatus(update: ProgressUpdate, progressType: ProgressType): Promise<ProgressStatus> {
+        const response = await fetch(`${this.baseUrl}/${progressType}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,24 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { MenuApiClient } from "../apiClient/apiClient";
+import { MenuApiClient, ProgressType } from "../apiClient/apiClient";
 
 const apiClient = new MenuApiClient('/api');
 
-function ProgressbarADO() {
+type Props = {
+  progressType: ProgressType
+}
+
+function ProgressbarADO(props: Props) {
   const [completed, setCompleted] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [title, setTitle] = useState((<></>));
 
   useEffect(() => {
     loadProgress();
 
     const interval = setInterval(loadProgress, 10000);
 
+    switch (props.progressType) {
+      case ProgressType.azureDevOps:
+        setTitle(<b>Azure DevOps projekter<br/>importeret til terraform</b>);
+        break;
+      case ProgressType.github:
+        setTitle(<b>Repositories<br/>migreret til GitHub</b>);
+        break;
+    }
+
     return () => clearInterval(interval);
-  }, []);
+  }, [props.progressType]);
 
   const loadProgress = async () => {
     try {
-      const progress = await apiClient.getProgressStatus();
+      const progress = await apiClient.getProgressStatus(props.progressType);
       if (progress) {
         setCompleted(progress.completedItems);
         setTotal(progress.totalItems);
@@ -36,7 +50,7 @@ function ProgressbarADO() {
       await apiClient.updateProgressStatus({
         completedItems: validValue,
         totalItems: total
-      });
+      }, props.progressType);
       setCompleted(validValue);
     } catch (error) {
       console.error('Failed to update progress:', error);
