@@ -4,6 +4,7 @@ import MenuEditor from './MenuEditor';
 import ModifierEditor from './ModifierEditor';
 import ProgressAdoEditor from './ProgressAdoEditor';
 import Window from '../../Window';
+import { ProgressType } from '../../apiClient/apiClient';
 
 interface WindowDefinition {
     id: string;
@@ -45,10 +46,18 @@ function WindowManager() {
         {
             id: 'progress-editor',
             title: 'ADO Progress Editor',
-            component: <ProgressAdoEditor/>,
+            component: <ProgressAdoEditor progressType={ProgressType.azureDevOps}/>,
             isMinimized: !openWindows.includes('progress-editor'),
             isFocused: openWindows[openWindows.length - 1] === 'progress-editor',
             zIndex: openWindows.indexOf('progress-editor') + 1,
+        },
+        {
+            id: 'progress-editor-gh',
+            title: 'GitHub Progress Editor',
+            component: <ProgressAdoEditor progressType={ProgressType.github}/>,
+            isMinimized: !openWindows.includes('progress-editor-gh'),
+            isFocused: openWindows[openWindows.length - 1] === 'progress-editor-gh',
+            zIndex: openWindows.indexOf('progress-editor-gh') + 1,
         }
     ]);
     const [nextZIndex, setNextZIndex] = useState(2);

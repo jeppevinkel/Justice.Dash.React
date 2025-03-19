@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { MenuApiClient, ProgressType } from "../../apiClient/apiClient";
+import { JsxElement } from "typescript";
 
 const apiClient = new MenuApiClient('/api');
 
-function ProgressAdoEditor() {
+type Props = {
+    progressType: ProgressType
+  }
+
+function ProgressAdoEditor(props: Props) {
     const [completed, setCompleted] = useState<number>(0);
     const [total, setTotal] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [title, setTitle] = useState(<></>);
 
     useEffect(() => {
         loadProgress();
-    }, []);
+
+        switch(props.progressType) {
+            case ProgressType.azureDevOps:
+                setTitle(<>ADO Progress Settings</>);
+                break;
+            case ProgressType.azureDevOps:
+                setTitle(<>GitHub Progress Settings</>);
+                break;
+        }
+
+    }, [props.progressType]);
 
     const loadProgress = async () => {
         try {
-            const progress = await apiClient.getProgressStatus(ProgressType.azureDevOps);
+            const progress = await apiClient.getProgressStatus(props.progressType);
             if (progress) {
                 setCompleted(progress.completedItems);
                 setTotal(progress.totalItems);
@@ -31,7 +47,7 @@ function ProgressAdoEditor() {
             await apiClient.updateProgressStatus({
                 completedItems: completed,
                 totalItems: total
-            }, ProgressType.azureDevOps);
+            }, props.progressType);
         } catch (error) {
             console.error('Failed to update progress:', error);
         }
@@ -43,7 +59,7 @@ function ProgressAdoEditor() {
 
     return (
         <div style={{ padding: "20px" }}>
-            <h2>ADO Progress Settings</h2>
+            <h2>{title}</h2>
             <div style={{ marginBottom: "20px" }}>
                 <label style={{ display: "block", marginBottom: "10px" }}>
                     Total Items:

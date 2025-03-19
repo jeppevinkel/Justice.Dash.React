@@ -77,7 +77,7 @@ function ProgressbarADO(props: Props) {
         }}
       >
         <div style={{ padding: "15px", textAlign: "center" }}>
-          <p><b>Azure DevOps projekter<br/>importeret til terraform</b></p>
+          <p>{title}</p>
           <label htmlFor="completed">Completed Imports:</label>
           <input
             type="number"
