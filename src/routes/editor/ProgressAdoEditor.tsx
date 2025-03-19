@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MenuApiClient } from "../../apiClient/apiClient";
+import { MenuApiClient, ProgressType } from "../../apiClient/apiClient";
 
 const apiClient = new MenuApiClient('/api');
 
@@ -14,7 +14,7 @@ function ProgressAdoEditor() {
 
     const loadProgress = async () => {
         try {
-            const progress = await apiClient.getProgressStatus();
+            const progress = await apiClient.getProgressStatus(ProgressType.azureDevOps);
             if (progress) {
                 setCompleted(progress.completedItems);
                 setTotal(progress.totalItems);
@@ -31,7 +31,7 @@ function ProgressAdoEditor() {
             await apiClient.updateProgressStatus({
                 completedItems: completed,
                 totalItems: total
-            });
+            }, ProgressType.azureDevOps);
         } catch (error) {
             console.error('Failed to update progress:', error);
         }
