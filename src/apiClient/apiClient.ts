@@ -109,6 +109,11 @@ export class MenuApiClient {
         return response.json();
     }
 
+    async getWeather(): Promise<WeatherData> {
+        const response = await fetch(`${this.baseUrl}/Weather`);
+        return response.json();
+    }
+
     async updateFoodModifier(id: string, update: FoodModifierUpdate): Promise<FoodModifier> {
         const response = await fetch(`${this.baseUrl}/FoodModifier/${id}`, {
             method: 'PUT',
