@@ -73,6 +73,14 @@ export interface ProgressUpdate {
     totalItems: number;
 }
 
+export interface WeatherData {
+    isRaining: boolean;
+    rainAmount: number;
+    temperature: number;
+    humidity: number;
+    lastUpdate: string;
+}
+
 export class MenuApiClient {
     private baseUrl: string;
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../Clock.css';
 import ProgressBarADO from '../widgets/ProgressBarADO';
 import { filterMenu, getMenuList } from '../MenuItem';
+import { RainEffectContainer } from '../RainEffect';
 import {
     Box,
     createTheme,
@@ -251,6 +252,7 @@ function Dashboard() {
             backgroundImage: `url(${win7bg})`,
             backgroundSize: 'cover'
         }}>
+            <RainEffectContainer />
             <ThemeProvider theme={defaultTheme}>
                 <Box sx={{ display: 'flex' }}>
                     <CssBaseline />
