@@ -73,6 +73,14 @@ export interface ProgressUpdate {
     totalItems: number;
 }
 
+export interface WeatherData {
+    isRaining: boolean;
+    rainAmount: number;
+    temperature: number;
+    humidity: number;
+    lastUpdate: string;
+}
+
 export class MenuApiClient {
     private baseUrl: string;
 
@@ -98,6 +106,11 @@ export class MenuApiClient {
 
     async getFoodModifiers(): Promise<FoodModifier[]> {
         const response = await fetch(`${this.baseUrl}/FoodModifier`);
+        return response.json();
+    }
+
+    async getWeather(): Promise<WeatherData> {
+        const response = await fetch(`${this.baseUrl}/Weather`);
         return response.json();
     }
 
