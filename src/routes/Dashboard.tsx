@@ -322,7 +322,7 @@ function Dashboard() {
                                         </div>
                                     </div>
                                     <div className="window-body has-space">
-                                        <h2 className="instruction instruction-primary">Bulding artifacts...</h2>
+                                        <h2 className="instruction instruction-primary">Building artifacts...</h2>
                                         <div role="progressbar" className="animate">
                                             <div style={{ width: brunsvigerSoonProgress + '%' }}></div>
                                         </div>
