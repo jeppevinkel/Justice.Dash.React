@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './RainEffect.css';
-import { WeatherData } from './apiClient/apiClient';
 
 interface RainEffectProps {
   active: boolean;
@@ -82,43 +81,6 @@ const RainEffect: React.FC<RainEffectProps> = ({ active, intensity, isSnow = fal
 
   const containerClass = isSnow ? "snow-container" : "rain-container";
   return <div className={containerClass}>{precipitationElements}</div>;
-};
-
-export const RainEffectContainer: React.FC = () => {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const response = await fetch('/api/weather');
-        const data = await response.json();
-        setWeather(data);
-      } catch (error) {
-        console.error('Error fetching weather data:', error);
-      }
-    };
-
-    // Fetch initially
-    fetchWeather();
-
-    // Set up interval to fetch every minute
-    const interval = setInterval(fetchWeather, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!weather) return null;
-
-  const rainIntensity = Math.min(100, weather.rainAmount * 10); // Scale rainAmount to 0-100
-  const isSnow = weather.temperature < 0; // Show snow if temperature is below 0°C
-
-  return (
-    <RainEffect 
-      active={weather.isRaining} 
-      intensity={rainIntensity}
-      isSnow={isSnow}
-    />
-  );
 };
 
 export default RainEffect;
