@@ -392,12 +392,7 @@ function Dashboard() {
                                 }}>
                                     <img width={'200px'} src={staticPuzzle} alt={'Pelican puzzle'} />
                                 </div>
-                                <div>
-                                    <fieldset style={{ backgroundColor: 'white', textAlign: 'center', fontSize: '24px' }}>
-                                        <legend style={{ fontSize: '16px' }}>PI</legend>
-                                        <p style={{ marginTop: 0, marginBottom: 0 }}><b>12</b></p>
-                                    </fieldset>
-                                </div>
+
                                 <ProgressBarADO progressType={ProgressType.azureDevOps} />
                                 <ProgressBarADO progressType={ProgressType.github} />
                             </Grid>
