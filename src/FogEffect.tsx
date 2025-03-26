@@ -45,7 +45,7 @@ const FogEffect: React.FC<FogEffectProps> = ({ active, intensity }) => {
     }
 
     // Calculate fog opacity based on intensity
-    const fogOpacity = Math.min(0.6, intensity / 150);
+    const fogOpacity = Math.min(1, intensity / 100);
     setOpacity(fogOpacity);
     
   }, [active, intensity]);

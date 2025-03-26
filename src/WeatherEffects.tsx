@@ -57,7 +57,7 @@ export const WeatherEffects: React.FC = () => {
       />
       
       <FogEffect 
-        active={weather.humidity > 85} 
+        active={weather.humidity > 80} 
         intensity={fogIntensity}
       />
       
