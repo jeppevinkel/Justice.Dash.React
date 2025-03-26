@@ -9,6 +9,34 @@ interface FogEffectProps {
 
 const FogEffect: React.FC<FogEffectProps> = ({ active, intensity }) => {
   const [opacity, setOpacity] = useState(0);
+  const [patches, setPatches] = useState<Array<{id: number, size: number, position: string, delay: number}>>([]);
+
+  useEffect(() => {
+    // Generate random fog patches configuration when component loads
+    const generatePatches = () => {
+      const positions = [
+        'top-left', 'top-right', 'bottom-left', 'bottom-right',
+        'top-center', 'left-center', 'right-center', 'bottom-center'
+      ];
+      
+      // Create 8-12 fog patches with varying sizes
+      const numPatches = Math.floor(Math.random() * 5) + 8;
+      const newPatches = [];
+      
+      for (let i = 0; i < numPatches; i++) {
+        newPatches.push({
+          id: i,
+          size: Math.floor(Math.random() * 40) + 10, // Size between 10-50%
+          position: positions[i % positions.length],
+          delay: Math.random() * 5 // Random animation delay
+        });
+      }
+      
+      setPatches(newPatches);
+    };
+    
+    generatePatches();
+  }, []);
 
   useEffect(() => {
     if (!active) {
@@ -17,8 +45,7 @@ const FogEffect: React.FC<FogEffectProps> = ({ active, intensity }) => {
     }
 
     // Calculate fog opacity based on intensity
-    // Max opacity 0.5 to ensure the UI remains visible
-    const fogOpacity = Math.min(0.5, intensity / 200);
+    const fogOpacity = Math.min(1, intensity / 100);
     setOpacity(fogOpacity);
     
   }, [active, intensity]);
@@ -26,13 +53,19 @@ const FogEffect: React.FC<FogEffectProps> = ({ active, intensity }) => {
   if (!active) return null;
 
   return (
-    <div 
-      className="fog-container"
-      style={{ opacity }}
-    >
-      <div className="fog-layer fog-layer-1"></div>
-      <div className="fog-layer fog-layer-2"></div>
-      <div className="fog-layer fog-layer-3"></div>
+    <div className="fog-container">
+      {patches.map(patch => (
+        <div 
+          key={patch.id}
+          className={`fog-patch fog-position-${patch.position}`}
+          style={{
+            opacity: opacity,
+            width: `${patch.size}%`,
+            height: `${patch.size}%`,
+            animationDelay: `${patch.delay}s`
+          }}
+        />
+      ))}
     </div>
   );
 };
@@ -62,7 +95,7 @@ export const FogEffectContainer: React.FC = () => {
 
   if (!weather) return null;
 
-  // Fog is active when humidity is very high (above 80%)
+  // Fog is active when humidity is high (above 80%)
   const fogIntensity = Math.min(100, weather.humidity);
   return <FogEffect active={weather.humidity > 80} intensity={fogIntensity} />;
 };
