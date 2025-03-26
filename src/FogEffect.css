@@ -7,46 +7,83 @@
   overflow: hidden;
   pointer-events: none;
   z-index: 800;
-  opacity: 0;
   transition: opacity 2s ease;
 }
 
-.fog-layer {
+.fog-patch {
   position: absolute;
-  width: 200%;
-  height: 100vh;
-  background: rgba(255, 255, 255, 0.5);
-  filter: blur(15px);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(8px);
+  border-radius: 50%;
+  animation: fogPulsate 8s ease-in-out infinite;
+  transition: opacity 2s ease;
 }
 
-.fog-layer-1 {
-  animation: fogAnimation 60s linear infinite;
+/* Position classes for fog patches */
+.fog-position-top-left {
+  top: -20%;
+  left: -20%;
+  animation: fogDrift 30s ease-in-out infinite alternate;
 }
 
-.fog-layer-2 {
-  animation: fogAnimation 40s linear infinite reverse;
-  opacity: 0.5;
+.fog-position-top-right {
+  top: -20%;
+  right: -20%;
+  animation: fogDrift 25s ease-in-out infinite alternate-reverse;
 }
 
-.fog-layer-3 {
-  animation: fogAnimation-alt 50s linear infinite;
-  opacity: 0.3;
+.fog-position-bottom-left {
+  bottom: -20%;
+  left: -20%;
+  animation: fogDrift 35s ease-in-out infinite alternate;
 }
 
-@keyframes fogAnimation {
+.fog-position-bottom-right {
+  bottom: -20%;
+  right: -20%;
+  animation: fogDrift 28s ease-in-out infinite alternate-reverse;
+}
+
+.fog-position-top-center {
+  top: -30%;
+  left: 30%;
+  animation: fogDrift 32s ease-in-out infinite alternate;
+}
+
+.fog-position-bottom-center {
+  bottom: -30%;
+  left: 30%;
+  animation: fogDrift 33s ease-in-out infinite alternate-reverse;
+}
+
+.fog-position-left-center {
+  left: -30%;
+  top: 30%;
+  animation: fogDrift 26s ease-in-out infinite alternate;
+}
+
+.fog-position-right-center {
+  right: -30%;
+  top: 30%;
+  animation: fogDrift 29s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes fogPulsate {
+  0%, 100% {
+    transform: scale(1);
+    filter: blur(8px);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: blur(10px);
+  }
+}
+
+@keyframes fogDrift {
   0% {
-    transform: translateX(-50%);
+    transform: translate(0, 0);
   }
   100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes fogAnimation-alt {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
+    transform: translate(10%, 10%);
   }
 }
