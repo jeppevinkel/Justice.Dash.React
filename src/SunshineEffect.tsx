@@ -17,7 +17,7 @@ const SunshineEffect: React.FC<SunshineEffectProps> = ({ active, intensity }) =>
     }
 
     // Calculate glow intensity based on temperature intensity
-    const calculatedIntensity = Math.min(0.6, intensity / 100); // Max 0.6 opacity for visibility
+    const calculatedIntensity = Math.min(0.9, intensity / 100); // Max 0.9 opacity for better visibility
     setGlowIntensity(calculatedIntensity);
     
   }, [active, intensity]);
@@ -30,12 +30,12 @@ const SunshineEffect: React.FC<SunshineEffectProps> = ({ active, intensity }) =>
         className="sun" 
         style={{ 
           opacity: glowIntensity,
-          boxShadow: `0 0 ${50 + intensity}px ${30 + intensity / 2}px rgba(255, 220, 80, ${glowIntensity})` 
+          boxShadow: `0 0 ${80 + intensity}px ${50 + intensity / 1.5}px rgba(255, 220, 80, ${glowIntensity})` 
         }}
       ></div>
       <div 
         className="glow-overlay" 
-        style={{ opacity: glowIntensity * 0.3 }}
+        style={{ opacity: glowIntensity * 0.5 }}
       ></div>
     </div>
   );
