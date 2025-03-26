@@ -37,8 +37,8 @@ export const WeatherEffects: React.FC = () => {
   // Wind effect (based on humidity as a proxy)
   const windIntensity = Math.min(100, weather.humidity);
   
-  // Fog effect (based on high humidity)
-  const fogIntensity = Math.min(100, weather.humidity);
+  // Fog effect (based on high humidity, scaled down for less intrusiveness)
+  const fogIntensity = Math.min(85, weather.humidity * 0.85);
   
   // Sunshine effect (based on temperature when it's not raining)
   const sunIntensity = Math.min(100, (weather.temperature - 15) * 10); // Scale from 15-25°C to 0-100
@@ -57,7 +57,7 @@ export const WeatherEffects: React.FC = () => {
       />
       
       <FogEffect 
-        active={weather.humidity > 80} 
+        active={weather.humidity > 85} 
         intensity={fogIntensity}
       />
       

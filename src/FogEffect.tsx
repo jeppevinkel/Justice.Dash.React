@@ -17,8 +17,8 @@ const FogEffect: React.FC<FogEffectProps> = ({ active, intensity }) => {
     }
 
     // Calculate fog opacity based on intensity
-    // Max opacity 0.5 to ensure the UI remains visible
-    const fogOpacity = Math.min(0.5, intensity / 200);
+    // Max opacity 0.3 to ensure the UI remains more visible
+    const fogOpacity = Math.min(0.3, intensity / 300);
     setOpacity(fogOpacity);
     
   }, [active, intensity]);
@@ -62,9 +62,9 @@ export const FogEffectContainer: React.FC = () => {
 
   if (!weather) return null;
 
-  // Fog is active when humidity is very high (above 80%)
-  const fogIntensity = Math.min(100, weather.humidity);
-  return <FogEffect active={weather.humidity > 80} intensity={fogIntensity} />;
+  // Fog is active when humidity is very high (above 85%)
+  const fogIntensity = Math.min(85, weather.humidity * 0.85);
+  return <FogEffect active={weather.humidity > 85} intensity={fogIntensity} />;
 };
 
 export default FogEffect;
