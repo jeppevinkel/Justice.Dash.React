@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../Clock.css';
 import ProgressBarADO from '../widgets/ProgressBarADO';
 import { filterMenu, getMenuList } from '../MenuItem';
 import WeatherEffects from '../WeatherEffects';
@@ -14,7 +13,6 @@ import {
     ThemeProvider,
     Typography,
 } from '@mui/material';
-import Clock from 'react-clock';
 import Window from '../Window';
 import staticPuzzle from '../images/static-puzzle.png';
 import { WeatherGraph } from '../WeatherGraph';
@@ -29,7 +27,6 @@ function Dashboard() {
         edi: { type: string, week: number, year: number, responsible: string }[],
         week: number
     }>({ mdm: [], edi: [], week: NaN });
-    const [clockValue, setClockValue] = useState(new Date());
     const [showBrunsviger, setShowBrunsviger] = useState(false);
     const [brunsvigerProgress, setBrunsvigerProgress] = useState(0);
     const [showBrunsvigerSoon, setShowBrunsvigerSoon] = useState(false);
@@ -95,13 +92,7 @@ function Dashboard() {
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
-        const interval = setInterval(() => setClockValue(new Date()), 1000);
 
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
 
     // useEffect(() => {
     //     const url = new URL(window.location.href);
@@ -370,17 +361,6 @@ function Dashboard() {
 
                             <Grid item container direction={'column'} height={'105vh'} paddingRight={2} gap={1.5}
                                 xs={'auto'} md={'auto'} lg={'auto'} className={'window glass'}>
-                                <div style={{
-                                    width: '100%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center'
-                                }}>
-                                    <Clock size={200} value={clockValue}
-                                        secondHandWidth={3} secondHandLength={75} secondHandOppositeLength={25}
-                                        minuteHandWidth={6} minuteHandLength={80} minuteHandOppositeLength={20}
-                                        hourHandWidth={8} hourHandLength={60} hourHandOppositeLength={20} />
-                                </div>
                                 {!isNaN(surveillance.week) && <div>
                                     <fieldset style={{ backgroundColor: 'white', textAlign: 'center', fontSize: '24px' }}>
                                         <legend style={{ fontSize: '16px' }}>Uge nummer</legend>
