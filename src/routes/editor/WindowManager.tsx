@@ -43,14 +43,7 @@ function WindowManager() {
             isFocused: openWindows[openWindows.length - 1] === 'modifier-editor',
             zIndex: openWindows.indexOf('modifier-editor') + 1,
         },
-        {
-            id: 'progress-editor',
-            title: 'ADO Progress Editor',
-            component: <ProgressAdoEditor progressType={ProgressType.azureDevOps}/>,
-            isMinimized: !openWindows.includes('progress-editor'),
-            isFocused: openWindows[openWindows.length - 1] === 'progress-editor',
-            zIndex: openWindows.indexOf('progress-editor') + 1,
-        },
+
         {
             id: 'progress-editor-gh',
             title: 'GitHub Progress Editor',
