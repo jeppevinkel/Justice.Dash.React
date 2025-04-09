@@ -19,9 +19,6 @@ function ProgressbarADO(props: Props) {
     const interval = setInterval(loadProgress, 10000);
 
     switch (props.progressType) {
-      case ProgressType.azureDevOps:
-        setTitle(<b>Azure DevOps projekter<br/>importeret til terraform</b>);
-        break;
       case ProgressType.github:
         setTitle(<b>Repositories<br/>migreret til GitHub</b>);
         break;
