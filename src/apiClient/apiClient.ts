@@ -64,7 +64,6 @@ export interface ProgressStatus {
 }
 
 export enum ProgressType {
-    azureDevOps = 'ProgressAdo',
     github = 'ProgressGh'
 }
 

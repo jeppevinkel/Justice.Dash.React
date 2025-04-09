@@ -393,7 +393,6 @@ function Dashboard() {
                                     <img width={'200px'} src={staticPuzzle} alt={'Pelican puzzle'} />
                                 </div>
 
-                                <ProgressBarADO progressType={ProgressType.azureDevOps} />
                                 <ProgressBarADO progressType={ProgressType.github} />
                             </Grid>
                         </Grid>

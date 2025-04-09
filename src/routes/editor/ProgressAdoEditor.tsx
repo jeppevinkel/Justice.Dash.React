@@ -18,10 +18,7 @@ function ProgressAdoEditor(props: Props) {
         loadProgress();
 
         switch(props.progressType) {
-            case ProgressType.azureDevOps:
-                setTitle(<>ADO Progress Settings</>);
-                break;
-            case ProgressType.azureDevOps:
+            case ProgressType.github:
                 setTitle(<>GitHub Progress Settings</>);
                 break;
         }
