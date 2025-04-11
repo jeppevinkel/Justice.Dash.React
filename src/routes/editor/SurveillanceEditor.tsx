@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MenuApiClient, SurveillanceEntry, SurveillanceEntryCreate } from '../../apiClient/apiClient';
-import '../../types/date.d.ts';
+import { getWeekNumber } from '../../utils/dateUtils';
 
 function SurveillanceEditor() {
     const [surveillanceEntries, setSurveillanceEntries] = useState<SurveillanceEntry[]>([]);
@@ -11,7 +11,7 @@ function SurveillanceEditor() {
     const [showNewEntryForm, setShowNewEntryForm] = useState(false);
     const [newEntry, setNewEntry] = useState<SurveillanceEntryCreate>({
         type: 'MDM',
-        week: new Date().getWeek(),
+        week: getWeekNumber(new Date()),
         year: new Date().getFullYear(),
         responsible: ''
     });
@@ -21,14 +21,7 @@ function SurveillanceEditor() {
     
     const apiClient = new MenuApiClient('/api');
 
-    // Get week number extension for Date
-    Date.prototype.getWeek = function() {
-        const date = new Date(this.getTime());
-        date.setHours(0, 0, 0, 0);
-        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
-        const week1 = new Date(date.getFullYear(), 0, 4);
-        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
-    };
+
 
     const fetchSurveillanceEntries = async () => {
         setLoading(true);
@@ -55,7 +48,7 @@ function SurveillanceEditor() {
             setShowNewEntryForm(false);
             setNewEntry({
                 type: 'MDM',
-                week: new Date().getWeek(),
+                week: getWeekNumber(new Date()),
                 year: new Date().getFullYear(),
                 responsible: ''
             });
@@ -103,7 +96,7 @@ function SurveillanceEditor() {
         setShowNewEntryForm(false);
         setNewEntry({
             type: 'MDM',
-            week: new Date().getWeek(),
+            week: getWeekNumber(new Date()),
             year: new Date().getFullYear(),
             responsible: ''
         });
