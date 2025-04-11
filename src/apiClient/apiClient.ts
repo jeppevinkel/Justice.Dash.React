@@ -80,6 +80,29 @@ export interface WeatherData {
     lastUpdate: string;
 }
 
+export interface SurveillanceEntry {
+    id: string;
+    type: string;
+    week: number;
+    year: number;
+    responsible: string;
+}
+
+export interface SurveillanceEntryCreate {
+    type: string;
+    week: number;
+    year: number;
+    responsible: string;
+}
+
+export interface SurveillanceEntryUpdate {
+    id: string;
+    type: string;
+    week: number;
+    year: number;
+    responsible: string;
+}
+
 export class MenuApiClient {
     private baseUrl: string;
 
@@ -161,5 +184,41 @@ export class MenuApiClient {
             body: JSON.stringify(update),
         });
         return response.json();
+    }
+
+    async getSurveillanceEntries(full: boolean = false): Promise<SurveillanceEntry[]> {
+        const response = await fetch(`${this.baseUrl}/surveillance${full ? '?full=true' : ''}`);
+        return response.json();
+    }
+
+    async createSurveillanceEntry(entry: SurveillanceEntryCreate): Promise<SurveillanceEntry> {
+        const response = await fetch(`${this.baseUrl}/surveillance/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(entry),
+        });
+        return response.json();
+    }
+
+    async updateSurveillanceEntry(id: string, entry: SurveillanceEntryUpdate): Promise<SurveillanceEntry> {
+        const response = await fetch(`${this.baseUrl}/surveillance/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(entry),
+        });
+        return response.json();
+    }
+
+    async deleteSurveillanceEntry(id: string): Promise<void> {
+        await fetch(`${this.baseUrl}/surveillance/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
     }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { MenuApiClient, SurveillanceEntry, SurveillanceEntryCreate } from '../../apiClient/apiClient';
 import '../../types/date.d.ts';
 
-function Surveillance() {
+function SurveillanceEditor() {
     const [surveillanceEntries, setSurveillanceEntries] = useState<SurveillanceEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -114,7 +114,7 @@ function Surveillance() {
     }
 
     return (
-        <div className="surveillance-container" style={{ padding: '20px' }}>
+        <div className="surveillance-editor" style={{ padding: '15px', height: '100%', overflow: 'auto' }}>
             <h2>Surveillance Schedule</h2>
             
             {error && (
@@ -134,10 +134,10 @@ function Surveillance() {
             
             {/* New Entry Form */}
             {showNewEntryForm && (
-                <div className="new-entry-form" style={{ marginBottom: '30px', padding: '15px', border: '1px solid #ccc' }}>
-                    <h3>New Surveillance Entry</h3>
+                <div className="window" style={{ marginBottom: '20px', padding: '10px' }}>
+                    <div className="window-title">New Surveillance Entry</div>
                     <div className="field-row" style={{ marginBottom: '10px' }}>
-                        <label style={{ marginRight: '10px', width: '120px', display: 'inline-block' }}>Type:</label>
+                        <label style={{ marginRight: '10px', width: '100px', display: 'inline-block' }}>Type:</label>
                         <select 
                             value={newEntry.type}
                             onChange={(e) => setNewEntry({...newEntry, type: e.target.value})}
@@ -148,7 +148,7 @@ function Surveillance() {
                     </div>
                     
                     <div className="field-row" style={{ marginBottom: '10px' }}>
-                        <label style={{ marginRight: '10px', width: '120px', display: 'inline-block' }}>Week:</label>
+                        <label style={{ marginRight: '10px', width: '100px', display: 'inline-block' }}>Week:</label>
                         <input 
                             type="number" 
                             value={newEntry.week}
@@ -157,7 +157,7 @@ function Surveillance() {
                     </div>
                     
                     <div className="field-row" style={{ marginBottom: '10px' }}>
-                        <label style={{ marginRight: '10px', width: '120px', display: 'inline-block' }}>Year:</label>
+                        <label style={{ marginRight: '10px', width: '100px', display: 'inline-block' }}>Year:</label>
                         <input 
                             type="number" 
                             value={newEntry.year}
@@ -166,7 +166,7 @@ function Surveillance() {
                     </div>
                     
                     <div className="field-row" style={{ marginBottom: '10px' }}>
-                        <label style={{ marginRight: '10px', width: '120px', display: 'inline-block' }}>Responsible:</label>
+                        <label style={{ marginRight: '10px', width: '100px', display: 'inline-block' }}>Responsible:</label>
                         <input 
                             type="text" 
                             value={newEntry.responsible}
@@ -182,15 +182,16 @@ function Surveillance() {
             )}
             
             {/* Entries Table */}
-            <div className="entries-table">
+            <div className="window" style={{ flex: 1 }}>
+                <div className="window-title">Surveillance Entries</div>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                         <tr>
-                            <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #ddd' }}>Type</th>
-                            <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #ddd' }}>Week</th>
-                            <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #ddd' }}>Year</th>
-                            <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #ddd' }}>Responsible</th>
-                            <th style={{ textAlign: 'center', padding: '8px', borderBottom: '1px solid #ddd' }}>Actions</th>
+                            <th style={{ textAlign: 'left', padding: '6px', borderBottom: '1px solid #ddd' }}>Type</th>
+                            <th style={{ textAlign: 'left', padding: '6px', borderBottom: '1px solid #ddd' }}>Week</th>
+                            <th style={{ textAlign: 'left', padding: '6px', borderBottom: '1px solid #ddd' }}>Year</th>
+                            <th style={{ textAlign: 'left', padding: '6px', borderBottom: '1px solid #ddd' }}>Responsible</th>
+                            <th style={{ textAlign: 'center', padding: '6px', borderBottom: '1px solid #ddd' }}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -199,7 +200,7 @@ function Surveillance() {
                                 {editingEntry && editingEntry.id === entry.id ? (
                                     // Edit Mode
                                     <>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
                                             <select 
                                                 value={editingEntry.type}
                                                 onChange={(e) => setEditingEntry({...editingEntry, type: e.target.value})}
@@ -208,7 +209,7 @@ function Surveillance() {
                                                 <option value="EDI">EDI</option>
                                             </select>
                                         </td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
                                             <input 
                                                 type="number" 
                                                 value={editingEntry.week}
@@ -216,7 +217,7 @@ function Surveillance() {
                                                 style={{ width: '60px' }}
                                             />
                                         </td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
                                             <input 
                                                 type="number" 
                                                 value={editingEntry.year}
@@ -224,14 +225,14 @@ function Surveillance() {
                                                 style={{ width: '80px' }}
                                             />
                                         </td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
                                             <input 
                                                 type="text" 
                                                 value={editingEntry.responsible}
                                                 onChange={(e) => setEditingEntry({...editingEntry, responsible: e.target.value})}
                                             />
                                         </td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
                                             <button onClick={handleUpdateEntry}>Save</button>
                                             <button onClick={handleCancelEdit} style={{ marginLeft: '5px' }}>Cancel</button>
                                         </td>
@@ -239,11 +240,11 @@ function Surveillance() {
                                 ) : (
                                     // View Mode
                                     <>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{entry.type}</td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{entry.week}</td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{entry.year}</td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{entry.responsible}</td>
-                                        <td style={{ padding: '8px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.type}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.week}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.year}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.responsible}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
                                             <button onClick={() => handleEditClick(entry)}>Edit</button>
                                             <button 
                                                 onClick={() => handleDeleteEntry(entry.id)} 
@@ -259,7 +260,7 @@ function Surveillance() {
                         
                         {surveillanceEntries.length === 0 && (
                             <tr>
-                                <td colSpan={5} style={{ textAlign: 'center', padding: '20px' }}>
+                                <td colSpan={5} style={{ textAlign: 'center', padding: '15px' }}>
                                     No surveillance entries found. Create a new one!
                                 </td>
                             </tr>
@@ -271,4 +272,4 @@ function Surveillance() {
     );
 }
 
-export default Surveillance;
+export default SurveillanceEditor;
