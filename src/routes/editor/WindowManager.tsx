@@ -3,6 +3,7 @@ import {useSearchParams} from 'react-router-dom';
 import MenuEditor from './MenuEditor';
 import ModifierEditor from './ModifierEditor';
 import ProgressAdoEditor from './ProgressAdoEditor';
+import SurveillanceEditor from './SurveillanceEditor';
 import Window from '../../Window';
 import { ProgressType } from '../../apiClient/apiClient';
 
@@ -43,7 +44,6 @@ function WindowManager() {
             isFocused: openWindows[openWindows.length - 1] === 'modifier-editor',
             zIndex: openWindows.indexOf('modifier-editor') + 1,
         },
-
         {
             id: 'progress-editor-gh',
             title: 'GitHub Progress Editor',
@@ -51,6 +51,14 @@ function WindowManager() {
             isMinimized: !openWindows.includes('progress-editor-gh'),
             isFocused: openWindows[openWindows.length - 1] === 'progress-editor-gh',
             zIndex: openWindows.indexOf('progress-editor-gh') + 1,
+        },
+        {
+            id: 'surveillance-editor',
+            title: 'Surveillance Editor',
+            component: <SurveillanceEditor/>,
+            isMinimized: !openWindows.includes('surveillance-editor'),
+            isFocused: openWindows[openWindows.length - 1] === 'surveillance-editor',
+            zIndex: openWindows.indexOf('surveillance-editor') + 1,
         }
     ]);
     const [nextZIndex, setNextZIndex] = useState(2);
@@ -125,7 +133,7 @@ function WindowManager() {
     return (
         <div style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
             {/* Windows Area */}
-            <div style={{flex: 1, position: 'relative', overflow: 'hidden', backgroundColor: '#008080'}}>
+            <div style={{flex: 1, position: 'relative', overflow: 'auto', backgroundColor: '#008080'}}>
                 {windows.map(window => (
                     !window.isMinimized && (<>
                         <Window key={window.id}
@@ -135,7 +143,10 @@ function WindowManager() {
                                     top: '20px',
                                     left: '20px',
                                     zIndex: window.zIndex,
-                                    margin: 0
+                                    margin: 0,
+                                    width: '80%',
+                                    maxWidth: '1800px',
+                                    maxHeight: '90%'
                                 }}
                                 focus={window.isFocused}
                                 onClick={() => bringToFront(window.id)}
