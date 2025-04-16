@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { MenuApiClient, SurveillanceEntry, SurveillanceEntryCreate } from '../../apiClient/apiClient';
+import { MenuApiClient, SurveillanceEntry, SurveillanceEntryCreate, SurveillanceResponse } from '../../apiClient/apiClient';
 import { getWeekNumber } from '../../utils/dateUtils';
 
 function SurveillanceEditor() {
-    const [surveillanceEntries, setSurveillanceEntries] = useState<SurveillanceEntry[]>([]);
+    const [surveillanceEntries, setSurveillanceEntries] = useState<SurveillanceResponse>({EDI: [], MDM: []});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     
@@ -27,12 +27,16 @@ function SurveillanceEditor() {
         setLoading(true);
         try {
             const entries = await apiClient.getSurveillanceEntries(true);
-            setSurveillanceEntries(Array.isArray(entries) ? entries : []);
-            setError(null);
+            if (Array.isArray(entries.MDM) && Array.isArray(entries.EDI)) {
+                setSurveillanceEntries(entries);
+                setError(null);
+            } else {
+                setError("Surveillance response has invalid format")
+            }
         } catch (err) {
             setError('Failed to fetch surveillance entries');
             console.error(err);
-            setSurveillanceEntries([]);
+            setSurveillanceEntries({MDM: [], EDI: []});
         } finally {
             setLoading(false);
         }
@@ -103,7 +107,7 @@ function SurveillanceEditor() {
         });
     };
 
-    if (loading && (!Array.isArray(surveillanceEntries) || surveillanceEntries.length === 0)) {
+    if (loading && (surveillanceEntries.MDM.length === 0 && surveillanceEntries.EDI.length === 0)) {
         return <div>Loading surveillance entries...</div>;
     }
 
@@ -189,7 +193,7 @@ function SurveillanceEditor() {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.isArray(surveillanceEntries) && surveillanceEntries.map((entry) => (
+                        {Array.isArray(surveillanceEntries.MDM) && surveillanceEntries.MDM.map((entry) => (
                             <tr key={entry.id}>
                                 {editingEntry && editingEntry.id === entry.id ? (
                                     // Edit Mode

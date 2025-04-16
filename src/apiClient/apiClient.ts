@@ -80,6 +80,11 @@ export interface WeatherData {
     lastUpdate: string;
 }
 
+export interface SurveillanceResponse {
+    MDM: SurveillanceEntry[];
+    EDI: SurveillanceEntry[];
+}
+
 export interface SurveillanceEntry {
     id: string;
     type: string;
@@ -186,7 +191,7 @@ export class MenuApiClient {
         return response.json();
     }
 
-    async getSurveillanceEntries(full: boolean = false): Promise<SurveillanceEntry[]> {
+    async getSurveillanceEntries(full: boolean = false): Promise<SurveillanceResponse> {
         const response = await fetch(`${this.baseUrl}/surveillance${full ? '?full=true' : ''}`);
         return response.json();
     }
