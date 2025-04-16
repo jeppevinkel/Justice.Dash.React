@@ -112,7 +112,7 @@ function SurveillanceEditor() {
     }
 
     return (
-        <div className="surveillance-editor" style={{ padding: '15px', height: '100%', overflow: 'auto' }}>
+        <div className="surveillance-editor" style={{ padding: '15px', maxHeight: 'calc(100vh - 130px)', overflow: 'auto' }}>
             <h2>Surveillance Schedule</h2>
             
             {error && (
@@ -193,6 +193,7 @@ function SurveillanceEditor() {
                         </tr>
                     </thead>
                     <tbody>
+                        {/* MDM Entries */}
                         {Array.isArray(surveillanceEntries.MDM) && surveillanceEntries.MDM.map((entry) => (
                             <tr key={entry.id}>
                                 {editingEntry && editingEntry.id === entry.id ? (
@@ -256,7 +257,71 @@ function SurveillanceEditor() {
                             </tr>
                         ))}
                         
-                        {(!Array.isArray(surveillanceEntries) || surveillanceEntries.length === 0) && (
+                        {/* EDI Entries */}
+                        {Array.isArray(surveillanceEntries.EDI) && surveillanceEntries.EDI.map((entry) => (
+                            <tr key={entry.id}>
+                                {editingEntry && editingEntry.id === entry.id ? (
+                                    // Edit Mode
+                                    <>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
+                                            <select 
+                                                value={editingEntry.type}
+                                                onChange={(e) => setEditingEntry({...editingEntry, type: e.target.value})}
+                                            >
+                                                <option value="MDM">MDM</option>
+                                                <option value="EDI">EDI</option>
+                                            </select>
+                                        </td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
+                                            <input 
+                                                type="number" 
+                                                value={editingEntry.week}
+                                                onChange={(e) => setEditingEntry({...editingEntry, week: parseInt(e.target.value)})}
+                                                style={{ width: '60px' }}
+                                            />
+                                        </td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
+                                            <input 
+                                                type="number" 
+                                                value={editingEntry.year}
+                                                onChange={(e) => setEditingEntry({...editingEntry, year: parseInt(e.target.value)})}
+                                                style={{ width: '80px' }}
+                                            />
+                                        </td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>
+                                            <input 
+                                                type="text" 
+                                                value={editingEntry.responsible}
+                                                onChange={(e) => setEditingEntry({...editingEntry, responsible: e.target.value})}
+                                            />
+                                        </td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
+                                            <button onClick={handleUpdateEntry}>Save</button>
+                                            <button onClick={handleCancelEdit} style={{ marginLeft: '5px' }}>Cancel</button>
+                                        </td>
+                                    </>
+                                ) : (
+                                    // View Mode
+                                    <>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.type}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.week}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.year}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.responsible}</td>
+                                        <td style={{ padding: '6px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
+                                            <button onClick={() => handleEditClick(entry)}>Edit</button>
+                                            <button 
+                                                onClick={() => handleDeleteEntry(entry.id)} 
+                                                style={{ marginLeft: '5px' }}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </>
+                                )}
+                            </tr>
+                        ))}
+                        
+                        {(!Array.isArray(surveillanceEntries.MDM) || surveillanceEntries.MDM.length === 0) && (
                             <tr>
                                 <td colSpan={5} style={{ textAlign: 'center', padding: '15px' }}>
                                     No surveillance entries found. Create a new one!

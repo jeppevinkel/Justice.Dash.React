@@ -133,7 +133,7 @@ function WindowManager() {
     return (
         <div style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
             {/* Windows Area */}
-            <div style={{flex: 1, position: 'relative', overflow: 'hidden', backgroundColor: '#008080'}}>
+            <div style={{flex: 1, position: 'relative', overflow: 'auto', backgroundColor: '#008080'}}>
                 {windows.map(window => (
                     !window.isMinimized && (<>
                         <Window key={window.id}
@@ -143,7 +143,10 @@ function WindowManager() {
                                     top: '20px',
                                     left: '20px',
                                     zIndex: window.zIndex,
-                                    margin: 0
+                                    margin: 0,
+                                    width: '80%',
+                                    maxWidth: '1000px',
+                                    maxHeight: '90%'
                                 }}
                                 focus={window.isFocused}
                                 onClick={() => bringToFront(window.id)}
