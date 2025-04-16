@@ -27,11 +27,12 @@ function SurveillanceEditor() {
         setLoading(true);
         try {
             const entries = await apiClient.getSurveillanceEntries(true);
-            setSurveillanceEntries(entries);
+            setSurveillanceEntries(Array.isArray(entries) ? entries : []);
             setError(null);
         } catch (err) {
             setError('Failed to fetch surveillance entries');
             console.error(err);
+            setSurveillanceEntries([]);
         } finally {
             setLoading(false);
         }
@@ -102,7 +103,7 @@ function SurveillanceEditor() {
         });
     };
 
-    if (loading && surveillanceEntries.length === 0) {
+    if (loading && (!Array.isArray(surveillanceEntries) || surveillanceEntries.length === 0)) {
         return <div>Loading surveillance entries...</div>;
     }
 
@@ -188,7 +189,7 @@ function SurveillanceEditor() {
                         </tr>
                     </thead>
                     <tbody>
-                        {surveillanceEntries.map((entry) => (
+                        {Array.isArray(surveillanceEntries) && surveillanceEntries.map((entry) => (
                             <tr key={entry.id}>
                                 {editingEntry && editingEntry.id === entry.id ? (
                                     // Edit Mode
@@ -251,7 +252,7 @@ function SurveillanceEditor() {
                             </tr>
                         ))}
                         
-                        {surveillanceEntries.length === 0 && (
+                        {(!Array.isArray(surveillanceEntries) || surveillanceEntries.length === 0) && (
                             <tr>
                                 <td colSpan={5} style={{ textAlign: 'center', padding: '15px' }}>
                                     No surveillance entries found. Create a new one!
