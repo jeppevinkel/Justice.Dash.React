@@ -30,3 +30,28 @@ code {
 .glass-pane::after {
     backdrop-filter: blur(4px);
 }
+
+/* Styling for tabs with NavLink */
+.tabs menu a {
+  display: inline-block;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  background: var(--button-background);
+  border: 1px solid var(--button-shadow);
+  border-bottom: 0;
+  margin-right: 0.5em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+
+.tabs menu a:hover {
+  background: var(--button-highlight);
+}
+
+.tabs menu a.active {
+  background: var(--window-background);
+  border-bottom: 1px solid var(--window-background);
+  margin-bottom: -1px;
+}
