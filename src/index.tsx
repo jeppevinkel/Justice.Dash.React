@@ -8,9 +8,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import Surveillance from './routes/config/Surveillance';
 import Root from './routes/Root';
-import Config from './routes/config/Config';
 import Menu from './routes/Menu';
 import MenuImage from './routes/MenuImage';
 import ConstructionImage from './routes/ConstructionImage';
@@ -26,16 +24,6 @@ const router = createBrowserRouter([
                 path: '/:teamName?',
                 index: true,
                 element: <Dashboard/>,
-            },
-            {
-                path: 'config',
-                element: <Config/>,
-                children: [
-                    {
-                        path: 'surveillance',
-                        element: <Surveillance />,
-                    }
-                ]
             },
             {
                 path: 'menu',

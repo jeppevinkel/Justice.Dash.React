@@ -26,7 +26,11 @@ function Window({title, children, sx, glass = true, maximized, fullscreen, minim
                     <button aria-label="Close" onClick={() => {if (closeCallback) closeCallback()}}></button>
                 </div>
             </div>
-            <div className="window-body has-space has-scrollbar" style={{flex: fullscreen ? '1 1 auto' : ''}}>
+            <div className="window-body has-space has-scrollbar" style={{
+                flex: fullscreen ? '1 1 auto' : '', 
+                maxHeight: fullscreen ? '100%' : 'calc(100vh - 100px)',
+                overflow: 'auto'
+            }}>
                 {children}
             </div>
         </div>
