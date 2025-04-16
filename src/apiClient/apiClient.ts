@@ -188,7 +188,9 @@ export class MenuApiClient {
 
     async getSurveillanceEntries(full: boolean = false): Promise<SurveillanceEntry[]> {
         const response = await fetch(`${this.baseUrl}/surveillance${full ? '?full=true' : ''}`);
-        return response.json();
+        const data = await response.json();
+        // Ensure we always return an array
+        return Array.isArray(data) ? data : (Object.values(data).filter(Boolean) as SurveillanceEntry[]);
     }
 
     async createSurveillanceEntry(entry: SurveillanceEntryCreate): Promise<SurveillanceEntry> {

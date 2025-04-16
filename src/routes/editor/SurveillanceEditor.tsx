@@ -26,8 +26,19 @@ function SurveillanceEditor() {
     const fetchSurveillanceEntries = async () => {
         setLoading(true);
         try {
-            const entries = await apiClient.getSurveillanceEntries(true);
-            setSurveillanceEntries(Array.isArray(entries) ? entries : []);
+            const response = await apiClient.getSurveillanceEntries(true);
+            // Make sure we always set an array, regardless of what the API returns
+            if (Array.isArray(response)) {
+                setSurveillanceEntries(response);
+            } else if (response && typeof response === 'object') {
+                // If it's an object with numbered keys or some other iterable format
+                const entriesArray = Object.values(response).filter(entry => entry !== null);
+                setSurveillanceEntries(Array.isArray(entriesArray) ? entriesArray : []);
+            } else {
+                // If we got something unexpected
+                console.warn('Unexpected response format from API:', response);
+                setSurveillanceEntries([]);
+            }
             setError(null);
         } catch (err) {
             setError('Failed to fetch surveillance entries');
@@ -103,9 +114,12 @@ function SurveillanceEditor() {
         });
     };
 
-    if (loading && (!Array.isArray(surveillanceEntries) || surveillanceEntries.length === 0)) {
+    if (loading) {
         return <div>Loading surveillance entries...</div>;
     }
+
+    // Ensure surveillanceEntries is always an array
+    const entriesArray = Array.isArray(surveillanceEntries) ? surveillanceEntries : [];
 
     return (
         <div className="surveillance-editor" style={{ padding: '15px', height: '100%', overflow: 'auto' }}>
@@ -189,7 +203,7 @@ function SurveillanceEditor() {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.isArray(surveillanceEntries) && surveillanceEntries.map((entry) => (
+                        {entriesArray.map((entry) => (
                             <tr key={entry.id}>
                                 {editingEntry && editingEntry.id === entry.id ? (
                                     // Edit Mode
@@ -252,7 +266,7 @@ function SurveillanceEditor() {
                             </tr>
                         ))}
                         
-                        {(!Array.isArray(surveillanceEntries) || surveillanceEntries.length === 0) && (
+                        {entriesArray.length === 0 && (
                             <tr>
                                 <td colSpan={5} style={{ textAlign: 'center', padding: '15px' }}>
                                     No surveillance entries found. Create a new one!
