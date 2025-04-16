@@ -111,27 +111,3 @@ button:disabled {
 .modifier-button:active {
     background: linear-gradient(to bottom, #dfdfdf 0%, #fff 100%);
 }
-
-/* Surveillance editor styles */
-.surveillance-editor table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.surveillance-editor table th,
-.surveillance-editor table td {
-    padding: 6px;
-    border-bottom: 1px solid #ddd;
-    word-break: break-word;
-}
-
-.surveillance-editor .window {
-    max-height: calc(100vh - 150px);
-    overflow: auto;
-}
-
-.window-body {
-    max-height: calc(100vh - 100px);
-    overflow: auto;
-}

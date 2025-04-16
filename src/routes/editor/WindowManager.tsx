@@ -145,7 +145,7 @@ function WindowManager() {
                                     zIndex: window.zIndex,
                                     margin: 0,
                                     width: '80%',
-                                    maxWidth: '1000px',
+                                    maxWidth: '1800px',
                                     maxHeight: '90%'
                                 }}
                                 focus={window.isFocused}

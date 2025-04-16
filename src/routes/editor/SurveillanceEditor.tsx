@@ -112,7 +112,7 @@ function SurveillanceEditor() {
     }
 
     return (
-        <div className="surveillance-editor" style={{ padding: '15px', maxHeight: 'calc(100vh - 130px)', overflow: 'auto' }}>
+        <div className="surveillance-editor" style={{ padding: '15px', maxHeight: 'calc(80vh)', overflow: 'auto' }}>
             <h2>Surveillance Schedule</h2>
             
             {error && (
@@ -180,9 +180,8 @@ function SurveillanceEditor() {
             )}
             
             {/* Entries Table */}
-            <div className="window" style={{ flex: 1 }}>
-                <div className="window-title">Surveillance Entries</div>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div>
+                <table style={{ width: '100%', height: '100%', overflow: 'auto' }}>
                     <thead>
                         <tr>
                             <th style={{ textAlign: 'left', padding: '6px', borderBottom: '1px solid #ddd' }}>Type</th>
@@ -244,7 +243,7 @@ function SurveillanceEditor() {
                                         <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.year}</td>
                                         <td style={{ padding: '6px', borderBottom: '1px solid #ddd' }}>{entry.responsible}</td>
                                         <td style={{ padding: '6px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
-                                            <button onClick={() => handleEditClick(entry)}>Edit</button>
+                                        <button onClick={() => handleEditClick(entry)}>Edit</button>
                                             <button 
                                                 onClick={() => handleDeleteEntry(entry.id)} 
                                                 style={{ marginLeft: '5px' }}
