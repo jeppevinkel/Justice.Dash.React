@@ -354,7 +354,7 @@ function Dashboard() {
                                                 secondary={'Batch/EDI'} />}
                                         </Stack>
                                     </Window>}
-                                <Window title='Madbillede' maximizeCallback={() => navigate('/menu-image')}>
+                                <Window title={`Madbillede${menus[0]?.foodModifier ? ` (${menus[0].foodModifier.title})` : ''}`} maximizeCallback={() => navigate('/menu-image')}>
                                     <img width={'100%'} src={isVegan ? menus[0]?.veganizedImage?.path : menus[0]?.image?.path} alt={'Madbillede'} />
                                 </Window>
                                 <Stack direction={'row'}>
