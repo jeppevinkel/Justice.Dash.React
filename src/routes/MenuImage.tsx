@@ -28,7 +28,7 @@ function MenuImage() {
 
     return (
         <div style={{position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, backgroundImage: `url(${win7bg})`}}>
-            <Window title={'Madbillede'} maximized={true} fullscreen={true} sx={{
+            <Window title={`Madbillede${menus[0]?.foodModifier ? ` (${menus[0].foodModifier.title})` : ''}`} maximized={true} fullscreen={true} sx={{
                 margin: '24px',
                 height: 'calc(100vh - 48px)',
                 top: 0,
