@@ -3,7 +3,6 @@ import './Dashboard.css';
 import SurveillanceTeam from './components/widgets/SurveillanceTeam';
 import RecipeList from './components/widgets/RecipeList';
 import WeatherChart from './components/widgets/WeatherChart';
-import Clock from './components/widgets/Clock';
 import PhotoGallery from './components/widgets/PhotoGallery';
 import ImageGrid from './components/widgets/ImageGrid';
 import FullscreenModal from './components/modals/FullscreenModal';
@@ -12,6 +11,12 @@ import RecipeModal from './components/modals/RecipeModal';
 const Dashboard = () => {
   const [fullscreenImage, setFullscreenImage] = React.useState(null);
   const [selectedRecipe, setSelectedRecipe] = React.useState(null);
+  const [currentTime, setCurrentTime] = React.useState(new Date());
+
+  React.useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const openFullscreen = (imageSrc) => {
     setFullscreenImage(imageSrc);
@@ -36,7 +41,13 @@ const Dashboard = () => {
           <h1>Dashboard</h1>
         </div>
         <div className="header-actions">
-          <time>{new Date().toLocaleDateString('da-DK')}</time>
+          <div className="header-clock">
+            {currentTime.toLocaleTimeString('da-DK', { 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              second: '2-digit' 
+            })}
+          </div>
         </div>
       </header>
 
@@ -46,7 +57,7 @@ const Dashboard = () => {
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_white.png" alt="" className="widget-logo" />
-              <h2>📋 Overvågning Uge 41</h2>
+              <h2>Overvågning Uge 41</h2>
             </div>
             <span className="status-badge status-active">Aktiv</span>
           </div>
@@ -93,12 +104,6 @@ const Dashboard = () => {
           <div className="widget-content">
             <WeatherChart />
           </div>
-        </div>
-
-        {/* Clock Widget */}
-        <div className="widget widget-clock">
-          <Clock />
-          <div className="widget-subtitle">Uge nummer: 41</div>
         </div>
 
         {/* Stats Widget */}
