@@ -146,7 +146,12 @@ const Dashboard = () => {
       targetDate.setDate(targetDate.getDate() + 1);
     }
     
-    const targetDateString = targetDate.toISOString().split('T')[0];
+    // Format date as YYYY-MM-DD using local timezone (not UTC)
+    const year = targetDate.getFullYear();
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+    const day = String(targetDate.getDate()).padStart(2, '0');
+    const targetDateString = `${year}-${month}-${day}`;
+    
     const targetMenuItem = menuData.find(item => item.apiData.date === targetDateString);
     setFeaturedMenuItem(targetMenuItem || menuData[0]);
     
