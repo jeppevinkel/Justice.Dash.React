@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const RecipeModal = ({ recipe, onClose }) => {
   React.useEffect(() => {
@@ -45,43 +47,54 @@ const RecipeModal = ({ recipe, onClose }) => {
             </div>
 
             <div className="recipe-content">
-              {/* Ingredients */}
-              <section className="recipe-section">
-                <h3>Ingredienser:</h3>
-                {recipe.ingredients && recipe.ingredients.map((section, idx) => (
-                  <div key={idx} className="ingredient-group">
-                    <h4>{section.section}</h4>
-                    <ul>
-                      {section.items.map((item, i) => (
-                        <li key={i}>{item}</li>
+              {/* If recipe has markdown text, display it */}
+              {recipe.recipe && (!recipe.ingredients || recipe.ingredients.length === 0) ? (
+                <section className="recipe-section">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {recipe.recipe}
+                  </ReactMarkdown>
+                </section>
+              ) : (
+                <>
+                  {/* Ingredients */}
+                  <section className="recipe-section">
+                    <h3>Ingredienser:</h3>
+                    {recipe.ingredients && recipe.ingredients.map((section, idx) => (
+                      <div key={idx} className="ingredient-group">
+                        <h4>{section.section}</h4>
+                        <ul>
+                          {section.items.map((item, i) => (
+                            <li key={i}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </section>
+
+                  {/* Instructions */}
+                  <section className="recipe-section">
+                    <h3>Instruktioner:</h3>
+                    <ol className="instructions-list">
+                      {recipe.instructions && recipe.instructions.map((step, idx) => (
+                        <li key={idx}>
+                          <strong>{step.title}</strong>
+                          <ul>
+                            {step.steps.map((substep, i) => (
+                              <li key={i}>{substep}</li>
+                            ))}
+                          </ul>
+                        </li>
                       ))}
-                    </ul>
-                  </div>
-                ))}
-              </section>
+                    </ol>
+                  </section>
 
-              {/* Instructions */}
-              <section className="recipe-section">
-                <h3>Instruktioner:</h3>
-                <ol className="instructions-list">
-                  {recipe.instructions && recipe.instructions.map((step, idx) => (
-                    <li key={idx}>
-                      <strong>{step.title}</strong>
-                      <ul>
-                        {step.steps.map((substep, i) => (
-                          <li key={i}>{substep}</li>
-                        ))}
-                      </ul>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-
-              {/* Final note */}
-              {recipe.finalNote && (
-                <div className="recipe-note">
-                  <strong>{recipe.finalNote}</strong>
-                </div>
+                  {/* Final note */}
+                  {recipe.finalNote && (
+                    <div className="recipe-note">
+                      <strong>{recipe.finalNote}</strong>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

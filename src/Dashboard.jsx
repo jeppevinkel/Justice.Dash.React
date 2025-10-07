@@ -15,6 +15,9 @@ const Dashboard = () => {
   const [selectedRecipe, setSelectedRecipe] = React.useState(null);
   const [currentTime, setCurrentTime] = React.useState(new Date());
   const [domicileImages, setDomicileImages] = React.useState([]);
+  const [menuData, setMenuData] = React.useState([]);
+  const [featuredMenuItem, setFeaturedMenuItem] = React.useState(null);
+  const [filteredMenuData, setFilteredMenuData] = React.useState([]);
 
   React.useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -34,6 +37,62 @@ const Dashboard = () => {
         console.error('Error fetching domicile images:', error);
       });
   }, []);
+
+  React.useEffect(() => {
+    // Fetch menu data from API
+    fetch('/api/menu')
+      .then(response => response.json())
+      .then(data => {
+        // Transform API data to match the format expected by RecipeList and RecipeModal
+        const transformedMenu = data.map(item => {
+          // Parse the recipe markdown to extract ingredients and instructions
+          // For now, we'll store the full recipe as a single instruction
+          const recipeLines = item.recipe ? item.recipe.split('\n') : [];
+          
+          return {
+            id: item.id,
+            title: item.foodDisplayName || item.correctedFoodName || item.foodName,
+            day: item.day,
+            date: item.date.split('-').slice(1).join('/'), // Convert "2025-10-07" to "10/07"
+            icon: '🍽️', // Default icon, could be mapped based on foodContents
+            image: item.image?.path || '',
+            description: item.description || '',
+            recipe: item.recipe || '',
+            ingredients: [], // We'll store the raw recipe for now
+            instructions: [],
+            finalNote: '',
+            // Store additional API data for reference
+            apiData: item
+          };
+        });
+        
+        setMenuData(transformedMenu);
+      })
+      .catch(error => {
+        console.error('Error fetching menu data:', error);
+      });
+  }, []);
+
+  // Update featured menu item and filtered recipes based on current time (switch to tomorrow after 13:00)
+  React.useEffect(() => {
+    if (menuData.length === 0) return;
+    
+    const currentHour = currentTime.getHours();
+    
+    // If it's after 13:00 (1:00 PM), use tomorrow's date
+    const targetDate = new Date(currentTime);
+    if (currentHour >= 13) {
+      targetDate.setDate(targetDate.getDate() + 1);
+    }
+    
+    const targetDateString = targetDate.toISOString().split('T')[0];
+    const targetMenuItem = menuData.find(item => item.apiData.date === targetDateString);
+    setFeaturedMenuItem(targetMenuItem || menuData[0]);
+    
+    // Filter recipes to show only from target date onwards
+    const filtered = menuData.filter(item => item.apiData.date >= targetDateString);
+    setFilteredMenuData(filtered);
+  }, [currentTime, menuData]);
 
   const openFullscreen = (imageIndex) => {
     setFullscreenImageIndex(imageIndex);
@@ -113,7 +172,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="widget-content">
-            <RecipeList onRecipeClick={setSelectedRecipe} />
+            <RecipeList onRecipeClick={setSelectedRecipe} recipes={filteredMenuData} />
           </div>
         </div>
 
@@ -122,11 +181,15 @@ const Dashboard = () => {
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Madbillede (Outer Space)</h2>
+              <h2>Madbillede ({featuredMenuItem?.apiData?.foodModifier?.title || 'Outer Space'})</h2>
             </div>
           </div>
           <div className="widget-content widget-image">
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop" alt="Featured dish" />
+            {featuredMenuItem?.image ? (
+              <img src={featuredMenuItem.image} alt={featuredMenuItem.title} />
+            ) : (
+              <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop" alt="Featured dish" />
+            )}
           </div>
         </div>
 

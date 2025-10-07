@@ -837,7 +837,7 @@ body {
 .modal-content {
   background: var(--card-background);
   border-radius: var(--radius);
-  max-width: 1200px;
+  max-width: 95vw;
   width: 100%;
   max-height: 90vh;
   overflow: hidden;

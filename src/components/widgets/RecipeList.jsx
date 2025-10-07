@@ -1,7 +1,6 @@
 import React from 'react';
-import { recipes } from '../../data/recipesData';
 
-const RecipeList = ({ onRecipeClick }) => {
+const RecipeList = ({ onRecipeClick, recipes = [] }) => {
   return (
     <ul className="recipe-list">
       {recipes.slice(0, 8).map(recipe => (
