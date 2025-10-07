@@ -18,60 +18,121 @@ const Dashboard = () => {
   const [menuData, setMenuData] = React.useState([]);
   const [featuredMenuItem, setFeaturedMenuItem] = React.useState(null);
   const [filteredMenuData, setFilteredMenuData] = React.useState([]);
+  const [currentWeek, setCurrentWeek] = React.useState(null);
+  const [surveillanceStatus, setSurveillanceStatus] = React.useState({ text: 'Inaktiv', className: 'status-inactive' });
+
+  // Function to get the current week number
+  const getCurrentWeek = (date) => {
+    const tempDate = new Date(date.getTime());
+    tempDate.setHours(0, 0, 0, 0);
+    // Set to nearest Thursday: current date + 4 - current day number
+    tempDate.setDate(tempDate.getDate() + 4 - (tempDate.getDay() || 7));
+    const yearStart = new Date(tempDate.getFullYear(), 0, 1);
+    const weekNo = Math.ceil((((tempDate - yearStart) / 86400000) + 1) / 7);
+    return weekNo;
+  };
 
   React.useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now);
+      setCurrentWeek(getCurrentWeek(now));
+    };
+    
+    // Set initial values
+    updateTime();
+    
+    const timer = setInterval(updateTime, 1000);
     return () => clearInterval(timer);
   }, []);
 
   React.useEffect(() => {
     // Fetch domicile images from API
-    fetch('/api/domicile')
-      .then(response => response.json())
-      .then(data => {
-        // Sort images by imageUpdateDate (descending - latest first)
-        const sortedImages = [...data].sort((a, b) => b.imageUpdateDate - a.imageUpdateDate);
-        setDomicileImages(sortedImages);
-      })
-      .catch(error => {
-        console.error('Error fetching domicile images:', error);
-      });
+    const fetchDomicileImages = () => {
+      fetch('/api/domicile')
+        .then(response => response.json())
+        .then(data => {
+          // Sort images by imageUpdateDate (descending - latest first)
+          const sortedImages = [...data].sort((a, b) => b.imageUpdateDate - a.imageUpdateDate);
+          setDomicileImages(sortedImages);
+        })
+        .catch(error => {
+          console.error('Error fetching domicile images:', error);
+        });
+    };
+    
+    // Initial fetch
+    fetchDomicileImages();
+    
+    // Refresh every 5 minutes (300000ms)
+    const interval = setInterval(fetchDomicileImages, 300000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   React.useEffect(() => {
     // Fetch menu data from API
-    fetch('/api/menu')
-      .then(response => response.json())
-      .then(data => {
-        // Transform API data to match the format expected by RecipeList and RecipeModal
-        const transformedMenu = data.map(item => {
-          // Parse the recipe markdown to extract ingredients and instructions
-          // For now, we'll store the full recipe as a single instruction
-          const recipeLines = item.recipe ? item.recipe.split('\n') : [];
+    const fetchMenuData = () => {
+      fetch('/api/menu')
+        .then(response => response.json())
+        .then(data => {
+          // Transform API data to match the format expected by RecipeList and RecipeModal
+          const transformedMenu = data.map(item => {
+            // Parse the recipe markdown to extract ingredients and instructions
+            // For now, we'll store the full recipe as a single instruction
+            const recipeLines = item.recipe ? item.recipe.split('\n') : [];
+            
+            return {
+              id: item.id,
+              title: item.foodDisplayName || item.correctedFoodName || item.foodName,
+              day: item.day,
+              date: item.date.split('-').slice(1).join('/'), // Convert "2025-10-07" to "10/07"
+              icon: '🍽️', // Default icon, could be mapped based on foodContents
+              image: item.image?.path || '',
+              description: item.description || '',
+              recipe: item.recipe || '',
+              ingredients: [], // We'll store the raw recipe for now
+              instructions: [],
+              finalNote: '',
+              // Store additional API data for reference
+              apiData: item
+            };
+          });
           
-          return {
-            id: item.id,
-            title: item.foodDisplayName || item.correctedFoodName || item.foodName,
-            day: item.day,
-            date: item.date.split('-').slice(1).join('/'), // Convert "2025-10-07" to "10/07"
-            icon: '🍽️', // Default icon, could be mapped based on foodContents
-            image: item.image?.path || '',
-            description: item.description || '',
-            recipe: item.recipe || '',
-            ingredients: [], // We'll store the raw recipe for now
-            instructions: [],
-            finalNote: '',
-            // Store additional API data for reference
-            apiData: item
-          };
+          setMenuData(transformedMenu);
+        })
+        .catch(error => {
+          console.error('Error fetching menu data:', error);
         });
-        
-        setMenuData(transformedMenu);
-      })
-      .catch(error => {
-        console.error('Error fetching menu data:', error);
-      });
+    };
+    
+    // Initial fetch
+    fetchMenuData();
+    
+    // Refresh every 1 hour (3600000ms)
+    const interval = setInterval(fetchMenuData, 3600000);
+    
+    return () => clearInterval(interval);
   }, []);
+
+  // Update surveillance status based on current time
+  React.useEffect(() => {
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const totalMinutes = hours * 60 + minutes;
+    
+    // 7:30 = 7*60 + 30 = 450 minutes
+    // 16:30 = 16*60 + 30 = 990 minutes
+    const startTime = 7 * 60 + 30; // 7:30
+    const endTime = 16 * 60 + 30;   // 16:30
+    
+    const isActive = totalMinutes >= startTime && totalMinutes <= endTime;
+    
+    setSurveillanceStatus({
+      text: isActive ? 'Aktiv' : 'Inaktiv',
+      className: isActive ? 'status-active' : 'status-inactive'
+    });
+  }, [currentTime]);
 
   // Update featured menu item and filtered recipes based on current time (switch to tomorrow after 13:00)
   React.useEffect(() => {
@@ -101,27 +162,6 @@ const Dashboard = () => {
   const closeFullscreen = () => {
     setFullscreenImageIndex(null);
   };
-
-  // Function to determine if current time is within active hours (7:30 - 16:30)
-  const getSurveillanceStatus = () => {
-    const hours = currentTime.getHours();
-    const minutes = currentTime.getMinutes();
-    const totalMinutes = hours * 60 + minutes;
-    
-    // 7:30 = 7*60 + 30 = 450 minutes
-    // 16:30 = 16*60 + 30 = 990 minutes
-    const startTime = 7 * 60 + 30; // 7:30
-    const endTime = 16 * 60 + 30;   // 16:30
-    
-    const isActive = totalMinutes >= startTime && totalMinutes <= endTime;
-    
-    return {
-      text: isActive ? 'Aktiv' : 'Inaktiv',
-      className: isActive ? 'status-active' : 'status-inactive'
-    };
-  };
-
-  const surveillanceStatus = getSurveillanceStatus();
 
   return (
     <div className="dashboard">
@@ -154,7 +194,7 @@ const Dashboard = () => {
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_white.png" alt="" className="widget-logo" />
-              <h2>Overvågning Uge 41</h2>
+              <h2>Overvågning Uge {currentWeek}</h2>
             </div>
             <span className={`status-badge ${surveillanceStatus.className}`}>{surveillanceStatus.text}</span>
           </div>

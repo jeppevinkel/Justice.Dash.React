@@ -84,7 +84,13 @@ const SurveillanceTeam = () => {
       }
     };
 
+    // Initial fetch
     fetchSurveillanceData();
+    
+    // Refresh every 1 hour (3600000ms)
+    const interval = setInterval(fetchSurveillanceData, 3600000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
