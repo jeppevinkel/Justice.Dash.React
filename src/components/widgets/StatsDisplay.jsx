@@ -1,13 +1,13 @@
 import React from 'react';
 
-const StatsDisplay = () => (
+const StatsDisplay = ({ label = 'Completed:', value = '12', progress = 22 }) => (
   <div className="stats">
     <div className="stat-item">
-      <label>Completed Imports:</label>
-      <span className="stat-value">64</span>
+      <label>{label}</label>
+      <span className="stat-value">{value}</span>
     </div>
     <div className="progress-bar">
-      <div className="progress-fill" style={{width: '89%'}}>89%</div>
+      <div className="progress-fill" style={{width: `${progress}%`}}>{progress}%</div>
     </div>
   </div>
 );

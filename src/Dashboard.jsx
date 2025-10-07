@@ -3,27 +3,44 @@ import './Dashboard.css';
 import SurveillanceTeam from './components/widgets/SurveillanceTeam';
 import RecipeList from './components/widgets/RecipeList';
 import WeatherChart from './components/widgets/WeatherChart';
+import WeatherGraph from './components/widgets/WeatherGraph';
 import PhotoGallery from './components/widgets/PhotoGallery';
 import ImageGrid from './components/widgets/ImageGrid';
 import FullscreenModal from './components/modals/FullscreenModal';
 import RecipeModal from './components/modals/RecipeModal';
+import StatsDisplay from './components/widgets/StatsDisplay.jsx';
 
 const Dashboard = () => {
-  const [fullscreenImage, setFullscreenImage] = React.useState(null);
+  const [fullscreenImageIndex, setFullscreenImageIndex] = React.useState(null);
   const [selectedRecipe, setSelectedRecipe] = React.useState(null);
   const [currentTime, setCurrentTime] = React.useState(new Date());
+  const [domicileImages, setDomicileImages] = React.useState([]);
 
   React.useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const openFullscreen = (imageSrc) => {
-    setFullscreenImage(imageSrc);
+  React.useEffect(() => {
+    // Fetch domicile images from API
+    fetch('/api/domicile')
+      .then(response => response.json())
+      .then(data => {
+        // Sort images by imageUpdateDate (descending - latest first)
+        const sortedImages = [...data].sort((a, b) => b.imageUpdateDate - a.imageUpdateDate);
+        setDomicileImages(sortedImages);
+      })
+      .catch(error => {
+        console.error('Error fetching domicile images:', error);
+      });
+  }, []);
+
+  const openFullscreen = (imageIndex) => {
+    setFullscreenImageIndex(imageIndex);
   };
 
   const closeFullscreen = () => {
-    setFullscreenImage(null);
+    setFullscreenImageIndex(null);
   };
 
   // Function to determine if current time is within active hours (7:30 - 16:30)
@@ -115,7 +132,7 @@ const Dashboard = () => {
         </div>
 
         {/* Weather Widget */}
-        <div className="widget widget-weather">
+        {/* <div className="widget widget-weather">
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
@@ -125,6 +142,19 @@ const Dashboard = () => {
           <div className="widget-content">
             <WeatherChart />
           </div>
+        </div> */}
+
+        {/* Weather Graph Widget */}
+        <div className="widget widget-weather">
+          <div className="widget-header">
+            <div className="widget-header-left">
+              <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
+              <h2>Vejret Graf - Odense</h2>
+            </div>
+          </div>
+          <div className="widget-content">
+            <WeatherGraph />
+          </div>
         </div>
 
         {/* Stats Widget */}
@@ -132,11 +162,11 @@ const Dashboard = () => {
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Rapporteret sikkerhed til Githika</h2>
+              <h2>Migreret til GitHub</h2>
             </div>
           </div>
           <div className="widget-content">
-            <StatsDisplay />
+            <StatsDisplay label="Repositories:" value="68" progress={22} />
           </div>
         </div> */}
 
@@ -149,21 +179,25 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="widget-content">
-            <PhotoGallery onImageClick={openFullscreen} />
+            <PhotoGallery images={domicileImages.slice(0, 3)} onImageClick={openFullscreen} />
           </div>
         </div>
 
         {/* Image Grid Widget */}
         <div className="widget widget-grid-images">
           <div className="widget-content">
-            <ImageGrid onImageClick={openFullscreen} />
+            <ImageGrid images={domicileImages.slice(3, 7)} onImageClick={openFullscreen} startIndex={3} />
           </div>
         </div>
       </div>
 
       {/* Fullscreen Modal */}
-      {fullscreenImage && (
-        <FullscreenModal imageSrc={fullscreenImage} onClose={closeFullscreen} />
+      {fullscreenImageIndex !== null && (
+        <FullscreenModal 
+          images={domicileImages} 
+          currentIndex={fullscreenImageIndex} 
+          onClose={closeFullscreen} 
+        />
       )}
 
       {/* Recipe Modal */}
