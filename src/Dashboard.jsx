@@ -219,6 +219,13 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Image Grid Widget */}
+        <div className="widget widget-grid-images">
+          <div className="widget-content">
+            <ImageGrid images={domicileImages.slice(3, 13)} onImageClick={openFullscreen} startIndex={3} />
+          </div>
+        </div>
+
         {/* Stats Widget */}
         {/* <div className="widget widget-stats">
           <div className="widget-header">
@@ -242,13 +249,6 @@ const Dashboard = () => {
           </div>
           <div className="widget-content">
             <PhotoGallery images={domicileImages.slice(0, 3)} onImageClick={openFullscreen} />
-          </div>
-        </div>
-
-        {/* Image Grid Widget */}
-        <div className="widget widget-grid-images">
-          <div className="widget-content">
-            <ImageGrid images={domicileImages.slice(3, 7)} onImageClick={openFullscreen} startIndex={3} />
           </div>
         </div>
       </div>

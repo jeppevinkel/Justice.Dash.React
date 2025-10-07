@@ -339,7 +339,11 @@ body {
 }
 
 .widget-gallery {
-  grid-column: span 2;
+    grid-column: span 2;
+}
+
+.widget-grid-images {
+    grid-row: span 2;
 }
 
 /* Recipe List Styles */
