@@ -33,6 +33,46 @@ npm run dev
 
 The application will be available at `http://localhost:5173/`
 
+### API Proxy Configuration
+
+The local development server is configured to proxy API requests to a backend server. This allows you to develop the frontend without CORS issues.
+
+**Default Behavior:**
+- All requests to `/api/*` are proxied to `http://localhost:3000` by default
+
+**Custom Backend URL:**
+
+You can configure a different backend URL using the `VITE_API_PROXY_TARGET` environment variable:
+
+```bash
+# Windows PowerShell
+$env:VITE_API_PROXY_TARGET="https://api.example.com"; npm run dev
+
+# Linux/Mac
+VITE_API_PROXY_TARGET=https://api.example.com npm run dev
+```
+
+Or create a `.env` file in the project root:
+
+```env
+VITE_API_PROXY_TARGET=https://api.example.com
+```
+
+**How it works:**
+- Your app makes a request to `/api/users`
+- The dev server proxies it to `{VITE_API_PROXY_TARGET}/api/users`
+- The `changeOrigin` option handles CORS issues automatically
+
+**Advanced Configuration:**
+
+If you need to modify the proxy behavior (e.g., remove `/api` prefix from proxied requests), you can edit `vite.config.js` and uncomment the `rewrite` option:
+
+```javascript
+rewrite: (path) => path.replace(/^\/api/, ''),
+```
+
+This would proxy `/api/users` to `{target}/users` instead of `{target}/api/users`.
+
 ## Project Structure
 
 ```
