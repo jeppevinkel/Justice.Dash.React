@@ -26,6 +26,27 @@ const Dashboard = () => {
     setFullscreenImage(null);
   };
 
+  // Function to determine if current time is within active hours (7:30 - 16:30)
+  const getSurveillanceStatus = () => {
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const totalMinutes = hours * 60 + minutes;
+    
+    // 7:30 = 7*60 + 30 = 450 minutes
+    // 16:30 = 16*60 + 30 = 990 minutes
+    const startTime = 7 * 60 + 30; // 7:30
+    const endTime = 16 * 60 + 30;   // 16:30
+    
+    const isActive = totalMinutes >= startTime && totalMinutes <= endTime;
+    
+    return {
+      text: isActive ? 'Aktiv' : 'Inaktiv',
+      className: isActive ? 'status-active' : 'status-inactive'
+    };
+  };
+
+  const surveillanceStatus = getSurveillanceStatus();
+
   return (
     <div className="dashboard">
       {/* Datadog Background Wallpaper */}
@@ -59,7 +80,7 @@ const Dashboard = () => {
               <img src="/dd_icon_white.png" alt="" className="widget-logo" />
               <h2>Overvågning Uge 41</h2>
             </div>
-            <span className="status-badge status-active">Aktiv</span>
+            <span className={`status-badge ${surveillanceStatus.className}`}>{surveillanceStatus.text}</span>
           </div>
           <div className="widget-content">
             <SurveillanceTeam />

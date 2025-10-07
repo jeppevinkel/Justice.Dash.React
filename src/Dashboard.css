@@ -199,6 +199,11 @@ body {
   color: #166534;
 }
 
+.status-inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
 /* Surveillance Widget Styles */
 .widget-surveillance {
   grid-column: 1 / -1; /* Full width */
@@ -220,6 +225,12 @@ body {
   background: rgba(255, 255, 255, 0.25);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.widget-surveillance .status-inactive {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .surveillance-team {
