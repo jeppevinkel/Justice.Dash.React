@@ -4,9 +4,9 @@ import { recipes } from '../../data/recipesData';
 const RecipeList = ({ onRecipeClick }) => {
   return (
     <ul className="recipe-list">
-      {recipes.map(recipe => (
-        <li 
-          key={recipe.id} 
+      {recipes.slice(0, 8).map(recipe => (
+        <li
+          key={recipe.id}
           className="recipe-item"
           onClick={() => onRecipeClick(recipe)}
         >

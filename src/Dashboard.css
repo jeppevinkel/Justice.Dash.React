@@ -164,21 +164,6 @@ body {
   font-weight: 600;
 }
 
-.widget-action {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: var(--text-secondary);
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  transition: background 0.2s;
-}
-
-.widget-action:hover {
-  background: var(--border);
-}
-
 .widget-content {
   padding: 1.5rem;
   flex: 1;

@@ -206,54 +206,254 @@ export const recipes = [
     ],
     finalNote: "Klassisk dansk comfort food!"
   },
-  {
-    id: 5,
-    title: "Frikadeller med stuvet hvidkål",
-    day: "Mandag",
-    date: "13/10",
-    icon: "🍖",
-    image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800",
-    ingredients: [
-      {
-        section: "Frikadeller",
-        items: [
-          "500 g svinekød",
-          "1 løg, finthakket",
-          "1 æg",
-          "3 spsk mel",
-          "100 ml mælk",
-          "Salt og peber"
-        ]
-      },
-      {
-        section: "Stuvet hvidkål",
-        items: [
-          "1 hvidkålshoved",
-          "50 g smør",
-          "2 spsk mel",
-          "300 ml mælk",
-          "Salt, peber og muskatnød"
-        ]
-      }
-    ],
-    instructions: [
-      {
-        title: "Lav frikadellerne",
-        steps: [
-          "Bland ingredienser til en fast masse",
-          "Form flade kager",
-          "Steg på medium varme i 4-5 minutter per side"
-        ]
-      },
-      {
-        title: "Stuv hvidkålen",
-        steps: [
-          "Skær kålen i strimler",
-          "Kog mørt i letsaltet vand",
-          "Lav en hvid sauce og bland kålen i"
-        ]
-      }
-    ],
-    finalNote: "Servér med kartofler og god brun sauce!"
-  }
+    {
+        id: 6,
+        title: "Frikadeller med stuvet hvidkål",
+        day: "Mandag",
+        date: "13/10",
+        icon: "🍖",
+        image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800",
+        ingredients: [
+            {
+                section: "Frikadeller",
+                items: [
+                    "500 g svinekød",
+                    "1 løg, finthakket",
+                    "1 æg",
+                    "3 spsk mel",
+                    "100 ml mælk",
+                    "Salt og peber"
+                ]
+            },
+            {
+                section: "Stuvet hvidkål",
+                items: [
+                    "1 hvidkålshoved",
+                    "50 g smør",
+                    "2 spsk mel",
+                    "300 ml mælk",
+                    "Salt, peber og muskatnød"
+                ]
+            }
+        ],
+        instructions: [
+            {
+                title: "Lav frikadellerne",
+                steps: [
+                    "Bland ingredienser til en fast masse",
+                    "Form flade kager",
+                    "Steg på medium varme i 4-5 minutter per side"
+                ]
+            },
+            {
+                title: "Stuv hvidkålen",
+                steps: [
+                    "Skær kålen i strimler",
+                    "Kog mørt i letsaltet vand",
+                    "Lav en hvid sauce og bland kålen i"
+                ]
+            }
+        ],
+        finalNote: "Servér med kartofler og god brun sauce!"
+    },
+    {
+        id: 7,
+        title: "Frikadeller med stuvet hvidkål",
+        day: "Mandag",
+        date: "13/10",
+        icon: "🍖",
+        image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800",
+        ingredients: [
+            {
+                section: "Frikadeller",
+                items: [
+                    "500 g svinekød",
+                    "1 løg, finthakket",
+                    "1 æg",
+                    "3 spsk mel",
+                    "100 ml mælk",
+                    "Salt og peber"
+                ]
+            },
+            {
+                section: "Stuvet hvidkål",
+                items: [
+                    "1 hvidkålshoved",
+                    "50 g smør",
+                    "2 spsk mel",
+                    "300 ml mælk",
+                    "Salt, peber og muskatnød"
+                ]
+            }
+        ],
+        instructions: [
+            {
+                title: "Lav frikadellerne",
+                steps: [
+                    "Bland ingredienser til en fast masse",
+                    "Form flade kager",
+                    "Steg på medium varme i 4-5 minutter per side"
+                ]
+            },
+            {
+                title: "Stuv hvidkålen",
+                steps: [
+                    "Skær kålen i strimler",
+                    "Kog mørt i letsaltet vand",
+                    "Lav en hvid sauce og bland kålen i"
+                ]
+            }
+        ],
+        finalNote: "Servér med kartofler og god brun sauce!"
+    },
+    {
+        id: 8,
+        title: "Frikadeller med stuvet hvidkål",
+        day: "Mandag",
+        date: "13/10",
+        icon: "🍖",
+        image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800",
+        ingredients: [
+            {
+                section: "Frikadeller",
+                items: [
+                    "500 g svinekød",
+                    "1 løg, finthakket",
+                    "1 æg",
+                    "3 spsk mel",
+                    "100 ml mælk",
+                    "Salt og peber"
+                ]
+            },
+            {
+                section: "Stuvet hvidkål",
+                items: [
+                    "1 hvidkålshoved",
+                    "50 g smør",
+                    "2 spsk mel",
+                    "300 ml mælk",
+                    "Salt, peber og muskatnød"
+                ]
+            }
+        ],
+        instructions: [
+            {
+                title: "Lav frikadellerne",
+                steps: [
+                    "Bland ingredienser til en fast masse",
+                    "Form flade kager",
+                    "Steg på medium varme i 4-5 minutter per side"
+                ]
+            },
+            {
+                title: "Stuv hvidkålen",
+                steps: [
+                    "Skær kålen i strimler",
+                    "Kog mørt i letsaltet vand",
+                    "Lav en hvid sauce og bland kålen i"
+                ]
+            }
+        ],
+        finalNote: "Servér med kartofler og god brun sauce!"
+    },
+    {
+        id: 9,
+        title: "Frikadeller med stuvet hvidkål",
+        day: "Mandag",
+        date: "13/10",
+        icon: "🍖",
+        image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800",
+        ingredients: [
+            {
+                section: "Frikadeller",
+                items: [
+                    "500 g svinekød",
+                    "1 løg, finthakket",
+                    "1 æg",
+                    "3 spsk mel",
+                    "100 ml mælk",
+                    "Salt og peber"
+                ]
+            },
+            {
+                section: "Stuvet hvidkål",
+                items: [
+                    "1 hvidkålshoved",
+                    "50 g smør",
+                    "2 spsk mel",
+                    "300 ml mælk",
+                    "Salt, peber og muskatnød"
+                ]
+            }
+        ],
+        instructions: [
+            {
+                title: "Lav frikadellerne",
+                steps: [
+                    "Bland ingredienser til en fast masse",
+                    "Form flade kager",
+                    "Steg på medium varme i 4-5 minutter per side"
+                ]
+            },
+            {
+                title: "Stuv hvidkålen",
+                steps: [
+                    "Skær kålen i strimler",
+                    "Kog mørt i letsaltet vand",
+                    "Lav en hvid sauce og bland kålen i"
+                ]
+            }
+        ],
+        finalNote: "Servér med kartofler og god brun sauce!"
+    },
+    {
+        id: 10,
+        title: "Frikadeller med stuvet hvidkål",
+        day: "Mandag",
+        date: "13/10",
+        icon: "🍖",
+        image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800",
+        ingredients: [
+            {
+                section: "Frikadeller",
+                items: [
+                    "500 g svinekød",
+                    "1 løg, finthakket",
+                    "1 æg",
+                    "3 spsk mel",
+                    "100 ml mælk",
+                    "Salt og peber"
+                ]
+            },
+            {
+                section: "Stuvet hvidkål",
+                items: [
+                    "1 hvidkålshoved",
+                    "50 g smør",
+                    "2 spsk mel",
+                    "300 ml mælk",
+                    "Salt, peber og muskatnød"
+                ]
+            }
+        ],
+        instructions: [
+            {
+                title: "Lav frikadellerne",
+                steps: [
+                    "Bland ingredienser til en fast masse",
+                    "Form flade kager",
+                    "Steg på medium varme i 4-5 minutter per side"
+                ]
+            },
+            {
+                title: "Stuv hvidkålen",
+                steps: [
+                    "Skær kålen i strimler",
+                    "Kog mørt i letsaltet vand",
+                    "Lav en hvid sauce og bland kålen i"
+                ]
+            }
+        ],
+        finalNote: "Servér med kartofler og god brun sauce!"
+    }
 ];

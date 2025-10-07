@@ -111,7 +111,6 @@ const Dashboard = () => {
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
               <h2>Madplan</h2>
             </div>
-            <button className="widget-action">⋯</button>
           </div>
           <div className="widget-content">
             <RecipeList onRecipeClick={setSelectedRecipe} />
