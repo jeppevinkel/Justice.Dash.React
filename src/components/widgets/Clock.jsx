@@ -12,7 +12,7 @@ const Clock = () => {
     <div className="clock-display">
       <div className="clock-face">🕐</div>
       <div className="clock-time">
-        {time.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' })}
+        {time.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' }).replace(/\./g, ':')}
       </div>
     </div>
   );
