@@ -84,7 +84,7 @@ const Dashboard = () => {
             
             return {
               id: item.id,
-              title: `${item.foodDisplayName || item.correctedFoodName || item.foodName}`,
+              title: item.foodDisplayName || item.correctedFoodName || item.foodName,
               day: item.day,
               date: item.date.split('-').slice(1).reverse().join('/'), // Convert "2025-10-07" to "07/10"
               icon: '🍽️', // Default icon, could be mapped based on foodContents
