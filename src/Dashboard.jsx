@@ -226,7 +226,7 @@ const Dashboard = () => {
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Madbillede ({featuredMenuItem?.apiData?.foodModifier?.title || 'Outer Space'})</h2>
+              <h2>Madbillede {featuredMenuItem?.apiData?.foodModifier?.title ? `(${featuredMenuItem?.apiData?.foodModifier?.title})` : featuredMenuItem?.apiData?.foodModifier?.title === null ? '(Outer Space)' : ''}</h2>
             </div>
           </div>
           <div className="widget-content widget-image">
