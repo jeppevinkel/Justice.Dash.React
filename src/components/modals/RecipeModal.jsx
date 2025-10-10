@@ -42,6 +42,9 @@ const RecipeModal = ({ recipe, onClose }) => {
                 <h2>{recipe.title}</h2>
                 <p className="recipe-meta">
                   <time>{recipe.day} - {recipe.date}</time>
+                  {recipe.apiData?.foodModifier?.title && (
+                    <span className="recipe-modifier"> - {recipe.apiData.foodModifier.title}</span>
+                  )}
                 </p>
               </div>
             </div>

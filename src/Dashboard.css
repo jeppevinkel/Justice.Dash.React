@@ -960,6 +960,12 @@ body {
   font-size: 0.95rem;
 }
 
+.recipe-modifier {
+  font-style: italic;
+  margin-left: 0.5rem;
+  color: var(--primary-color);
+}
+
 .recipe-content {
   padding: 2rem;
   flex: 1;
