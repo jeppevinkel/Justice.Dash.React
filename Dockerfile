@@ -10,7 +10,7 @@ RUN npm run build
 FROM nginx:1.25.4
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
-COPY --from=builder /app/build .
+COPY --from=builder /app/dist .
 COPY generate-config.sh /usr/local/bin
 COPY custom-nginx.template /etc/nginx/conf.d/
 RUN chmod +x /usr/local/bin/generate-config.sh
