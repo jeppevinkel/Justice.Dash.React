@@ -208,19 +208,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Recipe List Widget */}
-        <div className="widget widget-recipes">
-          <div className="widget-header">
-            <div className="widget-header-left">
-              <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Madplan</h2>
-            </div>
-          </div>
-          <div className="widget-content">
-            <RecipeList onRecipeClick={setSelectedRecipe} recipes={filteredMenuData} />
-          </div>
-        </div>
-
         {/* Featured Image Widget */}
         <div className="widget widget-featured">
           <div className="widget-header">
@@ -235,6 +222,19 @@ const Dashboard = () => {
             ) : (
               <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop" alt="Featured dish" />
             )}
+          </div>
+        </div>
+
+        {/* Recipe List Widget */}
+        <div className="widget widget-recipes">
+          <div className="widget-header">
+            <div className="widget-header-left">
+              <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
+              <h2>Madplan</h2>
+            </div>
+          </div>
+          <div className="widget-content">
+            <RecipeList onRecipeClick={setSelectedRecipe} recipes={filteredMenuData} />
           </div>
         </div>
 
