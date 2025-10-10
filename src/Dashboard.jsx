@@ -84,7 +84,7 @@ const Dashboard = () => {
             
             return {
               id: item.id,
-              title: `${item.foodDisplayName || item.correctedFoodName || item.foodName} (${item.foodModifier?.title || 'Outer Space'})`,
+              title: `${item.foodDisplayName || item.correctedFoodName || item.foodName}`,
               day: item.day,
               date: item.date.split('-').slice(1).reverse().join('/'), // Convert "2025-10-07" to "07/10"
               icon: '🍽️', // Default icon, could be mapped based on foodContents
@@ -213,7 +213,7 @@ const Dashboard = () => {
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Madbillede</h2>
+              <h2>Madbillede ({featuredMenuItem?.apiData?.foodModifier?.title || 'Outer Space'})</h2>
             </div>
           </div>
           <div className="widget-content widget-image">
@@ -230,7 +230,7 @@ const Dashboard = () => {
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Madplan ({featuredMenuItem?.apiData?.foodModifier?.title || 'Outer Space'})</h2>
+              <h2>Madplan</h2>
             </div>
           </div>
           <div className="widget-content">
