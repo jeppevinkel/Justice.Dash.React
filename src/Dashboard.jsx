@@ -84,7 +84,7 @@ const Dashboard = () => {
             
             return {
               id: item.id,
-              title: item.foodDisplayName || item.correctedFoodName || item.foodName,
+              title: `${item.foodDisplayName || item.correctedFoodName || item.foodName} (${item.foodModifier?.title || 'Outer Space'})`,
               day: item.day,
               date: item.date.split('-').slice(1).reverse().join('/'), // Convert "2025-10-07" to "07/10"
               icon: '🍽️', // Default icon, could be mapped based on foodContents
@@ -208,25 +208,12 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Recipe List Widget */}
-        <div className="widget widget-recipes">
-          <div className="widget-header">
-            <div className="widget-header-left">
-              <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Madplan</h2>
-            </div>
-          </div>
-          <div className="widget-content">
-            <RecipeList onRecipeClick={setSelectedRecipe} recipes={filteredMenuData} />
-          </div>
-        </div>
-
         {/* Featured Image Widget */}
         <div className="widget widget-featured">
           <div className="widget-header">
             <div className="widget-header-left">
               <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
-              <h2>Madbillede ({featuredMenuItem?.apiData?.foodModifier?.title || 'Outer Space'})</h2>
+              <h2>Madbillede</h2>
             </div>
           </div>
           <div className="widget-content widget-image">
@@ -235,6 +222,19 @@ const Dashboard = () => {
             ) : (
               <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop" alt="Featured dish" />
             )}
+          </div>
+        </div>
+
+        {/* Recipe List Widget */}
+        <div className="widget widget-recipes">
+          <div className="widget-header">
+            <div className="widget-header-left">
+              <img src="/dd_icon_rgb.png" alt="" className="widget-logo" />
+              <h2>Madplan ({featuredMenuItem?.apiData?.foodModifier?.title || 'Outer Space'})</h2>
+            </div>
+          </div>
+          <div className="widget-content">
+            <RecipeList onRecipeClick={setSelectedRecipe} recipes={filteredMenuData} />
           </div>
         </div>
 
