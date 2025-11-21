@@ -134,7 +134,7 @@ const Dashboard = () => {
     });
   }, [currentTime]);
 
-  // Update featured menu item and filtered recipes based on current time (switch to tomorrow after 13:00)
+  // Update featured menu item and filtered recipes based on current time (switch to next menu item after 13:00)
   React.useEffect(() => {
     if (menuData.length === 0) return;
     
@@ -152,7 +152,11 @@ const Dashboard = () => {
     const day = String(targetDate.getDate()).padStart(2, '0');
     const targetDateString = `${year}-${month}-${day}`;
     
-    const targetMenuItem = menuData.find(item => item.apiData.date === targetDateString);
+    // Find the next available menu item (not just exact date match)
+    // This handles weekends or other days when no meals are scheduled
+    // Sort menu items by date, then find the first one after or equal to target date
+    const sortedMenu = [...menuData].sort((a, b) => a.apiData.date.localeCompare(b.apiData.date));
+    const targetMenuItem = sortedMenu.find(item => item.apiData.date >= targetDateString);
     setFeaturedMenuItem(targetMenuItem || menuData[0]);
     
     // Filter recipes to show only from target date onwards
