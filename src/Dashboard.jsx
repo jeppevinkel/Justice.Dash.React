@@ -5,6 +5,7 @@ import RecipeList from './components/widgets/RecipeList';
 import WeatherChart from './components/widgets/WeatherChart';
 import WeatherGraph from './components/widgets/WeatherGraph';
 import PhotoGallery from './components/widgets/PhotoGallery';
+import WalkingSkeleton from './components/widgets/WalkingSkeleton';
 import ImageGrid from './components/widgets/ImageGrid';
 import FullscreenModal from './components/modals/FullscreenModal';
 import RecipeModal from './components/modals/RecipeModal';
@@ -20,6 +21,7 @@ const Dashboard = () => {
   const [filteredMenuData, setFilteredMenuData] = React.useState([]);
   const [currentWeek, setCurrentWeek] = React.useState(null);
   const [surveillanceStatus, setSurveillanceStatus] = React.useState({ text: 'Inaktiv', className: 'status-inactive' });
+  const [showSkeleton, setShowSkeleton] = React.useState(true);
 
   // Function to get the current week number
   const getCurrentWeek = (date) => {
@@ -297,7 +299,11 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="widget-content">
-            <PhotoGallery images={domicileImages.slice(0, 3)} onImageClick={openFullscreen} />
+            {showSkeleton ? (
+              <WalkingSkeleton onSwitchToPhotoGallery={() => setShowSkeleton(false)} />
+            ) : (
+              <PhotoGallery images={domicileImages.slice(0, 3)} onImageClick={openFullscreen} />
+            )}
           </div>
         </div>
       </div>
