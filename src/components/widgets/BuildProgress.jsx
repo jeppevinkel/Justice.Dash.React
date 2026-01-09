@@ -24,8 +24,8 @@ const BuildProgress = () => {
           const progressPercentage = Math.min(100, (secondsPassed / 900) * 100);
           setProgress(progressPercentage);
         } 
-        // After 9:45 AM, change the message
-        else if ((hours === 9 && minutes >= 45) || hours > 9) {
+        // After 9:45 AM, change the message and show until 11:30 AM
+        else if (((hours === 9 && minutes >= 45) || hours === 10 || (hours === 11 && minutes < 30)) && hours < 12) {
           setVisible(true);
           setMessage("Brunsviger deployment igangsat");
           setProgress(100); // Show completed progress bar
