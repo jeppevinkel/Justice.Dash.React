@@ -7,6 +7,7 @@ import WeatherGraph from './components/widgets/WeatherGraph';
 import PhotoGallery from './components/widgets/PhotoGallery';
 import WalkingSkeleton from './components/widgets/WalkingSkeleton';
 import ImageGrid from './components/widgets/ImageGrid';
+import BuildProgress from './components/widgets/BuildProgress';
 import FullscreenModal from './components/modals/FullscreenModal';
 import RecipeModal from './components/modals/RecipeModal';
 import StatsDisplay from './components/widgets/StatsDisplay.jsx';
@@ -200,6 +201,9 @@ const Dashboard = () => {
       </header>
 
       <div className="dashboard-grid">
+        {/* BuildProgress Widget - Appears only on Thursdays at specified times */}
+        <BuildProgress />
+        
         {/* Surveillance/On-Duty Widget */}
         <div className="widget widget-surveillance">
           <div className="widget-header">
