@@ -123,6 +123,7 @@ const MenuEditor = () => {
           </div>
           <div className="editor-nav">
             <Link className="btn btn-secondary" to="/editor/modifiers">Gå til modifiers</Link>
+            <Link className="btn btn-secondary" to="/editor/surveillance">Gå til surveillance</Link>
           </div>
         </div>
 

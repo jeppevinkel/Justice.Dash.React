@@ -118,6 +118,7 @@ const ModifierEditor = () => {
           </button>
           <div className="editor-nav">
             <Link className="btn btn-secondary" to="/editor/menu">Gå til menu</Link>
+            <Link className="btn btn-secondary" to="/editor/surveillance">Gå til surveillance</Link>
           </div>
         </div>
 
