@@ -11,11 +11,11 @@ const BuildProgress = () => {
       const day = now.getDay();
       const hours = now.getHours();
       const minutes = now.getMinutes();
-      
+
       // Only show on Thursdays (day 4)
       if (day === 4) {
         // Calculate if we're between 9:30 AM and 9:45 AM
-        if (hours === 9 && minutes >= 30) {
+        if (hours === 9 && minutes >= 30 && minutes < 45) {
           setVisible(true);
           setMessage("Building Artifacts");
           // Calculate progress for the first phase (9:30-9:45)
