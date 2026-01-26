@@ -312,6 +312,45 @@ body {
   color: var(--text-secondary);
 }
 
+.editor-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.editor-hub-card {
+  background: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.editor-hub-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.editor-hub-card h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.editor-hub-card p {
+  margin: 0 0 1rem 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.editor-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
 @media (max-width: 960px) {
   .editor-layout {
     grid-template-columns: 1fr;
