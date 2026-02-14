@@ -15,12 +15,12 @@ const PhotoGallery = ({ images = [], onImageClick }) => {
         ))}
       </div>
       
-      <button 
-        className="restore-gallery-button"
-        onClick={() => window.location.reload()}
-      >
-        Show Walking Skeleton
-      </button>
+      {/*<button */}
+      {/*  className="restore-gallery-button"*/}
+      {/*  onClick={() => window.location.reload()}*/}
+      {/*>*/}
+      {/*  Show Walking Skeleton*/}
+      {/*</button>*/}
     </div>
   );
 };

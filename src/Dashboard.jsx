@@ -303,11 +303,11 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="widget-content">
-            {showSkeleton ? (
-              <WalkingSkeleton onSwitchToPhotoGallery={() => setShowSkeleton(false)} />
-            ) : (
+            {/*{showSkeleton ? (*/}
+            {/*  <WalkingSkeleton onSwitchToPhotoGallery={() => setShowSkeleton(false)} />*/}
+            {/*) : (*/}
               <PhotoGallery images={domicileImages.slice(0, 3)} onImageClick={openFullscreen} />
-            )}
+            {/*)}*/}
           </div>
         </div>
       </div>
